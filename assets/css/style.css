@@ -1,0 +1,51 @@
+.card {
+  width: 300px;
+  height: auto;
+  object-fit: cover;
+  margin: 10px;
+}
+
+.card img {
+  height: 200px;
+  overflow: hidden;
+}
+
+main {
+  position: relative;
+}
+main .navbar {
+  position: sticky !important;
+  top: 0;
+  z-index: 100;
+}
+
+/* TODO Do this better! Just targetting the two current ul's*/
+ul {
+  margin: 10px auto;
+  justify-content: center !important;
+
+}
+
+/* * Hover.css Copyright Ian Lunn 2017. Generated with Sass.
+ * Version: 2.3.2
+ * Author: Ian Lunn @IanLunn
+ * Author URL: http://ianlunn.co.uk/
+ * Github: https://github.com/IanLunn/Hover */
+
+/* Grow */
+.hvr-grow {
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+
+@media (hover: hover) {
+  .hvr-grow:hover {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+}
