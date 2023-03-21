@@ -38,6 +38,8 @@
             </div>
          </div>
       </div>
+     
+
       <!-- Background image -->
 
    </header>
@@ -45,6 +47,19 @@
       <!-- Navbar -->
       <div class="navbar navbar-expand-lg navbar-light bg-white">
          <div class="container-fluid align-content-center">
+      <!--collapsable side bar for favorites (maybe more??)-->
+   <div id="mySidebar" class="sidebar">
+       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+       <a href="#">About</a>
+       <a href="#">Services</a>
+       <a href="#">Clients</a>
+       <a href="#">Contact</a>
+    </div>
+ 
+    <div id="main">
+      <button class="openbtn" onclick="openNav()">&#9776; Open Sidebar</button>
+   </div>
+      <!--Navbar continued-->
             <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#SearchOptions"
                aria-controls="SearchOptions" aria-expanded="false" aria-label="Toggle navigation">
                <i class="fas fa-bars"></i>
