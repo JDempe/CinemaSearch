@@ -152,8 +152,8 @@ quoteDiv.addEventListener("click", function (e) {
   let searchTerm = quoteMovie.innerHTML;
   if (searchTerm) {
     getMovies(searchURL + "&query=" + searchTerm);
-  } else {
-    getMovies(API_URL);
+    // Put the text in the search bar
+    search.value = searchTerm;
   }
 });
 
