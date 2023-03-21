@@ -1,3 +1,120 @@
+/* Use consistent background color variable */
+:root {
+  --background-color: rgb(202, 202, 202);
+  --secondary-color: #030303;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+}
+
+
+
+header{
+padding: 1px;
+display: flexbox;
+justify-content: flex-end;
+background-color: #cacaca;
+}
+
+.search:focus {
+  outline: none; 
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0); 
+  
+  /* Change border color on focus */
+  border-color: rgb(24, 24, 24); 
+}
+.search{
+  background-color: transparent;
+  border: 2px solid none;
+}
+.search::placeholder {
+  
+  transform-origin: center;
+  transform: scale(1);
+  transition: transform 0.3s cubic-bezier(0.15, 0.15, 0.25, 1);
+}
+
+.movie {
+  width: 300px;
+  margin: 1rem;
+  background-color: #661417;
+  border-radius: 3px;
+  box-shadow: 0.2rem 0.4rem 0.5rem black;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Prevent image distortion */
+.movie img {
+  width: 100%;
+  height: auto; 
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+}
+
+.movie-info {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem 1rem;
+  letter-spacing: 0.5px;
+}
+
+/* Should be h2 to match HTML */
+.movie-info h2 { 
+  margin-top: 0;
+  font-size: 15px; 
+}
+
+.movie-info span {
+  background-color: rgb(24, 24, 24);
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.movie-info span.green {
+  color: green;
+}
+
+.movie-info span.orange {
+  color: rgb(236, 106, 0);
+}
+
+.movie-info span.red {
+  color: rgb(128, 0, 0);
+}
+
+.overview {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  padding: 1rem;
+  max-height: 100%;
+  transform: translateY(101%);
+}
+
+.movie:hover .overview {
+  transform: translateY(0);
+  transition: transform 0.3s ease-in;
+}
+
 .card {
   width: 300px;
   height: auto;
@@ -10,42 +127,22 @@
   overflow: hidden;
 }
 
-main {
-  position: relative;
-}
 main .navbar {
-  position: sticky !important;
+  position: sticky;
   top: 0;
   z-index: 100;
 }
 
-/* TODO Do this better! Just targetting the two current ul's*/
-ul {
+.search-options {
   margin: 10px auto;
-  justify-content: center !important;
-
+  justify-content: center;
 }
 
-/* * Hover.css Copyright Ian Lunn 2017. Generated with Sass.
- * Version: 2.3.2
- * Author: Ian Lunn @IanLunn
- * Author URL: http://ianlunn.co.uk/
- * Github: https://github.com/IanLunn/Hover */
+/* Hover.css */
 
-/* Grow */
-.hvr-grow {
-  -webkit-transform: perspective(1px) translateZ(0);
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: transform;
-  transition-property: transform;
-}
 
 @media (hover: hover) {
   .hvr-grow:hover {
-    -webkit-transform: scale(1.05);
     transform: scale(1.05);
   }
 }

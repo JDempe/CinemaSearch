@@ -1,214 +1,80 @@
-var ID  = '6278a1eb';
-const getFetch = function() {
-    var apiUrl = 'http://www.omdbapi.com/?apikey=' + ID + '&i=tt0357413';
-    console.log(apiUrl)
 
-    fetch(apiUrl).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (data) {
-            console.log(data);
-            return;
 
-      });
-    } 
-  });
+const API_KEY = "api_key=23f1819072bf0eab7a398d521d310078";
+const BASE_URL = 'https://api.themoviedb.org/3';
+const API_URL = BASE_URL + '/discover/movie?sort_by=popularity.desc&' + API_KEY;
+const IMG_URL = 'https://image.tmdb.org/t/p/w500'
+const main = document.getElementById('main');
+const searchURL = BASE_URL + '/search/movie?' + API_KEY;
+
+const form = document.getElementById('form');
+const search = document.getElementById('search');
+
+getMovies(API_URL);
+
+function getMovies(url) {
+  fetch(url).then(res => res.json()).then(data => {
+    console.log(data.results)
+    showMovies(data.results);
+  })
 }
 
-const testFetch = function() {
+function showMovies(data) {
+  main.innerHTML = '';
 
-
-    const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': '90bf4e7b22msh25f3182fa016740p1129d4jsn534257354705',
-            'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-        }
-    };
-
-    fetch('https://moviesdatabase.p.rapidapi.com/titles/x/upcoming', options)
-        .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(err => console.error(err));
-}
-
-const testStream = function() {
-  const options = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': '90bf4e7b22msh25f3182fa016740p1129d4jsn534257354705',
-      'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
-    }
-  };
+  data.forEach(movie => {
+    const { title, poster_path, vote_average, overview } = movie;
+    const movieEl = document.createElement('div');
+    movieEl.classList.add('movie');
+    movieEl.innerHTML = `
+  <img src="${IMG_URL + poster_path}" alt="${title}">
   
-  fetch('https://streaming-availability.p.rapidapi.com/v2/search/title?title=batman&country=us&type=movie&output_language=en', options)
-    .then(response => response.json())
-    .then(response => console.log(response))
-    .catch(err => console.error(err));
+  <div class="movie-info">
+  <h2>${title}</h2>
+  <span class="${getColor(vote_average)}">${vote_average}</span>
+  </div>
+  <div class="overview">
+    <h3>overview</h3>
+   ${overview}
+  
+  
+  </div>
+
+  `
+    main.appendChild(movieEl);
+
+  })
 }
 
-// getFetch();
-// testFetch();
-testStream();
+
+function getColor(vote) {
+  if (vote >= 8) {
+    return 'green'
 
 
+  } else if (vote >= 5) {
+
+    return 'orange'
+
+  } else {
+    return 'red'
+  }
+
+}
+
+form.addEventListener('submit', (e) => {
+
+  e.preventDefault();
 
 
+  const searchTerm = search.value;
+  if (searchTerm) {
+    getMovies(searchURL + '&query=' + searchTerm)
 
-$(document).ready(function () {
-  // https://stackoverflow.com/questions/54868328/html-how-to-automatically-create-bootstrap-cards-from-a-js-file
-  var tasks = [
-    {
-      title: "this",
-      text: "blue",
-      poster: "https://picsum.photos/200/300",
-      video: "https://www.youtube.com/embed/1Q8fG0TtVAY",
-    },
-    {
-      title: "is",
-      text: "abba",
-      poster: "https://random.imagecdn.app/200/300",
-      video: "https://www.youtube.com/embed/zeJD6dqJ5lo",
-    },
-    {
-      title: "where",
-      text: "dee",
-      poster: "https://random.imagecdn.app/v1/image?width=500&height=150",
-      video: "https://www.youtube.com/embed/1Q8fG0TtVAY",
-    },
-    {
-      title: "data",
-      text: "abba",
-      poster: "https://picsum.photos/200/300",
-      video: "https://www.youtube.com/embed/1Q8fG0TtVAY",
-    },
-    {
-      title: "would",
-      text: "die",
-      poster: "https://picsum.photos/200/300",
-      video: "https://www.youtube.com/embed/1Q8fG0TtVAY",
-    },
-    {
-      title: "be",
-      text: "abba",
-      poster: "https://picsum.photos/200/300",
-      video: "https://www.youtube.com/embed/1Q8fG0TtVAY",
-    },
-    {
-      title: "useful",
-      text: "die",
-      poster: "https://picsum.photos/200/300",
-      video: "https://www.youtube.com/embed/1Q8fG0TtVAY",
-    },
-    {
-      title: "right",
-      text: "abba",
-      poster: "https://picsum.photos/200/300",
-      video: "https://www.youtube.com/embed/1Q8fG0TtVAY",
-    },
-    {
-      title: "about",
-      text: "die",
-      poster: "https://picsum.photos/200/300",
-      video: "https://www.youtube.com/embed/1Q8fG0TtVAY",
-    },
-    {
-      title: "now",
-      text: "abba",
-      poster: "https://picsum.photos/200/300",
-      video: "https://www.youtube.com/embed/1Q8fG0TtVAY",
-    },
-    {
-      title: "what",
-      text: "dee",
-      poster: "https://picsum.photos/200/300",
-      video: "https://www.youtube.com/embed/1Q8fG0TtVAY",
-    },
-    {
-      title: "else",
-      text: "abba",
-      poster: "https://picsum.photos/200/300",
-      video: "https://www.youtube.com/embed/1Q8fG0TtVAY",
-    },
-    {
-      title: "do",
-      text: "dieeeeee",
-      poster: "https://picsum.photos/200/300",
-      video: "https://www.youtube.com/embed/1Q8fG0TtVAY",
-    },
-  ];
+  } else {
 
-  var cardContainer;
-  var $modal = $("#exampleModal");
-  const myModalEl = document.getElementById("exampleModal");
-  const modal = new mdb.Modal(myModalEl);
-  const modalVideo = document.getElementById("modal-video");
+    getMovies(API_URL);
 
-  let createMovieCard = (task) => {
-    let col = document.createElement("div");
-    col.className = "col d-flex justify-content-center";
+  }
 
-    let card = document.createElement("div");
-    card.className = "card shadow hvr-grow";
-    card.setAttribute("data-video", task.video);
-
-    let cardImg = document.createElement("img");
-    cardImg.className = "card-img-top";
-    cardImg.src = task.poster;
-    cardImg.alt = "Card image cap";
-
-    let cardBody = document.createElement("div");
-    cardBody.className = "card-body";
-
-    let title = document.createElement("h5");
-    title.innerText = task.title;
-    title.className = "card-title";
-
-    let text = document.createElement("p");
-    text.innerText = task.text;
-    text.className = "card-text";
-
-    cardBody.appendChild(title);
-    cardBody.appendChild(text);
-    card.appendChild(cardImg);
-    card.appendChild(cardBody);
-    col.appendChild(card);
-    cardContainer.appendChild(col);
-  };
-
-  let initListOfTasks = () => {
-    if (cardContainer) {
-      document.getElementById("card-container").replaceWith(cardContainer);
-      return;
-    }
-
-    cardContainer = document.getElementById("card-container");
-    tasks.forEach((task) => {
-      createMovieCard(task);
-    });
-  };
-
-  initListOfTasks();
-
-  var cards = document.querySelectorAll(".card");
-
-  var video;
-
-  cards.forEach((card) => {
-    card.addEventListener("click", function () {
-      video = this.dataset.video;
-      modal.show();
-    });
-  });
-
-  //   https://stackoverflow.com/questions/18622508/bootstrap-3-and-youtube-in-modal
-  //   https://stackoverflow.com/questions/60284183/video-still-playing-when-bootstrap-modal-closes
-  $("#exampleModal").on("show.bs.modal", function () {
-    modalVideo.src = video; // set video
-    console.log("show");
-  });
-
-  $("#exampleModal").on("hide.bs.modal", function () {
-    modalVideo.src = ""; // reset video
-    console.log("hide");
-  });
-});
+})
