@@ -156,6 +156,7 @@ $(document).ready(function () {
     cardImg.src = task.poster;
     cardImg.alt = "Card image cap";
 
+    
     let cardBody = document.createElement("div");
     cardBody.className = "card-body";
 
