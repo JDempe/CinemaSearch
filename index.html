@@ -5,7 +5,7 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>FilmFinder</title>
+   <title>CinemaSearch</title>
    <!-- https://favicon.io/favicon-generator/ -->
    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
@@ -25,18 +25,24 @@
    <header>
       <!-- Background image -->
       <div class="p-5 text-center bg-image" style="
-          background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');
+          background-color: #661417;
           height: 400px;
         ">
          <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
             <div class="d-flex justify-content-center align-items-center h-100">
                <div class="text-white">
-                  <h1 class="mb-3">FilmFinder</h1>
-                  <h4 class="mb-3">This could also be useful</h4>
+                  <!-- <h1 class="mb-3">FilmFinder</h1> -->
+                  <div>
+                     <img
+                     src="./assets/images//cinemasearchbanner.png"
+                     alt="FilmFinder Logo" class="img-fluid" width="60%" height="auto" />
+                  </div>
+                  <!-- TODO Don't forget to change this -->
+                  <h4 class="mb-3">It's like Google but it only does movies and was made in 2 weeks.</h4>
                   <div id="quote-div">
                      <p id="quote-text"></p>
                      <p id="quote-person"></p>
-                     <p id="quote-movie"></p>
+                     <p><span id="quote-movie"></span ><span id="quote-year"></span></p>
                   </div>
                </div>
             </div>
@@ -97,6 +103,10 @@
          <li class="page-item"><a class="page-link" href="#">Next</a></li>
       </ul>
    </nav>
+
+   <footer>
+      <p>This product uses the TMDB API but is not endorsed or certified by TMDB.  !Add icon, add formatting!</p>
+   </footer>
 
    <!-- Modal -->
    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
