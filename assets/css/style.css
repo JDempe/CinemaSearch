@@ -1,23 +1,141 @@
-.card {
-  width: 300px;
-  height: auto;
-  object-fit: cover;
-  margin: 10px;
+/* Use consistent background color variable */
+:root {
+  --background-color: rgb(202, 202, 202);
+  --secondary-color: #030303;
 }
 
-.card img {
-  height: 200px;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+}
+
+
+
+header{
+padding: 1px;
+display: flexbox;
+justify-content: flex-end;
+background-color: #cacaca;
+}
+
+.search:focus {
+  outline: none; 
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0); 
+  
+  /* Change border color on focus */
+  border-color: rgb(24, 24, 24); 
+}
+.search{
+  background-color: transparent;
+  border: 2px solid none;
+}
+.search::placeholder {
+  
+  transform-origin: center;
+  transform: scale(1);
+  transition: transform 0.3s cubic-bezier(0.15, 0.15, 0.25, 1);
+}
+
+.movie {
+  width: 300px;
+  margin: 1rem;
+  background-color: #661417;
+  border-radius: 3px;
+  box-shadow: 0.2rem 0.4rem 0.5rem black;
+  position: relative;
   overflow: hidden;
 }
 
+/* Prevent image distortion */
+.movie img {
+  width: 100%;
+  height: auto; 
+}
+
 main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   position: relative;
 }
-main .navbar {
-  position: sticky !important;
+
+.movie-info {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem 1rem;
+  letter-spacing: 0.5px;
+}
+
+/* Should be h2 to match HTML */
+.movie-info h2 { 
+  margin-top: 0;
+  font-size: 15px; 
+}
+
+.movie-info span {
+  background-color: rgb(24, 24, 24);
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.movie-info span.green {
+  color: green;
+}
+
+.movie-info span.orange {
+  color: rgb(236, 106, 0);
+}
+
+.movie-info span.red {
+  color: rgb(128, 0, 0);
+}
+
+.overview {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  padding: 1rem;
+  max-height: 100%;
+  transform: translateY(101%);
+}
+
+.movie:hover .overview {
+  transform: translateY(0);
+  transition: transform 0.3s ease-in;
+}
+
+
+main .searchbar {
+  position: sticky;
   top: 0;
   z-index: 100;
 }
+
+.search-options {
+  margin: 10px auto;
+  justify-content: center;
+}
+
+/* Hover.css */
+
+
+@media (hover: hover) {
+  .hvr-grow:hover {
+    transform: scale(1.05);
+  }
+}
+
 
 /* TODO Do this better! Just targetting the two current ul's*/
 ul {
@@ -25,6 +143,7 @@ ul {
   justify-content: center !important;
 
 }
+
 
 /* * Hover.css Copyright Ian Lunn 2017. Generated with Sass.
  * Version: 2.3.2
@@ -49,3 +168,79 @@ ul {
     transform: scale(1.05);
   }
 }
+
+ /* The collapsable sidebar menu */
+ .sidebar {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+}
+
+
+
+/* The sidebar links */
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+
+
+/* The button used to open the sidebar */
+.openbtn {
+  position: sticky;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none; 
+  top: 0;
+  z-index: 100;
+  
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s; /* If you want a transition effect */
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+} 
+
+/* end of collapsable sidebar menu */
