@@ -67,9 +67,9 @@ background-color: #cacaca;
 }
 
 /* TODO Make it show up on hover */
-.movie:hover+.favorite-button {
+/* .movie:hover+.favorite-button {
 
-}
+} */
 
 /* Prevent image distortion */
 .movie img {
