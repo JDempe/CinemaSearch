@@ -38,6 +38,10 @@ The below resources contributed to the project.
   - [Current Weather API](https://openweathermap.org/current)
   - [5 Day Forecast API](https://openweathermap.org/forecast5#bulk)
 
+- [The Movie Database API](https://developers.themoviedb.org/3/getting-started/introduction) was used to retrieve the movie and tv data.  The API was used to retrieve the following data:
+
+- https://en.wikipedia.org/wiki/AFI%27s_100_Years...100_Movie_Quotes
+  - https://gist.github.com/grant0417/59022d88dfeb5aadf9f6dc2f974f9c79
   
 ### Collaborators
 
