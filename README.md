@@ -47,11 +47,11 @@ The below resources contributed to the project.
   
 ### Collaborators
 
-Abdolkarim Karimi - [night-slayer](https://github.com/mackarimi)
-Joshua Dempe - [JDempe](https://github.com/JDempe)
-Justin Jasso - [JTJasso](https://github.com/JTJasso)
-Manuel Nuño - [Alexnuno17](https://github.com/Alexnuno17)
-Riley O'Neil - [rileydoneil](https://github.com/rileydoneil)
+- Abdolkarim Karimi - [night-slayer](https://github.com/mackarimi)
+- Joshua Dempe - [JDempe](https://github.com/JDempe)
+- Justin Jasso - [JTJasso](https://github.com/JTJasso)
+- Manuel Nuño - [Alexnuno17](https://github.com/Alexnuno17)
+- Riley O'Neil - [rileydoneil](https://github.com/rileydoneil)
 
 ## License
 
