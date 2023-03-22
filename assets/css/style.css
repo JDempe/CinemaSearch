@@ -14,29 +14,46 @@ body {
   margin: 0;
 }
 
+header {
+  padding: 1px;
+  display: flexbox;
+  justify-content: flex-end;
+  background-color: #cacaca;
+}
 
+#quote-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  max-width: 75%;
+  cursor: pointer;
+  margin: auto;
+}
 
-header{
-padding: 1px;
-display: flexbox;
-justify-content: flex-end;
-background-color: #cacaca;
+#quote-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
 .search:focus {
-  outline: none; 
+  outline: none;
   background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0); 
-  
+  color: rgb(0, 0, 0);
+
   /* Change border color on focus */
-  border-color: rgb(24, 24, 24); 
+  border-color: rgb(24, 24, 24);
 }
-.search{
+.search {
   background-color: transparent;
   border: 2px solid none;
 }
 .search::placeholder {
-  
   transform-origin: center;
   transform: scale(1);
   transition: transform 0.3s cubic-bezier(0.15, 0.15, 0.25, 1);
@@ -52,7 +69,6 @@ background-color: #cacaca;
   overflow: hidden;
 }
 
-
 .movie .favorite-button {
   position: absolute;
   top: 0;
@@ -64,17 +80,18 @@ background-color: #cacaca;
   color: white;
   font-size: 1.5rem;
   z-index: 100;
+  visibility: hidden;
 }
 
-/* TODO Make it show up on hover */
-/* .movie:hover+.favorite-button {
-
-} */
+/* TODO Make it show up on hover, transition in over time*/
+.movie:hover .favorite-button {
+  visibility: visible;
+}
 
 /* Prevent image distortion */
 .movie img {
   width: 100%;
-  height: auto; 
+  height: auto;
 }
 
 main {
@@ -94,9 +111,9 @@ main {
 }
 
 /* Should be h2 to match HTML */
-.movie-info h2 { 
+.movie-info h2 {
   margin-top: 0;
-  font-size: 15px; 
+  font-size: 15px;
 }
 
 .movie-info span {
@@ -127,13 +144,13 @@ main {
   padding: 1rem;
   max-height: 100%;
   transform: translateY(101%);
+  transition: transform 0.3s ease-in-out;
 }
 
 .movie:hover .overview {
   transform: translateY(0);
-  transition: transform 0.3s ease-in;
+  transition: transform 0.3s ease-in-out;
 }
-
 
 main .searchbar {
   position: sticky;
@@ -146,24 +163,13 @@ main .searchbar {
   justify-content: center;
 }
 
-/* Hover.css */
-
-
-@media (hover: hover) {
-  .hvr-grow:hover {
-    transform: scale(1.05);
-  }
-}
-
-
 /* TODO Do this better! Just targetting the two current ul's*/
 ul {
   margin: 10px auto;
   justify-content: center !important;
-
 }
 
-
+/* Hover.css */
 /* * Hover.css Copyright Ian Lunn 2017. Generated with Sass.
  * Version: 2.3.2
  * Author: Ian Lunn @IanLunn
@@ -174,7 +180,6 @@ ul {
 .hvr-grow {
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
   -webkit-transition-property: transform;
@@ -184,12 +189,12 @@ ul {
 @media (hover: hover) {
   .hvr-grow:hover {
     -webkit-transform: scale(1.05);
-    transform: scale(1.05);
+    transform: scale(1.025);
   }
 }
 
- /* The collapsable sidebar menu */
- .sidebar {
+/* The collapsable sidebar menu */
+.sidebar {
   height: 100%; /* 100% Full-height */
   width: 0; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
@@ -201,8 +206,6 @@ ul {
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
 }
-
-
 
 /* The sidebar links */
 .sidebar a {
@@ -228,8 +231,6 @@ ul {
   margin-left: 50px;
 }
 
-
-
 /* The button used to open the sidebar */
 .openbtn {
   position: sticky;
@@ -238,28 +239,30 @@ ul {
   background-color: #111;
   color: white;
   padding: 10px 15px;
-  border: none; 
+  border: none;
   top: 0;
   z-index: 100;
-  
 }
 
 .openbtn:hover {
   background-color: #444;
 }
 
-
-
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-#main {
-  transition: margin-left .5s; /* If you want a transition effect */
+/* User the Transition If you want a transition effect */
+/* #main {
+  transition: margin-left 0.5s;
   padding: 20px;
-}
+} */
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-} 
+  .sidebar {
+    padding-top: 15px;
+  }
+  .sidebar a {
+    font-size: 18px;
+  }
+}
 
 /* end of collapsable sidebar menu */
