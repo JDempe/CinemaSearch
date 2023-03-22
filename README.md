@@ -31,6 +31,8 @@ The below resources contributed to the project.
 
 - [StackOverflow](https://stackoverflow.com/) provided many guides and tutorials for the project.  Below are the links used:
   - https://stackoverflow.com/questions/14542062/eventlistener-enter-key
+  
+- [Asish George Tech/Channel](https://youtu.be/zrv_SAnnmtk/) Critical information and guidance on the project's development.
 
 
 - [Open Weather API](https://openweathermap.org/api) was used to retrieve the weather data.  Three different API's from OpenWeather were used.
