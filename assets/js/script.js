@@ -36,8 +36,11 @@ function showMovies(data) {
     const movieEl = document.createElement("div");
     movieEl.classList.add("movie");
     movieEl.innerHTML = `
+    <div class="form-check favorite-button">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+</div>
   <img src="${IMG_URL + poster_path}" alt="${title}">
-  
+ 
   <div class="movie-info">
   <h2>${title}</h2>
   <span class="${getColor(vote_average)}">${vote_average}</span>
@@ -46,8 +49,25 @@ function showMovies(data) {
     <h3>overview</h3>
    ${overview}
   </div>
-
   `;
+    // Add event listener to the movie card
+    movieEl.addEventListener("click", function (e) {
+      console.log("clicked!");
+      console.log(e.target);
+
+      if (e.target.classList.contains("form-check-input")) {
+        console.log("clicked favorite button");
+        // TODO Add to favorites
+      } else {
+        // THIS IS WHERE THE OPEN THE MODAL STUFF HAPPENS
+        console.log("clicked movie card");
+        modal.show();
+        // find the parent element with class "movie"
+        const movie = e.target.closest(".movie");
+        console.log(movie);
+        // video = this.dataset.video;
+      }
+    });
     main.appendChild(movieEl);
   });
 }
@@ -121,17 +141,6 @@ const myModalEl = document.getElementById("exampleModal");
 const modal = new mdb.Modal(myModalEl);
 const modalVideo = document.getElementById("modal-video");
 
-// TODO Add click event listener
-
-main.addEventListener("click", function (e) {
-  console.log("clicked!");
-  // find the parent element with class "movie"
-  const movie = e.target.closest(".movie");
-  console.log(movie);
-  // video = this.dataset.video;
-  modal.show();
-});
-
 // https://stackoverflow.com/questions/18622508/bootstrap-3-and-youtube-in-modal
 // https://stackoverflow.com/questions/60284183/video-still-playing-when-bootstrap-modal-closes
 $("#exampleModal").on("show.bs.modal", function () {
@@ -144,7 +153,6 @@ $("#exampleModal").on("hide.bs.modal", function () {
   console.log("hide");
 });
 
-
 // Add event listener to the quote area so when you click on it, it will take the movie title and put it into the search bar
 // TODO Refactor this to have better results?
 quoteDiv.addEventListener("click", function (e) {
@@ -156,7 +164,6 @@ quoteDiv.addEventListener("click", function (e) {
     search.value = searchTerm;
   }
 });
-
 
 // Random Quote
 function displayRandomQuote() {
