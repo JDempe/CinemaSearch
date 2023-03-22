@@ -39,6 +39,7 @@ header {
   text-align: center;
   margin: 0;
   padding: 0;
+  font-style: italic;
 }
 
 .search:focus {
@@ -83,7 +84,7 @@ header {
   visibility: hidden;
 }
 
-/* TODO Make it show up on hover, transition in over time*/
+/* Make it show up on hover*/
 .movie:hover .favorite-button {
   visibility: visible;
 }

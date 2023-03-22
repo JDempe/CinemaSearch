@@ -39,19 +39,19 @@ function showMovies(data) {
     movieEl.classList.add("hvr-grow");
     movieEl.innerHTML = `
     <div class="form-check favorite-button">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-</div>
-  <img src="${IMG_URL + poster_path}" alt="${title}">
- 
-  <div class="movie-info">
-  <h2>${title}</h2>
-  <span class="${getColor(vote_average)}">${vote_average}</span>
-  </div>
-  <div class="overview">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+    </div>
+    <img src="${IMG_URL + poster_path}" alt="${title}">
+    <div class="movie-info">
+    <h2>${title}</h2>
+    <span class="${getColor(vote_average)}">${vote_average}</span>
+    </div>
+    <div class="overview">
     <h3>Overview</h3>
-   ${overview}
-  </div>
-  `;
+    ${overview}
+    </div>
+    `;
+    
     // Add event listener to the movie card
     movieEl.addEventListener("click", function (e) {
       console.log("clicked!");
@@ -177,7 +177,7 @@ function displayRandomQuote() {
       randomQuote = json[Math.floor(Math.random() * json.length)];
 
       // Display the quote
-      quoteText.innerHTML = "\"" + randomQuote.quote + "\"";
+      quoteText.innerHTML = '"' + randomQuote.quote + '"';
       quotePerson.innerHTML = "-" + randomQuote.character;
       quoteMovie.innerHTML = randomQuote.movie;
       quoteYear.innerHTML = " (" + randomQuote.year + ")";
