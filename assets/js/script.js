@@ -32,17 +32,25 @@ function showMovies(data) {
   <div class="movie-info">
   <h2>${title}</h2>
   <span class="${getColor(vote_average)}">${vote_average}</span>
+
   </div>
   <div class="overview">
     <h3>overview</h3>
    ${overview}
   </div>
-
+  
   `
+  
     main.appendChild(movieEl);
+    
 
   })
+  
 }
+//if (vote_average = 0) {
+// return 'N/A'
+//}
+
 
 // Set color based on vote average
 function getColor(vote) {
@@ -52,6 +60,7 @@ function getColor(vote) {
     return 'orange'
   } else {
     return 'red'
+    // return 'N/A'
   }
 }
 
