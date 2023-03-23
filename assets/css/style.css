@@ -155,12 +155,11 @@ main {
   flex-direction: column;
   justify-content: center;
   position: absolute;
-  opacity: 0;
+  visibility: hidden;
 }
 
-.search-box:hover + .add-remove-buttons {
-  background-color: #030303;
-  opacity: 1;
+.search-box:hover .add-remove-buttons {
+  visibility: visible;
 }
 
 #search-btn {
