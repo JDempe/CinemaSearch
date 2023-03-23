@@ -15,13 +15,6 @@ const quotePerson = document.getElementById("quote-person");
 const quoteMovie = document.getElementById("quote-movie");
 const quoteYear = document.getElementById("quote-year");
 
-const sortForm = document.getElementById("sort-form");
-
-// For each sortForm child, add an event listener to flip the arrow
-sortForm.childNodes.forEach((child) => {
-  child.addEventListener("click", sortingSelection);
-});
-
 // Run this function when the page loads
 displayRandomQuote();
 
@@ -191,6 +184,14 @@ function displayRandomQuote() {
     });
 }
 
+// Sort Option Arrow
+const sortOption = document.getElementById("sort-option");
+
+// For each sortForm child, add an event listener to flip the arrow
+sortOption.childNodes.forEach((child) => {
+  child.addEventListener("click", sortingSelection);
+});
+
 // Runs if a sort option is selected
 function sortingSelection(event) {
   // Stop the event from bubbling up to the parent element
@@ -209,13 +210,5 @@ function sortingSelection(event) {
     arrow.classList.replace("arrow-down", "arrow-up");
   }
 }
-} else {
-  // If the event target or its parent has the sort-button class, then toggle the sort-button
-    const sortButton = event.target.closest(".sort-option");
-
-    // If the sortButton exists, then toggle the active class one the sort-option (which will change the color)
-    if (sortButton) {
-      sortButton.classList.toggle("active-sort-option");
-    }
-  }
+}
 }

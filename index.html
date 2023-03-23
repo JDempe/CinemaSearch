@@ -100,43 +100,21 @@
       <!-- Search Bar -->
 
       <!-- Sort Bar -->
-      <section id="sort-bar">
-         <!-- Dropdown -->
-         <div class="input-group">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-mdb-toggle="dropdown">
-               Sorting by
+      <section id="sort-option">
+            <div class="dropdown">
+               <button class="custom-dropdown-menu" type="button" id="dropdownMenu2" data-mdb-toggle="dropdown" aria-expanded="false">
+                 Sort By
+               </button>
+               <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                 <li><button class="dropdown-item" type="button">Popularity</button></li>
+                 <li><button class="dropdown-item" type="button">Revenue</button></li>
+                 <li><button class="dropdown-item" type="button">Vote Average</button></li>
+               </ul>
+             </div>
+            <button class="arrow-button" type="button">
+               <img src="./assets/images/icons8-up-arrow-30.png" alt="plus" class="arrow-up" width="20px"
+                  height="20px" />
             </button>
-
-            <!-- The form -->
-            <form id="sort-form" class="dropdown-menu">
-               <div class="sort-form-layout">
-                  <h2>Sort By:</h2>
-                  <!-- Default radio -->
-                  <div class="sort-option">
-                     <input class="form-check-input" type="checkbox" name="popularity" id="flexCheckDefault" />
-                     <label>Popularity</label>
-                     <button class="arrow-button" type="button">
-                        <img src="./assets/images/icons8-up-arrow-30.png" alt="plus" class="arrow-up" width="20px"
-                           height="20px" />
-                     </button>
-                  </div>
-                  <div class="sort-option">
-                     <input class="form-check-input" type="checkbox" name="popularity" id="flexCheckDefault" />
-                     <label>Popularity</label>
-                     <button class="arrow-button" type="button">
-                        <img src="./assets/images/icons8-up-arrow-30.png" alt="plus" class="arrow-up" width="20px"
-                           height="20px" />
-                     </button>
-                  </div>
-                  <button type="button" class="btn cancel">Clear</button>
-                  <button type="button" class="btn cancel">Close</button>
-               </div>
-            </form>
-
-            <!-- The form -->
-
-         </div>
-         <!-- Dropdown -->
       </section>
       <!-- Sort Bar -->
 
