@@ -12,21 +12,61 @@ body {
   background-color: var(--background-color);
   font-family: "Poppins", sans-serif;
   margin: 0;
+  position: relative;
 }
 
 header {
   padding: 1px;
   display: flex;
   justify-content: flex-end;
-  background-color: #cacaca;
+  background-color: transparent;
+  position: relative;
+  overflow: visible;
 }
 
-main {
-  display: block;
-  justify-content: center;
-  position: relative;
-  margin: 0 5%;
+.main-curtain {
+  background-image: url("../images/download.jfif");
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: 100% 100%;
+  background-color: #03030349;
+  height: 425px;
+  width: auto;
 }
+
+.side-curtains {
+  position: absolute;
+  width: auto;
+  height: 525px;
+  background-color: none;
+  z-index: 1000;
+  top: -40px;
+  transform: translate(-20px 0px);
+  transform: 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.left-curtain {
+  left: 0;
+  transition: left 0.6s ease-in-out;
+}
+
+.right-curtain {
+  right: 0;
+  transform: scaleX(-1);
+  transition: right 0.6s ease-in-out;
+}
+
+header:hover .left-curtain {
+  transform: translate(-20px, 0px);
+  left: -40px;
+}
+
+header:hover .right-curtain {
+  right: -40px;
+}
+
+
 
 #quote-div {
   display: flex;
@@ -49,16 +89,22 @@ main {
   font-style: italic;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding: 0px 5%;
+  width: 100%;
+}
+
 #search-bar-area {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
   background-color: #cacaca;
-  position: sticky;
-  top: 0;
   z-index: 100;
 }
 
@@ -68,17 +114,15 @@ main {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
   padding: 20px;
   width: 80%;
   height: 100%;
   background-color: #cacaca00;
-  position: sticky;
   top: 0;
   z-index: 100;
 }
 
-#search-bar .search-box{
+#search-bar .search-box {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -89,10 +133,10 @@ main {
 }
 
 #search-bar .search-input {
-  border: 1px solid #BCBCBC;
+  border: 1px solid #bcbcbc;
   border-radius: 5px;
-  border-top-left-radius: 4px ;
-  border-bottom-left-radius: 4px ;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
   width: 300px;
   height: 40px;
   max-width: 100%;
@@ -101,28 +145,38 @@ main {
   color: #030303;
   font-size: 1rem;
   font-weight: 500;
-  text-align: center;
-  text-transform: uppercase;
   letter-spacing: 1px;
-  cursor: pointer;
   transition: 0.3s ease-in-out;
   background-color: white;
 }
 
-#search-bar #search-btn {
+#search-btn {
   margin: 0 auto;
+  background-color: #661417;
+  color: #cacaca;
+  width: 175px;
+}
+
+#card-area {
+  margin: auto;
+  width: fit-content;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 #sort-box {
-  border: 1px solid #661417 ;
+  border: 1px solid #661417;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   width: fit-content;
+  /* position: absolute;
+  top: 0; */
 }
 
-#sort-label{
+#sort-label {
   border: none;
   font-size: 0.8rem;
   width: fit-content;
@@ -134,11 +188,11 @@ main {
   font-weight: 500;
   text-align: center;
   /* text-transform: uppercase; */
-    background-color: #BCBCBC;
-  }
+  background-color: #bcbcbc;
+}
 
 #sort-option .dropdown {
-    height: 100%;
+  height: 100%;
 }
 
 .custom-dropdown-menu {
@@ -155,26 +209,14 @@ main {
   letter-spacing: 1px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
-
 }
-
-/* .active-sort-option {
-  border: 4px solid #661417;
-  transform: scale(1.1);
-  transition: 0.3s ease-in-out;
-} */
-
-/* .sort-option label {
-  margin: auto 0px;
-  user-select: none;
-} */
 
 #sort-arrow-button {
   border: none;
   background-color: #661417;
   color: white;
-  border-top-right-radius: 4px ;
-  border-bottom-right-radius: 4px ;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
   width: fit-content;
 }
 
@@ -191,11 +233,16 @@ main {
   transition: transform 0.3s ease-in-out;
 }
 
+#card-area{
+  padding: fit-content;
+  width: fit-content;
+}
+
 #card-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  position: relative;
+  width: fit-content;
 }
 
 .movie {
@@ -229,25 +276,23 @@ main {
 
 /* Prevent image distortion */
 .movie img {
-  width: 100%;
-  height: auto;
+  width: 300px;
+  height: 450pxx;
 }
-
-
 
 .movie-info {
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1rem 1rem;
+  padding: 0.75rem 1rem 0.75rem 1rem;
   letter-spacing: 0.5px;
 }
 
 /* Should be h2 to match HTML */
 .movie-info h2 {
-  margin-top: 0;
   font-size: 15px;
+  margin: 0px;
 }
 
 .movie-info span {
@@ -276,9 +321,20 @@ main {
   bottom: 0;
   background-color: white;
   padding: 1rem;
-  max-height: 100%;
+  height: 60%; /* TODO Revert to max-height 100%? */
   transform: translateY(101%);
   transition: transform 0.3s ease-in-out;
+}
+
+/* https://stackoverflow.com/questions/22808040/fading-out-text-on-overflow-with-css-if-the-text-is-bigger-than-allowed */
+.overview:before {
+  content:'';
+  width:100%;
+  height:100%;    
+  position:absolute;
+  left:0;
+  top:0;
+  background:linear-gradient(transparent 80%, white);
 }
 
 .movie:hover .overview {
