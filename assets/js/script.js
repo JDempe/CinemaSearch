@@ -5,8 +5,8 @@ const IMG_URL = "https://image.tmdb.org/t/p/w500";
 const main = document.getElementById("card-container");
 const searchURL = BASE_URL + "/search/movie?" + API_KEY;
 
-const form = document.getElementById("form");
-const search = document.getElementById("search");
+const form = document.getElementById("search-input");
+const searchBtn = document.getElementById("search-btn");
 
 // Random Quote
 const quoteDiv = document.getElementById("quote-div");
@@ -15,6 +15,14 @@ const quotePerson = document.getElementById("quote-person");
 const quoteMovie = document.getElementById("quote-movie");
 const quoteYear = document.getElementById("quote-year");
 
+const sortForm = document.getElementById("sort-form");
+
+// For each sortForm child, add an event listener to flip the arrow
+sortForm.childNodes.forEach((child) => {
+  child.addEventListener("click", sortingSelection);
+});
+
+// Run this function when the page loads
 displayRandomQuote();
 
 getMovies(API_URL);
@@ -39,7 +47,7 @@ function showMovies(data) {
     movieEl.classList.add("hvr-grow");
     movieEl.innerHTML = `
     <div class="form-check favorite-button">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+    <input class="form-check-input favorite-checkbox" type="checkbox" value="" id="flexCheckDefault" />
     </div>
     <img src="${IMG_URL + poster_path}" alt="${title}">
     <div class="movie-info">
@@ -57,12 +65,11 @@ function showMovies(data) {
       console.log("clicked!");
       console.log(e.target);
 
-      if (e.target.classList.contains("form-check-input")) {
+      if (e.target.classList.contains("favorite-checkbox")) {
         console.log("clicked favorite button");
         // TODO Add to favorites
       } else {
         // THIS IS WHERE THE OPEN THE MODAL STUFF HAPPENS
-        console.log("clicked movie card");
         modal.show();
         // find the parent element with class "movie"
         const movie = e.target.closest(".movie");
@@ -89,7 +96,7 @@ function getColor(vote) {
 // Search via form Submit (Enter)
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const searchTerm = search.value;
+  const searchTerm = form.value;
   if (searchTerm) {
     getMovies(searchURL + "&query=" + searchTerm);
   } else {
@@ -98,10 +105,10 @@ form.addEventListener("submit", (e) => {
 });
 
 // Search via clicking the submit button
-const searchBtn = document.getElementById("search-btn");
+
 searchBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  const searchTerm = search.value;
+  const searchTerm = form.value;
   if (searchTerm) {
     getMovies(searchURL + "&query=" + searchTerm);
   } else {
@@ -113,7 +120,7 @@ searchBtn.addEventListener("click", (e) => {
 form.addEventListener("keyup", function (e) {
   e.preventDefault();
   if (e.key === "Enter") {
-    const searchTerm = search.value;
+    const searchTerm = form.value;
     if (searchTerm) {
       getMovies(searchURL + "&query=" + searchTerm);
     } else {
@@ -163,7 +170,7 @@ quoteDiv.addEventListener("click", function (e) {
   if (searchTerm) {
     getMovies(searchURL + "&query=" + searchTerm);
     // Put the text in the search bar
-    search.value = searchTerm;
+    form.value = searchTerm;
   }
 });
 
@@ -182,4 +189,33 @@ function displayRandomQuote() {
       quoteMovie.innerHTML = randomQuote.movie;
       quoteYear.innerHTML = " (" + randomQuote.year + ")";
     });
+}
+
+// Runs if a sort option is selected
+function sortingSelection(event) {
+  // Stop the event from bubbling up to the parent element
+  event.preventDefault();
+  event.stopPropagation();
+
+// If the event target or its parent has the arrow class, then toggle the arrow
+  if (event.target.classList.contains("arrow-button") || event.target.parentElement.classList.contains("arrow-button")) {
+  const arrowButton = event.target.closest(".arrow-button");
+  if (arrowButton) {
+    const arrow = arrowButton.children[0];
+
+  if (arrow.classList.contains("arrow-up")) {
+    arrow.classList.replace("arrow-up", "arrow-down");
+  } else {
+    arrow.classList.replace("arrow-down", "arrow-up");
+  }
+}
+} else {
+  // If the event target or its parent has the sort-button class, then toggle the sort-button
+    const sortButton = event.target.closest(".sort-option");
+
+    // If the sortButton exists, then toggle the active class one the sort-option (which will change the color)
+    if (sortButton) {
+      sortButton.classList.toggle("active-sort-option");
+    }
+  }
 }

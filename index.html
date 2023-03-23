@@ -27,22 +27,22 @@
       <div class="p-5 text-center bg-image" style="
           background-color: #661417;
           height: 400px;
+          width: 100%;
         ">
          <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
             <div class="d-flex justify-content-center align-items-center h-100">
                <div class="text-white">
                   <!-- <h1 class="mb-3">FilmFinder</h1> -->
                   <div>
-                     <img
-                     src="./assets/images//cinemasearchbanner.png"
-                     alt="FilmFinder Logo" class="img-fluid" width="60%" height="auto" />
+                     <img src="./assets/images//cinemasearchbanner.png" alt="FilmFinder Logo" class="img-fluid"
+                        width="60%" height="auto" />
                   </div>
                   <!-- TODO Don't forget to change this -->
                   <h4 class="mb-3">It's like Google but it only does movies and was made in 2 weeks.</h4>
                   <div id="quote-div">
                      <p id="quote-text"></p>
                      <p id="quote-person"></p>
-                     <p><span id="quote-movie"></span ><span id="quote-year"></span></p>
+                     <p><span id="quote-movie"></span><span id="quote-year"></span></p>
                   </div>
                </div>
             </div>
@@ -51,46 +51,100 @@
 
       <!-- Background image -->
    </header>
-   <!-- Search and Filter -->
+
    <div class="navbar navbar-expand-lg navbar-light bg-white searchbar">
-      <div class="container-fluid align-content-center">
-         <!--collapsable side bar for favorites (maybe more??)-->
-         <div id="mySidebar" class="sidebar">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
-         </div>
-
-         <!-- TODO Change the ID Here -->
-         <div id="main">
-            <button class="openbtn" onclick="openNav()">&#9776; Open Sidebar</button>
-         </div>
-         <!--Navbar continued-->
-         <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#SearchOptions"
-            aria-controls="SearchOptions" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
-         </button>
-         <div id="SearchOptions" class="collapse navbar-collapse">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-               <li class="nav-item active">
-                  <div class="form-outline">
-
-                     <form id="form">
-                        <input type="text" placeholder="Search" name="search" id="search" class="search">
-                     </form>
-
-                  </div>
-               </li>
-               <button id="search-btn" type="button" class="btn btn-primary">Search</button>
-            </ul>
-         </div>
+      <!--collapsable side bar for favorites (maybe more??)-->
+      <div id="mySidebar" class="sidebar">
+         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+         <a href="#">About</a>
+         <a href="#">Services</a>
+         <a href="#">Clients</a>
+         <a href="#">Contact</a>
       </div>
+      <!-- TODO Change the ID Here -->
+      <div id="main">
+         <button class="openbtn" onclick="openNav()">&#9776; Open Sidebar</button>
+      </div>
+      <!--collapsable side bar for favorites (maybe more??)-->
    </div>
-   <!-- Search and Filter -->
 
-   <main id="card-container"></main>
+   <main>
+      <!-- Search Bar -->
+      <section id="search-bar" style="background-color: rgb(255, 255, 255);">
+
+         <!-- Dropdown -->
+         <div class="input-group">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-mdb-toggle="dropdown"
+               aria-expanded="false">
+               Searching For
+            </button>
+            <ul class="dropdown-menu">
+               <li><a class="dropdown-item">Movies</a></li>
+               <li><a class="dropdown-item">Series</a></li>
+               <li><a class="dropdown-item">Actors</a></li>
+               <li>
+                  <hr class="dropdown-divider" />
+               </li>
+               <li><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+            <div class="form-outline">
+               <input id="search-input" type="text" class="form-control" maxlength="20" />
+               <label class="form-label" for="search-input">Example label</label>
+            </div>
+            <button id="search-btn" type="button" class="btn btn-primary">Search</button>
+
+         </div>
+         <!-- Dropdown -->
+
+      </section>
+      <!-- Search Bar -->
+
+      <!-- Sort Bar -->
+      <section id="sort-bar">
+         <!-- Dropdown -->
+         <div class="input-group">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-mdb-toggle="dropdown">
+               Sorting by
+            </button>
+
+            <!-- The form -->
+            <form id="sort-form" class="dropdown-menu">
+               <div class="sort-form-layout">
+                  <h2>Sort By:</h2>
+                  <!-- Default radio -->
+                  <div class="sort-option">
+                     <input class="form-check-input" type="checkbox" name="popularity" id="flexCheckDefault" />
+                     <label>Popularity</label>
+                     <button class="arrow-button" type="button">
+                        <img src="./assets/images/icons8-up-arrow-30.png" alt="plus" class="arrow-up" width="20px"
+                           height="20px" />
+                     </button>
+                  </div>
+                  <div class="sort-option">
+                     <input class="form-check-input" type="checkbox" name="popularity" id="flexCheckDefault" />
+                     <label>Popularity</label>
+                     <button class="arrow-button" type="button">
+                        <img src="./assets/images/icons8-up-arrow-30.png" alt="plus" class="arrow-up" width="20px"
+                           height="20px" />
+                     </button>
+                  </div>
+                  <button type="button" class="btn cancel">Clear</button>
+                  <button type="button" class="btn cancel">Close</button>
+               </div>
+            </form>
+
+            <!-- The form -->
+
+         </div>
+         <!-- Dropdown -->
+      </section>
+      <!-- Sort Bar -->
+
+      <!-- Card Container -->
+      <section id="card-container">
+      </section>
+      <!-- Card Container -->
+   </main>
 
    <!-- Page Navigation -->
    <!-- TODO Add JS to populate the page numbers -->
@@ -105,7 +159,7 @@
    </nav>
 
    <footer>
-      <p>This product uses the TMDB API but is not endorsed or certified by TMDB.  !Add icon, add formatting!</p>
+      <p>This product uses the TMDB API but is not endorsed or certified by TMDB. !Add icon, add formatting!</p>
    </footer>
 
    <!-- Modal -->
@@ -195,8 +249,6 @@
       </div>
    </div>
    <!-- Modal -->
-
-
 
 </body>
 <!-- MDB -->
