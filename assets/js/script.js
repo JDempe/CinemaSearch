@@ -86,6 +86,7 @@ function getColor(vote) {
 }
 
 // TODO COMBINE INTO ONE FUNCTION FOR SEARCHING, LINK TO BOTH EVENT
+// TODO make the form expandable between 1 and 3 search items
 // Search via form Submit (Enter)
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -185,12 +186,11 @@ function displayRandomQuote() {
 }
 
 // Sort Option Arrow
-const sortOption = document.getElementById("sort-option");
+const arrowButton = document.getElementById("sort-arrow-button");
+console.log(arrowButton)
+arrowButton.addEventListener("click", sortingSelection);
 
-// For each sortForm child, add an event listener to flip the arrow
-sortOption.childNodes.forEach((child) => {
-  child.addEventListener("click", sortingSelection);
-});
+console.log("test")
 
 // Runs if a sort option is selected
 function sortingSelection(event) {
@@ -198,17 +198,17 @@ function sortingSelection(event) {
   event.preventDefault();
   event.stopPropagation();
 
-// If the event target or its parent has the arrow class, then toggle the arrow
-  if (event.target.classList.contains("arrow-button") || event.target.parentElement.classList.contains("arrow-button")) {
-  const arrowButton = event.target.closest(".arrow-button");
-  if (arrowButton) {
     const arrow = arrowButton.children[0];
 
   if (arrow.classList.contains("arrow-up")) {
     arrow.classList.replace("arrow-up", "arrow-down");
+    // Change data-filter-direction to descending
+    arrowButton.dataset.filterDirection = "desc";
+
   } else {
     arrow.classList.replace("arrow-down", "arrow-up");
+
+    // Change data-filter-direction to ascending 
+    arrowButton.dataset.filterDirection = "asc";
   }
-}
-}
 }

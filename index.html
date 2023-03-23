@@ -52,69 +52,109 @@
       <!-- Background image -->
    </header>
 
-   <div class="navbar navbar-expand-lg navbar-light bg-white searchbar">
-      <!--collapsable side bar for favorites (maybe more??)-->
-      <div id="mySidebar" class="sidebar">
-         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-         <a href="#">About</a>
-         <a href="#">Services</a>
-         <a href="#">Clients</a>
-         <a href="#">Contact</a>
-      </div>
-      <!-- TODO Change the ID Here -->
-      <div id="main">
-         <button class="openbtn" onclick="openNav()">&#9776; Open Sidebar</button>
-      </div>
-      <!--collapsable side bar for favorites (maybe more??)-->
-   </div>
 
    <main>
-      <!-- Search Bar -->
-      <section id="search-bar" style="background-color: rgb(255, 255, 255);">
+      <!-- Search Bar Area -->
+      <div id="search-bar-area">
+         <section id="search-bar">
 
-         <!-- Dropdown -->
-         <div class="input-group">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-mdb-toggle="dropdown"
-               aria-expanded="false">
-               Searching For
-            </button>
-            <ul class="dropdown-menu">
-               <li><a class="dropdown-item">Movies</a></li>
-               <li><a class="dropdown-item">Series</a></li>
-               <li><a class="dropdown-item">Actors</a></li>
-               <li>
-                  <hr class="dropdown-divider" />
-               </li>
-               <li><a class="dropdown-item" href="#">Separated link</a></li>
-            </ul>
-            <div class="form-outline">
-               <input id="search-input" type="text" class="form-control" maxlength="20" />
-               <label class="form-label" for="search-input">Example label</label>
+            <!-- Dropdown -->
+
+            <div id="search-box-1" class="input-group search-box">
+               <button class="custom-dropdown-menu dropdown-toggle" type="button" data-mdb-toggle="dropdown"
+                  aria-expanded="false">
+                  Movies
+               </button>
+
+               <ul class="dropdown-menu">
+                  <li><a class="dropdown-item">Movies</a></li>
+                  <li><a class="dropdown-item">Series</a></li>
+                  <li><a class="dropdown-item">Actors</a></li>
+                  <li>
+                     <hr class="dropdown-divider" />
+                  </li>
+                  <li><a class="dropdown-item" href="#">Separated link</a></li>
+               </ul>
+               <div class="form-outline">
+                  <!-- TODO Return this to search-input-1 -->
+                  <input id="search-input" type="text" class="form-control search-input" maxlength="20" />
+                  <label class="form-label" for="search-input">Title</label>
+               </div>
             </div>
-            <button id="search-btn" type="button" class="btn btn-primary">Search</button>
+            <!-- Dropdown -->
 
-         </div>
-         <!-- Dropdown -->
 
-      </section>
+            <!-- Dropdown -->
+            <div id="search-box-2" class="input-group search-box">
+               <!-- <label id="search-sort-box-label" class="input-group-text" for="search-box">Searching For</label> -->
+               <button class="custom-dropdown-menu dropdown-toggle" type="button" data-mdb-toggle="dropdown"
+                  aria-expanded="false">
+                  Movies
+               </button>
+
+               <ul class="dropdown-menu">
+                  <li><a class="dropdown-item">Movies</a></li>
+                  <li><a class="dropdown-item">Series</a></li>
+                  <li><a class="dropdown-item">Actors</a></li>
+                  <li>
+                     <hr class="dropdown-divider" />
+                  </li>
+                  <li><a class="dropdown-item" href="#">Separated link</a></li>
+               </ul>
+               <div class="form-outline">
+                  <input id="search-input-2" type="text" class="form-control search-input" maxlength="20" />
+                  <label class="form-label" for="search-input">Title</label>
+               </div>
+            </div>
+            <!-- Dropdown -->
+
+            <!-- Dropdown -->
+            <div id="search-box-3" class="input-group search-box">
+               <!-- <label id="search-sort-box-label" class="input-group-text" for="search-box">Searching For</label> -->
+               <button class="custom-dropdown-menu dropdown-toggle" type="button" data-mdb-toggle="dropdown"
+                  aria-expanded="false">
+                  Movies
+               </button>
+
+               <ul class="dropdown-menu">
+                  <li><a class="dropdown-item">Movies</a></li>
+                  <li><a class="dropdown-item">Series</a></li>
+                  <li><a class="dropdown-item">Actors</a></li>
+                  <li>
+                     <hr class="dropdown-divider" />
+                  </li>
+                  <li><a class="dropdown-item" href="#">Separated link</a></li>
+               </ul>
+               <div class="form-outline">
+                  <input id="search-input-3" type="text" class="form-control search-input" maxlength="20" />
+                  <label class="form-label" for="search-input">Title</label>
+               </div>
+            </div>
+            <!-- Dropdown -->
+         </section>
+         <button id="search-btn" type="button" class="btn btn-primary">Search</button>
+      </div>
       <!-- Search Bar -->
 
       <!-- Sort Bar -->
-      <section id="sort-option">
-            <div class="dropdown">
-               <button class="custom-dropdown-menu" type="button" id="dropdownMenu2" data-mdb-toggle="dropdown" aria-expanded="false">
-                 Sort By
-               </button>
-               <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                 <li><button class="dropdown-item" type="button">Popularity</button></li>
-                 <li><button class="dropdown-item" type="button">Revenue</button></li>
-                 <li><button class="dropdown-item" type="button">Vote Average</button></li>
-               </ul>
-             </div>
-            <button class="arrow-button" type="button">
-               <img src="./assets/images/icons8-up-arrow-30.png" alt="plus" class="arrow-up" width="20px"
-                  height="20px" />
+      <section id="sort-box">
+         <label id="sort-label" class="input-group-text" for="search-box">Sort By</label>
+
+         <div class="dropdown">
+            <button id="dropdownMenu2" class=" custom-dropdown-menu dropdown-toggle" type="button"
+               data-mdb-toggle="dropdown" aria-expanded="false">
+               Popularity
             </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+               <li><button class="dropdown-item" type="button">Popularity</button></li>
+               <li><button class="dropdown-item" type="button">Revenue</button></li>
+               <li><button class="dropdown-item" type="button">Vote Average</button></li>
+            </ul>
+         </div>
+         <button id="sort-arrow-button" type="button">
+            <img src="./assets/images/icons8-up-arrow-30.png" alt="plus" class="arrow-down" data-filterDirection="desc"
+               width="20px" height="20px" />
+         </button>
       </section>
       <!-- Sort Bar -->
 
