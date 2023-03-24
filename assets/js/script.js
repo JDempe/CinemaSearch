@@ -212,3 +212,6 @@ function sortingSelection(event) {
     arrowButton.dataset.filterDirection = "asc";
   }
 }
+
+// TODO add a function to make the search bar's visible when the + sign is clicked
+// TODO Make the + and- signs visible or invisible based on how many search bars are visible

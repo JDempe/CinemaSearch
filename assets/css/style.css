@@ -1,15 +1,17 @@
 /* Use consistent background color variable */
 :root {
-  --background-color: rgb(202, 202, 202);
+  --background-color: rgb(60, 60, 60);
   --secondary-color: #030303;
 }
 
 * {
   box-sizing: border-box;
+  color: white;
 }
 
 body {
   background-color: var(--background-color);
+  background-image: url("../images/pattern-randomized.png");
   font-family: "Poppins", sans-serif;
   margin: 0;
   position: relative;
@@ -25,11 +27,11 @@ header {
 }
 
 .main-curtain {
-  background-image: url("../images/download.jfif");
+  background-image: url("../images/backdrop-curtain-rev1.png");
   background-repeat: repeat-x;
   background-position: center;
   background-size: 100% 100%;
-  background-color: #03030349;
+  background-color: #0303037d;
   height: 425px;
   width: auto;
 }
@@ -102,7 +104,7 @@ main {
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: #cacaca;
+  background-color: transparent;
   z-index: 100;
 }
 
@@ -116,7 +118,6 @@ main {
   width: 80%;
   height: 100%;
   background-color: #cacaca00;
-  top: 0;
   z-index: 100;
 }
 
@@ -150,16 +151,24 @@ main {
 }
 
 .add-remove-buttons {
-  /* display: none; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: absolute;
   visibility: hidden;
+  top: 0;
+  right: -30px;
 }
 
 .search-box:hover .add-remove-buttons {
   visibility: visible;
+}
+
+.add-search-button, .remove-search-button {
+  border: none;
+  background-color: transparent;
+  width: fit-content;
+  height: auto;
 }
 
 #search-btn {
@@ -267,6 +276,10 @@ main {
   overflow: hidden;
 }
 
+.custom-shadow {
+  box-shadow: 0.2rem 0.4rem 0.5rem black;
+}
+
 .movie .favorite-button {
   position: absolute;
   top: 0;
@@ -336,6 +349,7 @@ main {
   height: 60%; /* TODO Revert to max-height 100%? */
   transform: translateY(101%);
   transition: transform 0.3s ease-in-out;
+  color: black;
 }
 
 /* https://stackoverflow.com/questions/22808040/fading-out-text-on-overflow-with-css-if-the-text-is-bigger-than-allowed */
@@ -347,11 +361,17 @@ main {
   left: 0;
   top: 0;
   background: linear-gradient(transparent 80%, white);
+  color: black;
 }
 
 .movie:hover .overview {
   transform: translateY(0);
   transition: transform 0.3s ease-in-out;
+  color: black;
+}
+
+.overview p,h3 {
+  color: black;
 }
 
 /* TODO Do this better! Just targetting the two current ul's*/
