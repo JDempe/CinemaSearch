@@ -177,7 +177,6 @@ function getStreaming(data) {
       //accordian 3 - Genres?
       let accGenre = document.querySelector('.genre');
       let arrGenre = ["information not available"];
-      debugger;
       if(result.genres) {arrGenre = result.genres;}
       for(let i = 0; i < arrGenre.length; i++) {
         let genreObj = arrGenre[i];
