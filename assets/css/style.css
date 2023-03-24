@@ -12,6 +12,7 @@
 body {
   background-color: var(--background-color);
   background-image: url("../images/pattern-randomized.png");
+  background-size: cover;
   font-family: "Poppins", sans-serif;
   margin: 0;
   position: relative;
