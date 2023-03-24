@@ -33,10 +33,11 @@ function showMovies(data) {
   main.innerHTML = "";
 
   data.forEach((movie) => {
-    const { title, poster_path, vote_average, overview } = movie;
+    const { title, poster_path, vote_average, overview, id} = movie;
     const movieEl = document.createElement("div");
     movieEl.classList.add("movie");
     movieEl.classList.add("hvr-grow");
+    movieEl.setAttribute('movie_id', id);
     movieEl.innerHTML = `
     <div class="form-check favorite-button">
     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
@@ -66,12 +67,25 @@ function showMovies(data) {
         modal.show();
         // find the parent element with class "movie"
         const movie = e.target.closest(".movie");
-        console.log(movie);
+        let id = movie.getAttribute('movie_id');
+        console.log();
         // video = this.dataset.video;
+        fetch(BASE_URL + "/movie/" + id + "?" + API_KEY)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          getStreaming(data);
+        });
+        
       }
     });
     main.appendChild(movieEl);
   });
+}
+
+function getStreaming(data) {
+  let imdb_ID = data.imdb_id;
+  console.log(imdb_ID);
 }
 
 // Set color based on vote average
