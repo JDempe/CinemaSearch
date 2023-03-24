@@ -5,8 +5,8 @@ const IMG_URL = "https://image.tmdb.org/t/p/w500";
 const main = document.getElementById("card-container");
 const searchURL = BASE_URL + "/search/movie?" + API_KEY;
 
-const form = document.getElementById("form");
-const search = document.getElementById("search");
+const form = document.getElementById("search-input");
+const searchBtn = document.getElementById("search-btn");
 
 // Random Quote
 const quoteDiv = document.getElementById("quote-div");
@@ -15,6 +15,7 @@ const quotePerson = document.getElementById("quote-person");
 const quoteMovie = document.getElementById("quote-movie");
 const quoteYear = document.getElementById("quote-year");
 
+// Run this function when the page loads
 displayRandomQuote();
 
 getMovies(API_URL);
@@ -40,7 +41,7 @@ function showMovies(data) {
     movieEl.setAttribute('movie_id', id);
     movieEl.innerHTML = `
     <div class="form-check favorite-button">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+    <input class="form-check-input favorite-checkbox" type="checkbox" value="" id="flexCheckDefault" />
     </div>
     <img src="${IMG_URL + poster_path}" alt="${title}">
     <div class="movie-info">
@@ -49,7 +50,7 @@ function showMovies(data) {
     </div>
     <div class="overview">
     <h3>Overview</h3>
-    ${overview}
+    <p>${overview}</p>
     </div>
     `;
     
@@ -58,12 +59,11 @@ function showMovies(data) {
       console.log("clicked!");
       console.log(e.target);
 
-      if (e.target.classList.contains("form-check-input")) {
+      if (e.target.classList.contains("favorite-checkbox")) {
         console.log("clicked favorite button");
         // TODO Add to favorites
       } else {
         // THIS IS WHERE THE OPEN THE MODAL STUFF HAPPENS
-        console.log("clicked movie card");
         modal.show();
         // find the parent element with class "movie"
         const movie = e.target.closest(".movie");
@@ -153,10 +153,11 @@ else if (vote >= 8) {
 }
 
 // TODO COMBINE INTO ONE FUNCTION FOR SEARCHING, LINK TO BOTH EVENT
+// TODO make the form expandable between 1 and 3 search items
 // Search via form Submit (Enter)
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const searchTerm = search.value;
+  const searchTerm = form.value;
   if (searchTerm) {
     getMovies(searchURL + "&query=" + searchTerm);
   } else {
@@ -165,10 +166,10 @@ form.addEventListener("submit", (e) => {
 });
 
 // Search via clicking the submit button
-const searchBtn = document.getElementById("search-btn");
+
 searchBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  const searchTerm = search.value;
+  const searchTerm = form.value;
   if (searchTerm) {
     getMovies(searchURL + "&query=" + searchTerm);
   } else {
@@ -180,7 +181,7 @@ searchBtn.addEventListener("click", (e) => {
 form.addEventListener("keyup", function (e) {
   e.preventDefault();
   if (e.key === "Enter") {
-    const searchTerm = search.value;
+    const searchTerm = form.value;
     if (searchTerm) {
       getMovies(searchURL + "&query=" + searchTerm);
     } else {
@@ -230,7 +231,7 @@ quoteDiv.addEventListener("click", function (e) {
   if (searchTerm) {
     getMovies(searchURL + "&query=" + searchTerm);
     // Put the text in the search bar
-    search.value = searchTerm;
+    form.value = searchTerm;
   }
 });
 
@@ -250,3 +251,34 @@ function displayRandomQuote() {
       quoteYear.innerHTML = " (" + randomQuote.year + ")";
     });
 }
+
+// Sort Option Arrow
+const arrowButton = document.getElementById("sort-arrow-button");
+console.log(arrowButton)
+arrowButton.addEventListener("click", sortingSelection);
+
+console.log("test")
+
+// Runs if a sort option is selected
+function sortingSelection(event) {
+  // Stop the event from bubbling up to the parent element
+  event.preventDefault();
+  event.stopPropagation();
+
+    const arrow = arrowButton.children[0];
+
+  if (arrow.classList.contains("arrow-up")) {
+    arrow.classList.replace("arrow-up", "arrow-down");
+    // Change data-filter-direction to descending
+    arrowButton.dataset.filterDirection = "desc";
+
+  } else {
+    arrow.classList.replace("arrow-down", "arrow-up");
+
+    // Change data-filter-direction to ascending 
+    arrowButton.dataset.filterDirection = "asc";
+  }
+}
+
+// TODO add a function to make the search bar's visible when the + sign is clicked
+// TODO Make the + and- signs visible or invisible based on how many search bars are visible

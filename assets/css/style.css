@@ -1,24 +1,72 @@
 /* Use consistent background color variable */
 :root {
-  --background-color: rgb(202, 202, 202);
+  --background-color: rgb(60, 60, 60);
   --secondary-color: #030303;
 }
 
 * {
   box-sizing: border-box;
+  color: white;
 }
 
 body {
   background-color: var(--background-color);
+  background-image: url("../images/pattern-randomized.png");
+  background-size: cover;
   font-family: "Poppins", sans-serif;
   margin: 0;
+  position: relative;
 }
 
 header {
   padding: 1px;
-  display: flexbox;
+  display: flex;
   justify-content: flex-end;
-  background-color: #cacaca;
+  background-color: transparent;
+  position: relative;
+  overflow: visible;
+}
+
+.main-curtain {
+  background-image: url("../images/backdrop-curtain-rev1.png");
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: 100% 100%;
+  background-color: #0303037d;
+  height: 425px;
+  width: auto;
+}
+
+.side-curtains {
+  position: absolute;
+  width: auto;
+  height: 525px;
+  background-color: none;
+  z-index: 1000;
+  top: -40px;
+  transform: translate(-20px 0px);
+  transform: 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.left-curtain {
+  left: 0;
+  transition: left 0.6s ease-in-out;
+}
+
+.right-curtain {
+  right: 0;
+  transform: scaleX(-1);
+  transition: right 0.6s ease-in-out;
+}
+
+header:hover .left-curtain {
+  transform: translate(-20px, 0px);
+  left: -40px;
+}
+
+header:hover .right-curtain {
+  right: -40px;
 }
 
 #quote-div {
@@ -42,22 +90,182 @@ header {
   font-style: italic;
 }
 
-.search:focus {
-  outline: none;
-  background-color: rgb(255, 255, 255);
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding: 0px 5%;
+  width: 100%;
+}
+
+#search-bar-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: transparent;
+  z-index: 100;
+}
+
+#search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 80%;
+  height: 100%;
+  background-color: #cacaca00;
+  z-index: 100;
+}
+
+#search-bar .search-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  width: fit-content;
+  height: 100%;
+  position: relative;
+  margin: 10px 20px;
+}
+
+#search-bar .search-input {
+  border: 1px solid #bcbcbc;
+  border-radius: 5px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  width: 300px;
+  height: 40px;
+  max-width: 100%;
+  padding: 5px 10px;
+  color: #030303;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: 0.3s ease-in-out;
+  background-color: white;
+}
+
+.add-remove-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  visibility: hidden;
+  top: 0;
+  right: -30px;
+}
+
+.search-box:hover .add-remove-buttons {
+  visibility: visible;
+}
+
+.add-search-button,
+.remove-search-button {
+  border: none;
+  background-color: transparent;
+  width: fit-content;
+  height: auto;
+}
+
+#search-btn {
+  margin: 0 auto;
+  background-color: #661417;
+  color: #cacaca;
+  width: 175px;
+}
+
+#card-area {
+  margin: auto;
+  width: fit-content;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+#sort-box {
+  border: 1px solid #661417;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: fit-content;
+  /* position: absolute;
+  top: 0; */
+}
+
+#sort-label {
+  border: none;
+  font-size: 0.8rem;
+  width: fit-content;
+  height: 100%;
+  margin: auto;
+  padding: 5px 10px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  /* text-transform: uppercase; */
+  background-color: #bcbcbc;
+}
+
+#sort-option .dropdown {
+  height: 100%;
+}
+
+.custom-dropdown-menu {
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  margin: auto;
+  padding: 5px 10px;
   color: rgb(0, 0, 0);
 
-  /* Change border color on focus */
-  border-color: rgb(24, 24, 24);
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
 }
-.search {
-  background-color: transparent;
-  border: 2px solid none;
+
+#sort-arrow-button {
+  border: none;
+  background-color: #661417;
+  color: white;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  width: fit-content;
 }
-.search::placeholder {
-  transform-origin: center;
-  transform: scale(1);
-  transition: transform 0.3s cubic-bezier(0.15, 0.15, 0.25, 1);
+
+#sort-arrow-button:hover {
+  background-color: #350f10;
+}
+
+.arrow-up {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out;
+}
+.arrow-down {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+#card-area {
+  padding: fit-content;
+  width: fit-content;
+}
+
+#card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: fit-content;
 }
 
 .movie {
@@ -68,6 +276,10 @@ header {
   box-shadow: 0.2rem 0.4rem 0.5rem black;
   position: relative;
   overflow: hidden;
+}
+
+.custom-shadow {
+  box-shadow: 0.2rem 0.4rem 0.5rem black;
 }
 
 .movie .favorite-button {
@@ -91,15 +303,8 @@ header {
 
 /* Prevent image distortion */
 .movie img {
-  width: 100%;
-  height: auto;
-}
-
-main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  position: relative;
+  width: 300px;
+  height: 450px;
 }
 
 .movie-info {
@@ -107,14 +312,14 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1rem 1rem;
+  padding: 0.75rem 1rem 0.75rem 1rem;
   letter-spacing: 0.5px;
 }
 
 /* Should be h2 to match HTML */
 .movie-info h2 {
-  margin-top: 0;
   font-size: 15px;
+  margin: 0px;
 }
 
 .movie-info span {
@@ -147,25 +352,39 @@ main {
   bottom: 0;
   background-color: white;
   padding: 1rem;
-  max-height: 100%;
+  height: 60%; /* TODO Revert to max-height 100%? */
   transform: translateY(101%);
   transition: transform 0.3s ease-in-out;
+  color: black;
+  overflow-y: scroll;
 }
+
+/* .overview p {
+  height: 100%;
+  overflow-y: scroll;
+} */
+
+/* https://stackoverflow.com/questions/22808040/fading-out-text-on-overflow-with-css-if-the-text-is-bigger-than-allowed
+.overview:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: linear-gradient(transparent 80%, white);
+  color: black;
+} */
 
 .movie:hover .overview {
   transform: translateY(0);
   transition: transform 0.3s ease-in-out;
+  color: black;
 }
 
-main .searchbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.search-options {
-  margin: 10px auto;
-  justify-content: center;
+.overview p,
+h3 {
+  color: black;
 }
 
 /* TODO Do this better! Just targetting the two current ul's*/
@@ -253,13 +472,6 @@ ul {
   background-color: #444;
 }
 
-/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-/* User the Transition If you want a transition effect */
-/* #main {
-  transition: margin-left 0.5s;
-  padding: 20px;
-} */
-
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidebar {
@@ -269,5 +481,14 @@ ul {
     font-size: 18px;
   }
 }
-
 /* end of collapsable sidebar menu */
+
+.container {
+  margin-top: 5%;
+}
+/* Style to create scroll bar in dropdown */
+.scrollable-dropdown {
+  height: auto;
+  max-height: 320px; /* Increase / Decrease value as per your need */
+  overflow-x: hidden;
+}
