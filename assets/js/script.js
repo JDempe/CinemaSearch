@@ -38,34 +38,13 @@ function showMovies(data) {
     movieEl.classList.add("movie");
     movieEl.classList.add("hvr-grow");
     movieEl.innerHTML = `
-<<<<<<< HEAD
-  <img src="${IMG_URL + poster_path}" alt="${title}">
-  
-  <div class="movie-info">
-  <h2>${title}</h2>
-  <span class="${getColor(vote_average)}">${vote_average}</span>
-
-  </div>
-  <div class="overview">
-    <h3>overview</h3>
-   ${overview}
-  </div>
-  
-  `
-  
-    main.appendChild(movieEl);
-    
-
-  })
-  
-=======
     <div class="form-check favorite-button">
     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
     </div>
     <img src="${IMG_URL + poster_path}" alt="${title}">
     <div class="movie-info">
     <h2>${title}</h2>
-    <span class="${getColor(vote_average)}">${vote_average}</span>
+    <span class="${getColor(vote_average)}">${noVote(vote_average)}</span>
     </div>
     <div class="overview">
     <h3>Overview</h3>
@@ -93,22 +72,28 @@ function showMovies(data) {
     });
     main.appendChild(movieEl);
   });
->>>>>>> 2d9d2805217cba716f9a09415346b28b616ad5db
 }
+
+function noVote(vote){
+if (vote === 0){
+  return 'N/A'
+} else {
+  return vote
+}
+}
+
 
 // Set color based on vote average
 function getColor(vote) {
-  if (vote >= 8) {
+  if (vote === 0) {
+    return "white";
+  }
+else if (vote >= 8) {
     return "green";
   } else if (vote >= 5) {
     return "orange";
   } else {
-<<<<<<< HEAD
-    return 'red'
-    // return 'N/A'
-=======
     return "red";
->>>>>>> 2d9d2805217cba716f9a09415346b28b616ad5db
   }
 }
 
