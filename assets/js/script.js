@@ -84,8 +84,49 @@ function showMovies(data) {
 }
 
 function getStreaming(data) {
+  const colors = ["green", "red", "orange"];
+  document.querySelector('#modal_rating').classList.remove(colors);
+
   let imdb_ID = data.imdb_id;
+  document.querySelector('#modal_title').innerHTML = data.original_title;
+  document.querySelector('#modal_runtime').innerHTML = data.runtime + " Minutes";
+  document.querySelector('#modal_rating').innerHTML = data.vote_average;
+  document.querySelector('#modal_rating').classList.add(getColor(data.vote_average));
+  document.querySelector('.accordion_body_1').innerHTML = "";
+
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '90bf4e7b22msh25f3182fa016740p1129d4jsn534257354705',
+      'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
+    }
+  };
+  
+  fetch('https://streaming-availability.p.rapidapi.com/v2/get/basic?country=us&imdb_id=' + imdb_ID, options)
+    .then(response => response.json())
+    .then(response => {
+
+      var result = response.result;
+      var youtubeLink = '//www.youtube.com/embed/' + getId(result.youtubeTrailerVideoLink);
+      document.querySelector('#modal-video').setAttribute('src', youtubeLink);
+      //accordian 1 - Availability
+      document.querySelector('.accordion_1')
+      console.log(result)
+    })
+    .catch(err => console.error(err));
+
   console.log(imdb_ID);
+}
+
+
+//https://stackoverflow.com/questions/21607808/convert-a-youtube-video-url-to-embed-code
+function getId(url) {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+
+  return (match && match[2].length === 11)
+    ? match[2]
+    : null;
 }
 
 // Set color based on vote average
@@ -94,9 +135,9 @@ function getColor(vote) {
     return "green";
   } else if (vote >= 5) {
     return "orange";
-  } else {
+  } else if (vote > 0) {
     return "red";
-  }
+  } 
 }
 
 // TODO COMBINE INTO ONE FUNCTION FOR SEARCHING, LINK TO BOTH EVENT
