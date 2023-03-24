@@ -1,13 +1,13 @@
-# FilmFinder
+# CinemaSearch
 ## Description
 
-FilmFinder is a feature rich search engine for finding the latest movies and tv series.
+CinemaSearch is a feature rich search engine for finding the latest movies and tv series.
 
 ## Mock Up
 
 ## Final Product
 
-The final product is deployed at https://jdempe.github.io/FilmFinder/.
+The final product is deployed at https://jdempe.github.io/CinemaSearch/.
 
 ### Usage
 
@@ -19,33 +19,59 @@ The final product is deployed at https://jdempe.github.io/FilmFinder/.
 
 The below resources contributed to the project.
 
+#### Fonts
+
+- [Film Noir Font](https://www.fontspace.com/film-noir-font-f41004)
+
+#### Images
+
 - [favicon Generator](https://favicon.io/favicon-generator/) provides and easy to use GUI to generate favicons for your website.
 
-- [MDBootstrap](https://mdbootstrap.com/) was the CSS Framework used on this project.
+- [Icons8](https://icons8.com/icons/) provide simple icons for the page navigations.
+  
+- [Vecteezy](https://www.vecteezy.com/) provided the background image for the page.
+  - [CINEMA Stylized Text](https://www.vecteezy.com/vector-art/540684-cinema-banner-alphabet-sign-marquee-light-bulb-vintage)
+
+#### Libraries
 
 - [Day.js](https://day.js.org/) is the library used to handle dates and times.  It is a lightweight alternative to Moment.js.
 
 - [jQuery](https://jquery.com/) is a fast, small, and feature-rich JavaScript library.
 
-- [Icons8](https://icons8.com/icons/) provide simple icons for the page navigations.
+- [MDBootstrap](https://mdbootstrap.com/) was the CSS Framework used on this project.
 
-- [StackOverflow](https://stackoverflow.com/) provided many guides and tutorials for the project.  Below are the links used:
-  - https://stackoverflow.com/questions/14542062/eventlistener-enter-key
+- [Ian Lunn](https://github.com/IanLunn) created an awesome library called [Hover.css](https://twitter.com/davidmacd) that adds some plug and play css animation classes.  I used this for some of the moving icons on my page.
 
+#### APIs
 
 - [Open Weather API](https://openweathermap.org/api) was used to retrieve the weather data.  Three different API's from OpenWeather were used.
   - [Geocoding API](https://openweathermap.org/api/geocoding-api#description)
   - [Current Weather API](https://openweathermap.org/current)
   - [5 Day Forecast API](https://openweathermap.org/forecast5#bulk)
 
+- [The Movie Database API](https://developers.themoviedb.org/3/getting-started/introduction) was used to retrieve the movie and tv data.  The API was used to retrieve the following data:
+
+#### Data
+
+- [Wikipedia Entry on AFI's 100 Years, 100 Movie Quotes](https://en.wikipedia.org/wiki/AFI%27s_100_Years...100_Movie_Quotes)
+  - [Grant G's Github repository formatting the AFI list into JSON](https://gist.github.com/grant0417/59022d88dfeb5aadf9f6dc2f974f9c79)
+
+#### Educational
+
+- [StackOverflow](https://stackoverflow.com/) provided many guides and tutorials for the project.  Below are the links used:
+  - https://stackoverflow.com/questions/14542062/eventlistener-enter-key
+  - https://stackoverflow.com/questions/18622508/bootstrap-3-and-youtube-in-modal
+  - https://stackoverflow.com/questions/60284183/video-still-playing-when-bootstrap-modal-closes
+  
+- [Asish George Tech/Channel](https://youtu.be/zrv_SAnnmtk/) Critical information and guidance on the project's development.
   
 ### Collaborators
 
-Abdolkarim Karimi - [night-slayer](https://github.com/mackarimi)
-Joshua Dempe - [JDempe](https://github.com/JDempe)
-Justin Jasso - [JTJasso](https://github.com/JTJasso)
-Manuel Nuño - [Alexnuno17](https://github.com/Alexnuno17)
-Riley O'Neil - [rileydoneil](https://github.com/rileydoneil)
+- Abdolkarim Karimi - [night-slayer](https://github.com/mackarimi)
+- Joshua Dempe - [JDempe](https://github.com/JDempe)
+- Justin Jasso - [JTJasso](https://github.com/JTJasso)
+- Manuel Nuño - [Alexnuno17](https://github.com/Alexnuno17)
+- Riley O'Neil - [rileydoneil](https://github.com/rileydoneil)
 
 ## License
 
@@ -53,4 +79,4 @@ Refer to the LICENSE in the repository.
 
 ## How to Contribute
 
-Contribute at https://github.com/JDempe/FilmFinder.
+Contribute at https://github.com/JDempe/CinemaSearch.
