@@ -14,6 +14,7 @@ The final product is deployed at https://jdempe.github.io/CinemaSearch/.
 ### User Interface
 
 ## Credits
+https://stackoverflow.com/questions/21607808/convert-a-youtube-video-url-to-embed-code
 
 ### Resources
 
