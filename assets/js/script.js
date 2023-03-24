@@ -110,8 +110,83 @@ function getStreaming(data) {
       var youtubeLink = '//www.youtube.com/embed/' + getId(result.youtubeTrailerVideoLink);
       document.querySelector('#modal-video').setAttribute('src', youtubeLink);
       //accordian 1 - Availability
-      document.querySelector('.accordion_1')
-      console.log(result)
+      console.log(result);
+      let streamingObj = result.streamingInfo;
+      //allowing it to be empty first
+      let usStreamingObj = ["information not available"];
+      if(streamingObj.us) {
+        usStreamingObj = streamingObj.us;
+      } 
+      //turn to array to get keys
+      //https://www.javascripttutorial.net/object/convert-an-object-to-an-array-in-javascript/
+      const streamingKeys = Object.keys(usStreamingObj);
+      console.log(streamingKeys);
+      for(let i = 0; i < streamingKeys.length; i++) {
+        let srcImage;
+        let newObj = usStreamingObj[streamingKeys[i]][0];
+        let newATag = document.createElement('a');
+        let newImg = document.createElement('img');
+        if(streamingKeys[i] == "peacock") {
+          srcImage = './assets/images/peacock.svg';
+        } else if (streamingKeys[i] == "netflix") {
+          srcImage = './assets/images/netflix.svg';
+        }else if (streamingKeys[i] == "paramount") {
+          srcImage = './assets/images/paramount.svg';
+        } else if (streamingKeys[i] == "prime") {
+          srcImage = './assets/images/prime.svg';
+        } else if (streamingKeys[i] == "hbo") {
+          srcImage = './assets/images/hbo.svg';
+        } else if (streamingKeys[i] == "hulu") {
+          srcImage = './assets/images/hulu.svg';
+        } else if (streamingKeys[i] == "disney") {
+          srcImage = './assets/images/disney.svg';
+        }
+        newATag.setAttribute('href', newObj.link);
+        newImg.setAttribute('src', srcImage);
+        newImg.setAttribute('style', 'height: 1.5em')
+        newATag.appendChild(newImg);
+        document.querySelector('.accordion_body_1').appendChild(newATag);
+      }
+
+      //accordian 2 - Other Information
+      //checks if info is missing first
+      const accCast = document.querySelector('.cast');
+      if(result.cast) {
+        var cast = result.cast;
+        for(let i = 0; i < cast.length; i++) {
+          let liEl = document.createElement('li');
+          liEl.innerHTML = cast[i];
+          accCast.appendChild(liEl);
+        }
+      } else {
+        accCast.innerHTML = `<li>Cast information not available</li>`;
+      }
+
+      if(result.directors) {
+        const accDir = document.querySelector('.directors');
+        var directors = result.directors;
+        for(let i = 0; i < directors.length; i++) {
+          let liEl = document.createElement('li');
+          liEl.innerHTML = directors[i];
+          accDir.appendChild(liEl);
+        }
+      } else {
+        accDir.innerHTML = `<li>Director information not available</li>`;
+      }
+
+      //accordian 3 - Genres?
+      let accGenre = document.querySelector('.genre');
+      let arrGenre = ["information not available"];
+      debugger;
+      if(result.genres) {arrGenre = result.genres;}
+      for(let i = 0; i < arrGenre.length; i++) {
+        let genreObj = arrGenre[i];
+        const newLi = document.createElement('li');
+        newLi.innerHTML = genreObj.name;
+        accGenre.appendChild(newLi);
+        console.log(genreObj.name);
+      }
+      
     })
     .catch(err => console.error(err));
 

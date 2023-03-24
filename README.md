@@ -15,6 +15,7 @@ The final product is deployed at https://jdempe.github.io/CinemaSearch/.
 
 ## Credits
 https://stackoverflow.com/questions/21607808/convert-a-youtube-video-url-to-embed-code
+https://www.javascripttutorial.net/object/convert-an-object-to-an-array-in-javascript/
 
 ### Resources
 
