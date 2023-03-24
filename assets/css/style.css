@@ -165,7 +165,8 @@ main {
   visibility: visible;
 }
 
-.add-search-button, .remove-search-button {
+.add-search-button,
+.remove-search-button {
   border: none;
   background-color: transparent;
   width: fit-content;
@@ -355,9 +356,15 @@ main {
   transform: translateY(101%);
   transition: transform 0.3s ease-in-out;
   color: black;
+  overflow-y: scroll;
 }
 
-/* https://stackoverflow.com/questions/22808040/fading-out-text-on-overflow-with-css-if-the-text-is-bigger-than-allowed */
+/* .overview p {
+  height: 100%;
+  overflow-y: scroll;
+} */
+
+/* https://stackoverflow.com/questions/22808040/fading-out-text-on-overflow-with-css-if-the-text-is-bigger-than-allowed
 .overview:before {
   content: "";
   width: 100%;
@@ -367,7 +374,7 @@ main {
   top: 0;
   background: linear-gradient(transparent 80%, white);
   color: black;
-}
+} */
 
 .movie:hover .overview {
   transform: translateY(0);
@@ -375,7 +382,8 @@ main {
   color: black;
 }
 
-.overview p,h3 {
+.overview p,
+h3 {
   color: black;
 }
 
