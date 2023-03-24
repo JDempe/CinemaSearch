@@ -12,7 +12,9 @@
 body {
   background-color: var(--background-color);
   background-image: url("../images/pattern-randomized.png");
-  background-size: cover;
+  /* background by SVGBackgrounds.com */
+  /* TODO Get the SVG and extend it? */
+  background-size:contain;
   font-family: "Poppins", sans-serif;
   margin: 0;
   position: relative;

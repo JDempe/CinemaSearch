@@ -29,9 +29,18 @@ The below resources contributed to the project.
 - [favicon Generator](https://favicon.io/favicon-generator/) provides and easy to use GUI to generate favicons for your website.
 
 - [Icons8](https://icons8.com/icons/) provide simple icons for the page navigations.
+  - https://icons8.com/icon/59837/minus
+  - https://icons8.com/icon/59864/plus
+  - [Arrow](https://icons8.com/icon/100040/up-arrow)
   
 - [Vecteezy](https://www.vecteezy.com/) provided the background image for the page.
   - [CINEMA Stylized Text](https://www.vecteezy.com/vector-art/540684-cinema-banner-alphabet-sign-marquee-light-bulb-vintage)
+
+- [PNGegg](https://www.pngegg.com/) provided the curtains.
+  - https://www.pngegg.com/en/png-dhrgx
+
+- [Matt Visiwig](https://twitter.com/MattVisiwig) created an SVG background creator that provides many free options.  The background image was created from [this](https://www.svgbackgrounds.com/) tool.
+
 
 #### Libraries
 
