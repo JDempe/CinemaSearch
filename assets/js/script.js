@@ -45,7 +45,7 @@ function showMovies(data) {
     <img src="${IMG_URL + poster_path}" alt="${title}">
     <div class="movie-info">
     <h2>${title}</h2>
-    <span class="${getColor(vote_average)}">${vote_average}</span>
+    <span class="${getColor(vote_average)}">${noVote(vote_average)}</span>
     </div>
     <div class="overview">
     <h3>Overview</h3>
@@ -129,9 +129,21 @@ function getId(url) {
     : null;
 }
 
+function noVote(vote){
+if (vote === 0){
+  return 'N/A'
+} else {
+  return vote
+}
+}
+
+
 // Set color based on vote average
 function getColor(vote) {
-  if (vote >= 8) {
+  if (vote === 0) {
+    return "white";
+  }
+else if (vote >= 8) {
     return "green";
   } else if (vote >= 5) {
     return "orange";
@@ -206,7 +218,7 @@ $("#exampleModal").on("show.bs.modal", function () {
 });
 
 $("#exampleModal").on("hide.bs.modal", function () {
-  // modalVideo.src = ""; // reset video
+  modalVideo.src = ""; // reset video
   console.log("hide");
 });
 
