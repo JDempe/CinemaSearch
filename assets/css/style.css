@@ -382,6 +382,18 @@ main {
   color: black;
 }
 
+.overview h3 {
+  border: solid #581111;
+  border-width: 1px 0;
+  position: sticky;
+  top: 0;
+  padding-bottom: 0.5rem;
+  z-index: 100;
+  background-color: #ffffff;
+  text-align: center;
+  width: 100%;
+}
+
 .overview p,
 h3 {
   color: black;
