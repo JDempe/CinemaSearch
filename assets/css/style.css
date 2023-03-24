@@ -340,6 +340,10 @@ main {
   color: rgb(128, 0, 0);
 }
 
+.movie-info span.white {
+  color: rgb(255, 255, 255);
+}
+
 .overview {
   position: absolute;
   left: 0;
