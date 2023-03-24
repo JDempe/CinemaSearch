@@ -47,10 +47,6 @@ function showMovies(data) {
   })
   
 }
-//if (vote_average = 0) {
-// return 'N/A'
-//}
-
 
 // Set color based on vote average
 function getColor(vote) {
