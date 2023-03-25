@@ -14,18 +14,19 @@ The final product is deployed at https://jdempe.github.io/CinemaSearch/.
 ### User Interface
 
 ## Credits
-https://stackoverflow.com/questions/21607808/convert-a-youtube-video-url-to-embed-code
+
 
 ### Resources
 
 The below resources contributed to the project.
+
 
 #### Fonts
 
 - [Film Noir Font](https://www.fontspace.com/film-noir-font-f41004)
 
 #### Images
-
+- [Streaming Logos] (https://www.movieofthenight.com/) 
 - [favicon Generator](https://favicon.io/favicon-generator/) provides and easy to use GUI to generate favicons for your website.
 
 - [Icons8](https://icons8.com/icons/) provide simple icons for the page navigations.
@@ -72,6 +73,8 @@ The below resources contributed to the project.
   - https://stackoverflow.com/questions/14542062/eventlistener-enter-key
   - https://stackoverflow.com/questions/18622508/bootstrap-3-and-youtube-in-modal
   - https://stackoverflow.com/questions/60284183/video-still-playing-when-bootstrap-modal-closes
+  - https://stackoverflow.com/questions/21607808/convert-a-youtube-video-url-to-embed-code
+- [JavaScriptTutorial] https://www.javascripttutorial.net/object/convert-an-object-to-an-array-in-javascript/
   
 - [Asish George Tech/Channel](https://youtu.be/zrv_SAnnmtk/) Critical information and guidance on the project's development.
   
