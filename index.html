@@ -17,6 +17,8 @@
    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
    <!-- MDB -->
    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
+   <!-- Autocomplete.js -->
+   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/css/autoComplete.min.css"> -->
    <!-- Custom CSS -->
    <link href="./assets/css/style.css" rel="stylesheet" />
 </head>
@@ -68,24 +70,15 @@
             <!-- Dropdown -->
 
             <div id="search-box-1" class="input-group search-box custom-shadow">
-               <button class="custom-dropdown-menu dropdown-toggle" type="button" data-mdb-toggle="dropdown"
-                  aria-expanded="false">
-                  Movies
-               </button>
-
-               <ul class="dropdown-menu">
-                  <li><a class="dropdown-item">Movies</a></li>
-                  <li><a class="dropdown-item">Series</a></li>
-                  <li><a class="dropdown-item">Actors</a></li>
-                  <li><a class="dropdown-item">Rating</a></li>
-                  <li>
-                     <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
+               <button id="search-selection-1" class="dropdown-toggle search-selection" type="button"
+                  data-mdb-toggle="dropdown" aria-expanded="false" data-paramvalue="movies">Movies</button>
+               <ul id="testDropdown" class="dropdown-menu">
+                  <li><a class="dropdown-item" data-paramvalue="movies">Movies</a></li>
+                  <li><a class="dropdown-item" data-paramvalue="tv">TV Series</a></li>
                </ul>
                <div class="form-outline">
                   <!-- TODO Return this to search-input-1 -->
-                  <input id="search-input" type="text" class="form-control search-input" maxlength="20" />
+                  <input id="search-input-1" type="text" class="search-input" placeholder="Title" maxlength="20" />
                   <label class="form-label" for="search-input">Title</label>
                </div>
                <div class="add-remove-buttons">
@@ -100,10 +93,8 @@
 
             <!-- Dropdown -->
             <div id="search-box-2" class="input-group search-box custom-shadow">
-               <button class="custom-dropdown-menu dropdown-toggle" type="button" data-mdb-toggle="dropdown"
-                  aria-expanded="false">
-                  Rating
-               </button>
+               <button id="search-selection-2" class="dropdown-toggle search-selection" type="button"
+                  data-mdb-toggle="dropdown" aria-expanded="false" data-paramvalue="person_id">Person</button>
 
                <ul class="dropdown-menu">
                   <li><a class="dropdown-item">Movies</a></li>
@@ -129,12 +120,9 @@
             <!-- Dropdown -->
 
             <!-- Dropdown -->
-            <div id="search-box-3" class="input-group search-box  custom-shadow">
-               <button class="custom-dropdown-menu dropdown-toggle" type="button" data-mdb-toggle="dropdown"
-                  aria-expanded="false">
-                  Actor
-               </button>
-
+            <div id="search-box-3" class="input-group search-box custom-shadow" hidden>
+               <button id="search-selection-3" class="dropdown-toggle search-selection" type="button"
+                  data-mdb-toggle="dropdown" aria-expanded="false">Actor</button>
                <ul class="dropdown-menu">
                   <li><a class="dropdown-item">Movies</a></li>
                   <li><a class="dropdown-item">Series</a></li>
@@ -167,17 +155,18 @@
          <!-- Sort Bar -->
 
          <section id="sort-box">
-            <label id="sort-label" class="input-group-text custom-shadow" for="search-box">Sort By</label>
+            <label id="sort-label" class="input-group-text custom-shadow" for="sort-box">Sort By</label>
 
             <div class="dropdown">
-               <button id="dropdownMenu2" class=" custom-dropdown-menu dropdown-toggle" type="button"
+               <button id="sort-selection" class="dropdown-toggle sort-selection" type="button"
                   data-mdb-toggle="dropdown" aria-expanded="false">
                   Popularity
                </button>
-               <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <li><button class="dropdown-item" type="button">Popularity</button></li>
-                  <li><button class="dropdown-item" type="button">Revenue</button></li>
-                  <li><button class="dropdown-item" type="button">Vote Average</button></li>
+               <ul class="dropdown-menu" aria-labelledby="sort-selection">
+                  <li><button class="dropdown-item" type="button" data-paramValue="popularity">Popularity</button></li>
+                  <li><button class="dropdown-item" type="button" data-paramValue="revenue">Revenue</button></li>
+                  <li><button class="dropdown-item" type="button" data-paramValue="release_date">Release Date</button></li>
+                  <li><button class="dropdown-item" type="button" data-paramValue="vote_average">Vote Average</button></li>
                </ul>
             </div>
             <button id="sort-arrow-button" type="button">
@@ -223,7 +212,8 @@
                   <div class="row">
 
                      <div class="col-6 ratio ratio-16x9">
-                        <iframe id="modal-video" src="" title="YouTube video" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                        <iframe id="modal-video" src="" title="YouTube video" width="560" height="315" frameborder="0"
+                           allowfullscreen></iframe>
                      </div>
                      <div class="col-3" id="modal_title">Movie Title</div>
                      <div class="col-3" id="modal_runtime">Runtime</div>
@@ -233,7 +223,8 @@
                         <div class="accordion-item">
                            <h2 class="accordion-header" id="headingOne">
                               <button class="accordion-button" type="button" data-mdb-toggle="collapse"
-                                 data-mdb-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="accordion_1">
+                                 data-mdb-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                 id="accordion_1">
                                  Availability
                               </button>
                            </h2>
@@ -300,6 +291,9 @@
    <!-- Modal -->
 
 </body>
+<!-- Autocomplete.js -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
+<script>const autoCompleteJS = new autoComplete({ config });</script> -->
 <!-- MDB -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 <!-- jQuery -->
