@@ -81,11 +81,16 @@ header:hover .right-curtain {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   width: fit-content;
+  height: 100%;
   max-width: 75%;
   cursor: pointer;
   margin: auto;
+}
+
+#quote-div p{
+  padding: 0px;
+  margin: 0;
 }
 
 #quote-text {
@@ -93,8 +98,6 @@ header:hover .right-curtain {
   font-size: 20px;
   font-weight: 500;
   text-align: center;
-  margin: 0;
-  padding: 0;
   font-style: italic;
 }
 
@@ -103,7 +106,6 @@ main {
   flex-direction: column;
   justify-content: center;
   position: relative;
-  padding: 0px 5%;
   width: 100%;
 }
 
