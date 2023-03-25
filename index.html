@@ -24,9 +24,6 @@
 </head>
 
 <body>
-
-
-
    <header>
       <!-- https://www.pngegg.com/en/png-dhrgx -->
       <img class="side-curtains left-curtain" src="./assets/images/single-curtain-rev1.png" alt="FilmFinder Logo"
@@ -37,17 +34,17 @@
 
 
       <!-- Background image -->
-      <div class="p-5 text-center bg-image main-curtain">
+      <div class="p-5 text-center bg-image main-curtain" width="100%">
          <div>
             <div class="d-flex justify-content-center align-items-center h-100">
                <div class="text-white">
-                  <!-- <h1 class="mb-3">FilmFinder</h1> -->
-                  <div>
-                     <img src="./assets/images//cinemasearchbanner.png" alt="FilmFinder Logo" class="img-fluid"
-                        width="60%" height="auto" />
+                  <h1 hidden>Cinema Search</h1>
+                  <div class="d-flex flex-wrap justify-content-center" max-width="60%">
+                     <img src="./assets/images/cinemabanner.png" class="img-fluid" alt="Cinema Logo"
+                        height="150px" width="auto" />
+                        <img src="./assets/images/searchbanner.png" class="img-fluid" alt="Search Logo"
+                        height="150px" width="auto" />
                   </div>
-                  <!-- TODO Don't forget to change this -->
-                  <h4 class="mb-3">It's like Google but it only does movies and was made in 2 weeks.</h4>
                   <div id="quote-div">
                      <p id="quote-text"></p>
                      <p id="quote-person"></p>
@@ -57,7 +54,6 @@
             </div>
          </div>
       </div>
-
       <!-- Background image -->
    </header>
 
@@ -67,84 +63,64 @@
       <div id="search-bar-area">
          <section id="search-bar">
 
-            <!-- Dropdown -->
-
-            <div id="search-box-1" class="input-group search-box custom-shadow">
-               <button id="search-selection-1" class="dropdown-toggle search-selection" type="button"
-                  data-mdb-toggle="dropdown" aria-expanded="false" data-paramvalue="movies">Movies</button>
+            <!-- Title Search -->
+            <div id="search-box" class="input-group search-box custom-shadow">
+               <button class="dropdown-toggle search-selection" type="button" data-mdb-toggle="dropdown"
+                  aria-expanded="false" data-paramvalue="movies">Movies</button>
                <ul id="testDropdown" class="dropdown-menu">
                   <li><a class="dropdown-item" data-paramvalue="movies">Movies</a></li>
                   <li><a class="dropdown-item" data-paramvalue="tv">TV Series</a></li>
                </ul>
                <div class="form-outline">
-                  <!-- TODO Return this to search-input-1 -->
-                  <input id="search-input-1" type="text" class="search-input" placeholder="Title" maxlength="20" />
-                  <label class="form-label" for="search-input">Title</label>
-               </div>
-               <div class="add-remove-buttons">
-                  <button class="add-search-button" type="button"><img src="./assets/images/icons8-plus-30.png"
-                        alt="plus Button" width="20px" height="auto" /></button>
-                  <button class="remove-search-button" type="button"><img src="./assets/images/icons8-minus-30.png"
-                        alt="minus Button" width="20px" height="auto" /></button>
+                  <input id="search-input" type="text" class="search-input" placeholder="Title" maxlength="20" />
                </div>
             </div>
-            <!-- Dropdown -->
+            <!-- END Title Search -->
+
+            <!-- Optional Search -->
+            <div id="search-box-optional" class="input-group search-box custom-shadow">
+               <button id="search-selection-optional" class="dropdown-toggle search-selection" type="button"
+                  data-mdb-toggle="dropdown" aria-expanded="false" data-paramvalue="person_id"></button>
+
+               <ul class="dropdown-menu optional-search-dropdown-values-swappable">
+                  <div class="optional-search-movie-options">
+                     <li><a class="dropdown-item" data-paramvalue="with_genres" data-entrytype="dropdown" data-listsource="moviegenres.json">Genre</a></li>
+                     <li><a class="dropdown-item" data-paramvalue="region" data-entrytype="dropdown" data-listsource="countrycodes.json">Region</a></li>
+                     <li><a class="dropdown-item" data-paramvalue="year" data-entrytype="num">Release Year</a></li>
+                     <li><a class="dropdown-item" data-paramvalue="certification" data-entrytype="dropdown" data-listsource="movieratings.json">Rating (US Only)</a></li>
+                     <!-- TODO Figure out how to load this? -->
+                     <!-- <li><a class="dropdown-item" data-paramvalue="person_id">Actors</a></li> -->
+                  </div>
+                  <div class="optional-search-tv-options" hidden>
+                     <li><a class="dropdown-item" data-paramvalue="with_genres" data-entrytype="dropdown" data-listsource="tvgenres.json">Genre</a></li>
+                     <li><a class="dropdown-item" data-paramvalue="with_type" data-entrytype="dropdown" data-listsource="tvtype.json">Type</a></li>
+                     <li><a class="dropdown-item" data-paramvalue="with_status" data-entrytype="dropdown" data-listsource="tvstatus.json">Status</a></li>
+                  </div>
+                  <li><a class="dropdown-item" data-paramvalue="vote_average.gte" data-entrytype="num">Minimum Vote Average</a></li>
+                  <li><a class="dropdown-item" data-paramvalue="vote_average.lte" data-entrytype="num">Maximum Vote Average</a></li>
+                  <li><a class="dropdown-item" data-paramvalue="with_runtime.gte" data-entrytype="num">Minimum Runtime</a></li>
+                  <li><a class="dropdown-item" data-paramvalue="with_runtime.lte" data-entrytype="num">Maximum Runtime</a></li>
 
 
-            <!-- Dropdown -->
-            <div id="search-box-2" class="input-group search-box custom-shadow">
-               <button id="search-selection-2" class="dropdown-toggle search-selection" type="button"
-                  data-mdb-toggle="dropdown" aria-expanded="false" data-paramvalue="person_id">Person</button>
 
-               <ul class="dropdown-menu">
-                  <li><a class="dropdown-item">Movies</a></li>
-                  <li><a class="dropdown-item">Series</a></li>
-                  <li><a class="dropdown-item">Actors</a></li>
-                  <li><a class="dropdown-item">Rating</a></li>
-                  <li>
-                     <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
                </ul>
-               <div class="form-outline">
-                  <input id="search-input-2" type="text" class="form-control search-input" maxlength="20" />
-                  <label class="form-label" for="search-input-2">Rating</label>
+               <div class="optional-search-dropdown-answers-swappable">
+                  <a class="dropdown-toggle search-input-dropdown" role="button" id="dropdownMenuLink"
+                     data-mdb-toggle="dropdown" aria-expanded="false">
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  </ul>
                </div>
                <div class="add-remove-buttons">
                   <button class="add-search-button" type="button"><img src="./assets/images/icons8-plus-30.png"
                         alt="plus Button" width="20px" height="auto" /></button>
-                  <button class="remove-search-button" type="button"><img src="./assets/images/icons8-minus-30.png"
+                  <button class="remove-search-button" type="button" hidden><img src="./assets/images/icons8-minus-30.png"
                         alt="minus Button" width="20px" height="auto" /></button>
                </div>
             </div>
-            <!-- Dropdown -->
+            <!-- END Optional Search -->
 
-            <!-- Dropdown -->
-            <div id="search-box-3" class="input-group search-box custom-shadow" hidden>
-               <button id="search-selection-3" class="dropdown-toggle search-selection" type="button"
-                  data-mdb-toggle="dropdown" aria-expanded="false">Actor</button>
-               <ul class="dropdown-menu">
-                  <li><a class="dropdown-item">Movies</a></li>
-                  <li><a class="dropdown-item">Series</a></li>
-                  <li><a class="dropdown-item">Actors</a></li>
-                  <li><a class="dropdown-item">Rating</a></li>
-                  <li>
-                     <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
-               </ul>
-               <div class="form-outline">
-                  <input id="search-input-3" type="text" class="form-control search-input" maxlength="20" />
-                  <label class="form-label" for="search-input-3">Name</label>
-               </div>
-               <div class="add-remove-buttons">
-                  <button class="add-search-button" type="button"><img src="./assets/images/icons8-plus-30.png"
-                        alt="plus Button" width="20px" height="auto" /></button>
-                  <button class="remove-search-button" type="button"><img src="./assets/images/icons8-minus-30.png"
-                        alt="minus Button" width="20px" height="auto" /></button>
-               </div>
-            </div>
-            <!-- Dropdown -->
+
          </section>
          <button id="search-btn" type="button" class="btn  custom-shadow">Search</button>
       </div>
@@ -159,19 +135,18 @@
 
             <div class="dropdown">
                <button id="sort-selection" class="dropdown-toggle sort-selection" type="button"
-                  data-mdb-toggle="dropdown" aria-expanded="false">
+                  data-mdb-toggle="dropdown" data-paramvalue="popularity" aria-expanded="false">
                   Popularity
                </button>
                <ul class="dropdown-menu" aria-labelledby="sort-selection">
-                  <li><button class="dropdown-item" type="button" data-paramValue="popularity">Popularity</button></li>
-                  <li><button class="dropdown-item" type="button" data-paramValue="revenue">Revenue</button></li>
-                  <li><button class="dropdown-item" type="button" data-paramValue="release_date">Release Date</button></li>
-                  <li><button class="dropdown-item" type="button" data-paramValue="vote_average">Vote Average</button></li>
+                  <li><a class="dropdown-item" type="button" data-paramvalue="popularity">Popularity</a></li>
+                  <li><a class="dropdown-item" type="button" data-paramvalue="revenue">Revenue</a></li>
+                  <li><a class="dropdown-item" type="button" data-paramvalue="release_date">Release Date</a></li>
+                  <li><a class="dropdown-item" type="button" data-paramvalue="vote_average">Vote Average</a></li>
                </ul>
             </div>
             <button id="sort-arrow-button" type="button">
-               <img src="./assets/images/icons8-up-arrow-30.png" alt="plus" class="arrow-down"
-                  data-filterDirection="desc" width="20px" height="20px" />
+               <img src="./assets/images/icons8-up-arrow-30.png" alt="arrow indicating descending or ascending" class="arrow-down" width="20px" height="20px" />
             </button>
          </section>
          <!-- Sort Bar -->

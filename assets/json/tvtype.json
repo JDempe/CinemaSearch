@@ -1,0 +1,29 @@
+[
+   {
+      "id": "0",
+      "name": "Documentary"
+   },
+   {
+      "id": "1",
+      "name": "News"
+   },
+   {
+      "id": "2",
+      "name": "Miniseries"
+   },
+   {
+      "id": "3",
+      "name": "Reality"
+   },
+   {
+      "id": "4",
+      "name": "Scripted"
+   },
+   {
+      "id": "5",
+      "name": "Talk Shows"
+   },   {
+      "id": "6",
+      "name": "Video"
+   }
+]

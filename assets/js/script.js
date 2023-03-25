@@ -2,6 +2,8 @@ const trendingSearch =
   "https://api.themoviedb.org/3/trending/all/week?api_key=23f1819072bf0eab7a398d521d310078";
 ("https://api.themoviedb.org/3/genre/tv/list?api_key=23f1819072bf0eab7a398d521d310078");
 
+("https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&region=fff&api_key=23f1819072bf0eab7a398d521d310078");
+
 const API_KEY = "api_key=23f1819072bf0eab7a398d521d310078";
 const BASE_URL = "https://api.themoviedb.org/3";
 const API_URL =
@@ -28,14 +30,17 @@ const searchBtn = $("#search-btn");
 // END Search Form
 
 // Sort Form
-const sortInput = document.getElementById("sort-selection");
-const sortArrow = document.getElementById("sort-arrow-button");
-
-console.log(sortInput);
-console.log(sortArrow);
+const sortInput = $("#sort-selection");
+const sortArrow = $("#sort-arrow-button");
+sortArrow.on("click", sortingOrderSelection);
 
 // TODO Delete form once we have the search working
-const form = document.getElementById("search-input-1");
+const form = document.getElementById("search-input");
+
+addDropdownListeners();
+
+
+
 
 // Run this function when the page loads
 displayRandomQuote();
@@ -143,47 +148,47 @@ function getStreaming(data) {
       let streamingObj = result.streamingInfo;
       //allowing it to be empty first
       let usStreamingObj = ["information not available"];
-      if(streamingObj.us) {
+      if (streamingObj.us) {
         usStreamingObj = streamingObj.us;
-      } 
+      }
       //turn to array to get keys
       //https://www.javascripttutorial.net/object/convert-an-object-to-an-array-in-javascript/
       const streamingKeys = Object.keys(usStreamingObj);
       console.log(streamingKeys);
-      for(let i = 0; i < streamingKeys.length; i++) {
+      for (let i = 0; i < streamingKeys.length; i++) {
         let srcImage;
         let newObj = usStreamingObj[streamingKeys[i]][0];
-        let newATag = document.createElement('a');
-        let newImg = document.createElement('img');
-        if(streamingKeys[i] == "peacock") {
-          srcImage = './assets/images/peacock.svg';
+        let newATag = document.createElement("a");
+        let newImg = document.createElement("img");
+        if (streamingKeys[i] == "peacock") {
+          srcImage = "./assets/images/peacock.svg";
         } else if (streamingKeys[i] == "netflix") {
-          srcImage = './assets/images/netflix.svg';
-        }else if (streamingKeys[i] == "paramount") {
-          srcImage = './assets/images/paramount.svg';
+          srcImage = "./assets/images/netflix.svg";
+        } else if (streamingKeys[i] == "paramount") {
+          srcImage = "./assets/images/paramount.svg";
         } else if (streamingKeys[i] == "prime") {
-          srcImage = './assets/images/prime.svg';
+          srcImage = "./assets/images/prime.svg";
         } else if (streamingKeys[i] == "hbo") {
-          srcImage = './assets/images/hbo.svg';
+          srcImage = "./assets/images/hbo.svg";
         } else if (streamingKeys[i] == "hulu") {
-          srcImage = './assets/images/hulu.svg';
+          srcImage = "./assets/images/hulu.svg";
         } else if (streamingKeys[i] == "disney") {
-          srcImage = './assets/images/disney.svg';
+          srcImage = "./assets/images/disney.svg";
         }
-        newATag.setAttribute('href', newObj.link);
-        newImg.setAttribute('src', srcImage);
-        newImg.setAttribute('style', 'height: 1.5em')
+        newATag.setAttribute("href", newObj.link);
+        newImg.setAttribute("src", srcImage);
+        newImg.setAttribute("style", "height: 1.5em");
         newATag.appendChild(newImg);
-        document.querySelector('.accordion_body_1').appendChild(newATag);
+        document.querySelector(".accordion_body_1").appendChild(newATag);
       }
 
       //accordian 2 - Other Information
       //checks if info is missing first
-      const accCast = document.querySelector('.cast');
-      if(result.cast) {
+      const accCast = document.querySelector(".cast");
+      if (result.cast) {
         var cast = result.cast;
-        for(let i = 0; i < cast.length; i++) {
-          let liEl = document.createElement('li');
+        for (let i = 0; i < cast.length; i++) {
+          let liEl = document.createElement("li");
           liEl.innerHTML = cast[i];
           accCast.appendChild(liEl);
         }
@@ -191,11 +196,11 @@ function getStreaming(data) {
         accCast.innerHTML = `<li>Cast information not available</li>`;
       }
 
-      if(result.directors) {
-        const accDir = document.querySelector('.directors');
+      if (result.directors) {
+        const accDir = document.querySelector(".directors");
         var directors = result.directors;
-        for(let i = 0; i < directors.length; i++) {
-          let liEl = document.createElement('li');
+        for (let i = 0; i < directors.length; i++) {
+          let liEl = document.createElement("li");
           liEl.innerHTML = directors[i];
           accDir.appendChild(liEl);
         }
@@ -204,17 +209,18 @@ function getStreaming(data) {
       }
 
       //accordian 3 - Genres?
-      let accGenre = document.querySelector('.genre');
+      let accGenre = document.querySelector(".genre");
       let arrGenre = ["information not available"];
-      if(result.genres) {arrGenre = result.genres;}
-      for(let i = 0; i < arrGenre.length; i++) {
+      if (result.genres) {
+        arrGenre = result.genres;
+      }
+      for (let i = 0; i < arrGenre.length; i++) {
         let genreObj = arrGenre[i];
-        const newLi = document.createElement('li');
+        const newLi = document.createElement("li");
         newLi.innerHTML = genreObj.name;
         accGenre.appendChild(newLi);
         console.log(genreObj.name);
       }
-      
     })
     .catch((err) => console.error(err));
 
@@ -253,6 +259,7 @@ function getColor(vote) {
 console.log("testingpopulatewithjson");
 populateDropdownWithJSON("./assets/json/moviegenres.json", $("#testDropdown"));
 
+
 function populateDropdownWithJSON(url, dropdown) {
   fetch(url)
     .then((res) => res.json())
@@ -260,14 +267,18 @@ function populateDropdownWithJSON(url, dropdown) {
       // remove the dropdown's children
       dropdown.empty();
       data.forEach((entry) => {
-        dropdown
-          .append(`<li><a class=\"dropdown-item\" data-id=\"${entry.id}\">${entry.name}</a></li>`);
+        dropdown.append(
+          `<li><a class=\"dropdown-item\" data-id=\"${entry.id}\">${entry.name}</a></li>`
+        );
       });
     });
 }
 
 function collectSearchParams() {
   // TODO Collect the search parameters
+  let searchBoxes = $(".search-box");
+  let searchDropdownSelections = $(".search-selection");
+  let searchInputs = $(".search-input");
 
   // go through the form and if it isn't hidden then add it to the search parameters
   let searchParameters = [];
@@ -398,29 +409,58 @@ function displayRandomQuote() {
     });
 }
 
-// Sort Option Arrow
-const arrowButton = document.getElementById("sort-arrow-button");
-sortArrow.addEventListener("click", sortingSelection);
-
-// Runs if a sort option is selected
-function sortingSelection(event) {
+// SORT BY ARROW FUNCTIONALITY
+// Runs if the sort arrow is clicked
+function sortingOrderSelection(e) {
   // Stop the event from bubbling up to the parent element
-  event.preventDefault();
-  event.stopPropagation();
+  e.preventDefault();
+  e.stopPropagation();
 
-  const arrow = arrowButton.children[0];
+  const arrow = $("#sort-arrow-button").children("img");
 
-  if (arrow.classList.contains("arrow-up")) {
-    arrow.classList.replace("arrow-up", "arrow-down");
-    // Change data-filter-direction to descending
-    arrowButton.dataset.filterDirection = "desc";
+  if (arrow.attr("class") == "arrow-down") {
+    arrow.removeClass("arrow-down");
+    arrow.addClass("arrow-up");
   } else {
-    arrow.classList.replace("arrow-down", "arrow-up");
-
-    // Change data-filter-direction to ascending
-    arrowButton.dataset.filterDirection = "asc";
+    arrow.removeClass("arrow-up");
+    arrow.addClass("arrow-down");
   }
 }
+// END SORT BY ARROW FUNCTIONALITY
+
+// TODO Make this only for searchbox or sortbox dropdowns?
+// add event listener to anything with a dropdown-item class (use when creating new dropdowns)
+function addDropdownListeners() {
+  $(".dropdown-item").on("click", function (e) {
+    e.preventDefault();
+    // get the text of the dropdown item
+    let text = $(this).text();
+    // get the parent of the dropdown item
+    let parent = $(this).parents().siblings(".dropdown-toggle");
+    console.log(parent);
+    // get the id of the dropdown item
+    let id = $(this).attr("id");
+    // Change the value of the dropdown to the text of the dropdown item
+    parent.text(text);
+  });
+}
+
+// TODO make an event listener for the movies/series dropdown
+// TODO make an event listener for the sort by dropdown
+
+// TODO make an event listener for the search bar
 
 // TODO add a function to make the search bar's visible when the + sign is clicked
 // TODO Make the + and- signs visible or invisible based on how many search bars are visible
+// Put event listener on all the 3 + and - signs
+
+// always start at 1 bar with only the + showing (so default to minus hidden)
+// add event listener to the + signs, if clicked then show the next search bar and show the - sign. If the next search bar is the last one (length=3) then hide the + sign
+
+// search 1, + only
+// search 2, + and -
+// search 3, - only
+
+// if the search1+ is clicked, show search2 and hide the + sign
+// if the search2+ is clicked, show search3 and hide the + and - sign
+// if the search2- is clicked, hide search2 and show the search1 + sign

@@ -37,7 +37,12 @@ header {
   background-size: 100% 100%;
   background-color: #0303037d;
   height: 425px;
-  width: auto;
+  width: 100%;
+}
+
+.main-curtain img {
+  max-height: 150px;
+  width:fit-content;
 }
 
 .side-curtains {
