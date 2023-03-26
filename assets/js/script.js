@@ -74,16 +74,21 @@ $(document).ready(function () {
       if (isChanged) {
         switch (searchBy) {
           case "By Title":
-            // remove discover search bars
+            // remove discover search bars and hide the sort by dropdown
             $(".discover-search").not("#discover-search").remove();
+            $("#sort-box").attr("hidden", true);
             // show title search bar
-            $("#title-search-input").removeAttr("hidden");
+            $("#title-search").removeAttr("hidden");
             break;
           case "By Discover":
-            // remove title search bar and clear it
-            $("#title-search-input").attr("hidden", true);
+            // remove title search bar and clear it,
+            $("#title-search").attr("hidden", true);
             $("#title-search-input").text("");
+
+            // create discover search bars and show the sort by dropdown, reset the +/- buttons
+
             createDiscoverSearchElement();
+            $("#sort-box").removeAttr("hidden");
         }
       }
     });
@@ -220,7 +225,8 @@ $(document).ready(function () {
               srcImage = "./assets/images/streaming-platform-icons/netflix.svg";
               break;
             case "paramount":
-              srcImage = "./assets/images/streaming-platform-icons/paramount.svg";
+              srcImage =
+                "./assets/images/streaming-platform-icons/paramount.svg";
               break;
             case "prime":
               srcImage = "./assets/images/streaming-platform-icons/prime.svg";
@@ -339,7 +345,6 @@ $(document).ready(function () {
 
       // Add event listener to the movie card
       movieEl.addEventListener("click", function (e) {
-
         if (e.target.classList.contains("favorite-checkbox")) {
           console.log("clicked favorite button");
           // TODO Add to favorites
@@ -620,6 +625,8 @@ $(document).ready(function () {
   function refreshDiscoverSearchBoxList(mediaType) {
     // remove all discover search elements
     $(".discover-search").not("#discover-search").remove();
+    $(".remove-search-button").attr("hidden", true);
+    $(".add-search-button").attr("hidden", false);
 
     // Grab the li's for movie and tv from the hidden permanant discover search
     let movieLi = $("#discover-search")
