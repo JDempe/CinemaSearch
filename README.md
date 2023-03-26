@@ -71,6 +71,7 @@ The below resources contributed to the project.
 
 - [StackOverflow](https://stackoverflow.com/) provided many guides and tutorials for the project.  Below are the links used:
   - https://stackoverflow.com/questions/14542062/eventlistener-enter-key
+  - https://stackoverflow.com/questions/9229645/remove-duplicate-values-from-js-array
   - https://stackoverflow.com/questions/18622508/bootstrap-3-and-youtube-in-modal
   - https://stackoverflow.com/questions/60284183/video-still-playing-when-bootstrap-modal-closes
   - https://stackoverflow.com/questions/21607808/convert-a-youtube-video-url-to-embed-code

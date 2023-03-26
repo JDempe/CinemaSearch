@@ -353,6 +353,7 @@ $(document).ready(function () {
         }
         // If there are duplicates, delete all but the last one
         searchParameters = searchParameters.reverse();
+        // https://stackoverflow.com/questions/9229645/remove-duplicates-from-javascript-array
         searchParameters = searchParameters.filter((thing, index, self) =>
           index === self.findIndex((t) => (
             t.param === thing.param
