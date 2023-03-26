@@ -109,30 +109,16 @@ main {
   width: 100%;
 }
 
-#search-bar-area {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: transparent;
-  z-index: 100;
-}
-
 #search-bar {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  display: block;
+margin: auto;
   padding: 20px;
   width: 80%;
   height: 100%;
   background-color: #cacaca00;
   z-index: 100;
 }
-
-#search-bar .search-box {
+#search-type {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -141,10 +127,11 @@ main {
   width: fit-content;
   height: 100%;
   position: relative;
-  margin: 10px 20px;
+  margin: auto;
+  color: #030303;
 }
 
-#search-bar .search-input {
+#title-search {
   border: 1px solid #bcbcbc;
   border-radius: 5px;
   border-top-left-radius: 4px;
@@ -161,6 +148,55 @@ main {
   background-color: white;
 }
 
+#title-search, .discover-search {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  width: fit-content;
+  height: 100%;
+  position: relative;
+  margin: 10px 20px;
+  color: #030303;
+}
+
+.discover-search-selection {
+  min-width: 100px;
+  color:rgb(0, 0, 0);
+}
+
+#title-search-input {
+  color: #030303;
+}
+
+.discover-search-input {
+  border: 1px solid #bcbcbc;
+  border-radius: 5px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  min-width: 200px;
+  height: 40px;
+  max-width: 100%;
+  padding: 5px 10px;
+  color: #030303;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: 0.3s ease-in-out;
+  background-color: white;
+}
+
+.discover-search-input-options {
+  max-height: 300px;
+  height: fit-content;
+  overflow-y: scroll;
+}
+
+.discover-search:hover .add-remove-buttons {
+  visibility: visible;
+}
+
 .add-remove-buttons {
   display: flex;
   flex-direction: column;
@@ -169,10 +205,6 @@ main {
   visibility: hidden;
   top: 0;
   right: -30px;
-}
-
-.search-box:hover .add-remove-buttons {
-  visibility: visible;
 }
 
 .add-search-button,
