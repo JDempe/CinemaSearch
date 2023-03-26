@@ -41,7 +41,6 @@ header {
   text-align: center;
 }
 
-
 .main-curtain {
   background-image: url("../images/header-images/backdrop-curtain-rev1.png");
   background-repeat: repeat-x;
@@ -92,7 +91,7 @@ header:hover .right-curtain {
   justify-content: center;
   align-items: center;
   height: 100%;
-  z-index: 1000;
+  z-index: 10;
 }
 
 #cinemasearch-banner-div {
@@ -112,7 +111,6 @@ header:hover .right-curtain {
   margin: 0 auto;
   padding: 0;
 }
-
 
 #quote-div {
   display: flex;
@@ -176,16 +174,17 @@ main {
 }
 
 /* TODO Come back to this */
-/* .dropdown-menu {
-  background-color: #030303;
+.dropdown-menu {
+  /* background-color: #030303;
   border: 1px solid #bcbcbc;
   border-radius: 5px;
   color: white;
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: 1px;
-  transition: 0.3s ease-in-out;
-} */
+  transition: 0.3s ease-in-out; */
+  z-index: 1000;
+}
 /* END Dropdown Overwrites */
 
 /* Search Type Bar */
@@ -252,7 +251,6 @@ main {
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: #cacaca00;
   z-index: 100;
 }
 
@@ -265,7 +263,7 @@ main {
   width: fit-content;
   height: var(--search-bar-height);
   position: relative;
-  margin: var(--search-bar-top-bottom-margin) auto;
+  margin: var(--search-bar-top-bottom-margin) 20px;
   color: #030303;
 }
 
@@ -328,27 +326,19 @@ main {
 
 #search-btn {
   margin: var(--search-bar-top-bottom-margin) auto;
-  background-color: #661417;
+  background-color: var(--accent-color);
   color: #cacaca;
   width: 175px;
   height: var(--search-bar-height);
 }
 
-#card-area {
-  margin: auto;
-  width: fit-content;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
 #sort-box {
-  border: 1px solid #661417;
-  border-radius: 5px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: fit-content;
+  height: var(--search-bar-height);
+  margin: var(--search-bar-top-bottom-margin) auto;
   /* position: absolute;
   top: 0; */
 }
@@ -360,16 +350,16 @@ main {
   height: 100%;
   margin: auto;
   padding: 5px 10px;
-  color: white;
+  color: black;
   font-size: 1rem;
   font-weight: 500;
   text-align: center;
   /* text-transform: uppercase; */
-  background-color: #bcbcbc;
+  background-color: #F0F0F0;
 }
 
-#sort-option .dropdown {
-  height: 100%;
+#sort-by-selection {
+  background-color: white;
 }
 
 .search-selection,
@@ -380,7 +370,6 @@ main {
   margin: auto;
   padding: 5px 10px;
   color: rgb(0, 0, 0);
-
   font-size: 1rem;
   font-weight: 500;
   text-align: center;
@@ -412,8 +401,12 @@ main {
 }
 
 #card-area {
-  padding: fit-content;
+  margin: auto;
   width: fit-content;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: fit-content;  
 }
 
 #card-container {

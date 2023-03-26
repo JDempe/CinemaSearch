@@ -13,6 +13,9 @@ $(document).ready(function () {
   const quoteMovie = $("#quote-movie");
   const quoteYear = $("#quote-year");
 
+  // Discover Search Parameters Limit
+  const numParamsAllowed = 6;
+
   // Search Submit Button
   const searchBtn = $("#search-btn");
 
@@ -114,7 +117,9 @@ $(document).ready(function () {
     createDiscoverSearchElement();
     $(".remove-search-button").removeAttr("hidden");
     // if the list is 5 long, hide the + sign
-    if ($(".discover-search").not("#discover-search").length == 5) {
+    if (
+      $(".discover-search").not("#discover-search").length == numParamsAllowed
+    ) {
       $(".add-search-button").attr("hidden", true);
     }
   });
@@ -125,7 +130,9 @@ $(document).ready(function () {
     $(this).closest(".discover-search").remove();
     $(".add-search-button").removeAttr("hidden");
     // if the list is 1 long, hide the - sign
-    if ($(".discover-search").not("#discover-search").length == 1) {
+    if (
+      $(".discover-search").not("#discover-search").length == numParamsAllowed
+    ) {
       $(".remove-search-button").attr("hidden", true);
     }
   });
