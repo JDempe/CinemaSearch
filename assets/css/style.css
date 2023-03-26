@@ -29,6 +29,10 @@ body {
   overflow-x: hidden;
 }
 
+.custom-shadow {
+  box-shadow: 0.2rem 0.4rem 0.5rem black;
+}
+
 header {
   display: flex;
   flex-direction: column;
@@ -173,18 +177,11 @@ main {
   margin-right: 0.5rem;
 }
 
-/* TODO Come back to this */
 .dropdown-menu {
-  /* background-color: #030303;
-  border: 1px solid #bcbcbc;
-  border-radius: 5px;
-  color: white;
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  transition: 0.3s ease-in-out; */
+  width: inherit;
   z-index: 1000;
 }
+
 /* END Dropdown Overwrites */
 
 /* Search Type Bar */
@@ -206,8 +203,13 @@ main {
 /* Add hover darkening */
 #media-selection,
 #search-by-selection {
-  min-width: 150px;
-  color: rgb(0, 0, 0);
+  color: black;
+  height: 100%;
+  width: 150px;
+  margin: auto;
+  padding: 5px 10px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 #media-selection {
@@ -261,7 +263,7 @@ main {
   align-items: center;
   padding: 0;
   width: fit-content;
-  height: var(--search-bar-height);
+  height: 100%;
   position: relative;
   margin: var(--search-bar-top-bottom-margin) 20px;
   color: #030303;
@@ -269,7 +271,7 @@ main {
 
 .discover-search-selection {
   width: 200px;
-  height: 100%;
+  height: var(--search-bar-height);
   color: rgb(0, 0, 0);
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -280,7 +282,7 @@ main {
   border-bottom-right-radius: 5px;
   border: none;
   min-width: 200px;
-  height: 100%;
+  height: var(--search-bar-height);
   color: #030303;
   font-size: 1rem;
   letter-spacing: 1px;
@@ -324,14 +326,7 @@ main {
 }
 /* END Discover Search Bar */
 
-#search-btn {
-  margin: var(--search-bar-top-bottom-margin) auto;
-  background-color: var(--accent-color);
-  color: #cacaca;
-  width: 175px;
-  height: var(--search-bar-height);
-}
-
+/* Sort Bar */
 #sort-box {
   display: flex;
   flex-direction: row;
@@ -339,56 +334,49 @@ main {
   width: fit-content;
   height: var(--search-bar-height);
   margin: var(--search-bar-top-bottom-margin) auto;
-  /* position: absolute;
-  top: 0; */
 }
 
 #sort-label {
-  border: none;
-  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
   width: fit-content;
-  height: 100%;
-  margin: auto;
+  height: var(--search-bar-height);
   padding: 5px 10px;
   color: black;
   font-size: 1rem;
-  font-weight: 500;
-  text-align: center;
-  /* text-transform: uppercase; */
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 #sort-by-selection {
   background-color: white;
-}
-
-.search-selection,
-.sort-selection {
   height: 100%;
-  border: none;
-  border-radius: 0;
+  width: 150px;
   margin: auto;
   padding: 5px 10px;
-  color: rgb(0, 0, 0);
+  color: black;
   font-size: 1rem;
-  font-weight: 500;
-  text-align: center;
-  letter-spacing: 1px;
   cursor: pointer;
-  transition: 0.3s ease-in-out;
 }
 
 #sort-arrow-button {
   border: none;
-  background-color: #661417;
+  background-color: var(--accent-color);
   color: white;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
   width: fit-content;
+  padding: 5px 10px;
 }
 
 #sort-arrow-button:hover {
-  background-color: #350f10;
+  background-color: var(--accent-color-dark);
+}
+
+#sort-arrow-button img {
+  width: 20px;
+  height: 20px;
 }
 
 .arrow-up {
@@ -399,6 +387,24 @@ main {
   transform: rotate(180deg);
   transition: transform 0.3s ease-in-out;
 }
+/* END Sort Bar */
+
+/* Search Button */
+#search-btn {
+  margin: var(--search-bar-top-bottom-margin) auto;
+  background-color: var(--accent-color);
+  color: white;
+  width: 200px;
+  height: var(--search-bar-height);
+  border: none;
+  border-radius: 5px;
+  font-size: 1.15rem;
+}
+
+#search-btn:hover {
+  background-color: var(--accent-color-dark);
+}
+/* END Search Button */
 
 #card-area {
   margin: auto;
@@ -406,7 +412,7 @@ main {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: fit-content;  
+  padding: fit-content;
 }
 
 #card-container {
@@ -419,21 +425,17 @@ main {
 .movie {
   width: 300px;
   margin: 1rem;
-  background-color: #661417;
+  background-color: var(--accent-color);
   border-radius: 3px;
   box-shadow: 0.2rem 0.4rem 0.5rem black;
   position: relative;
   overflow: hidden;
 }
 
-.custom-shadow {
-  box-shadow: 0.2rem 0.4rem 0.5rem black;
-}
-
 .movie .favorite-button {
   position: absolute;
   top: 0;
-  right: 0;
+  right: -10px;
   padding: 0.5rem;
   background-color: transparent;
   border: none;
@@ -631,9 +633,7 @@ ul {
 }
 /* end of collapsable sidebar menu */
 
-.container {
-  margin-top: 5%;
-}
+/* TODO Find out if this is used */
 /* Style to create scroll bar in dropdown */
 .scrollable-dropdown {
   height: auto;

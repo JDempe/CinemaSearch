@@ -29,10 +29,10 @@
       <div class="main-curtain bg-image"></div>
       <!-- https://www.pngegg.com/en/png-dhrgx -->
       <img class="side-curtains left-curtain img-fluid" src="./assets/images/header-images/single-curtain-shadow.png"
-         alt="left curtain"/>
+         alt="left curtain" />
 
       <img class="side-curtains right-curtain img-fluid" src="./assets/images/header-images/single-curtain-shadow.png"
-         alt="right curtain"/>
+         alt="right curtain" />
 
 
       <!-- Background image -->
@@ -58,21 +58,20 @@
       <!-- Search Bar Area -->
       <section id="search-bar">
          <!-- Search Type Selection -->
-         <form id="search-type" class="search-type custom-shadow" data-formtype="main-search">
+         <form id="search-type" class="custom-shadow" data-formtype="main-search">
+            <!-- Media Type -->
             <div>
-               <!-- Media Type -->
-               <button id="media-selection" class="dropdown-toggle search-selection" type="button"
-                  data-mdb-toggle="dropdown" data-dropdownindex="1" data-paramvalue="movie"
-                  aria-expanded="false">Movies</button>
+               <button id="media-selection" class="dropdown-toggle" type="button" data-mdb-toggle="dropdown"
+                  data-dropdownindex="1" data-paramvalue="movie" aria-expanded="false">Movies</button>
                <ul id="media-selection-input" class="dropdown-menu" data-dropdownindex="1">
                   <li><a class="dropdown-item" data-paramvalue="movie">Movies</a></li>
                   <li><a class="dropdown-item" data-paramvalue="tv">TV Series</a></li>
                </ul>
             </div>
+            <!-- Search By -->
             <div>
-               <!-- Search By -->
-               <button id="search-by-selection" class="dropdown-toggle search-selection" type="button"
-                  data-mdb-toggle="dropdown" data-dropdownindex="2" data-paramvalue="search" aria-expanded="false">By
+               <button id="search-by-selection" class="dropdown-toggle" type="button" data-mdb-toggle="dropdown"
+                  data-dropdownindex="2" data-paramvalue="search" aria-expanded="false">By
                   Title</button>
                <ul id="search-by-selection-input" class="dropdown-menu" data-dropdownindex="2">
                   <li><a class="dropdown-item" data-paramvalue="search">By Title</a></li>
@@ -83,59 +82,65 @@
          <!-- END Search Type Selection -->
 
          <!-- Title Search -->
-         <form id="title-search" class="title-search search-box custom-shadow" data-formtype="main-search">
-            <input id="title-search-input" type="text" class="title-search-input" placeholder="Title" maxlength="20" />
+         <form id="title-search" class="custom-shadow">
+            <input id="title-search-input" type="text" placeholder="Title" maxlength="20" />
          </form>
          <!-- END Title Search -->
 
          <div id="discover-search-area">
             <!-- Discover Search -->
-            <form id="discover-search" class="discover-search  search-box  custom-shadow"
-               data-formtype="discover-search" hidden="true">
+            <form id="discover-search" class="discover-search search-box custom-shadow" data-formtype="discover-search"
+               hidden="true">
                <!-- Discover Search Parameter -->
-               <button class="dropdown-toggle discover-search-selection" type="button" id="dropdownMenuButton"
-                  data-mdb-toggle="dropdown" data-dropdownindex="1" data-param="" aria-expanded="false">Select</button>
-               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" data-dropdownindex="1">
-                  <!-- Movie Specific -->
-                  <li><a class="dropdown-item" data-param="with_genres" data-mediatype="movie"
-                        data-listsource="moviegenres.json">Genre</a></li>
-                  <li><a class="dropdown-item" data-param="region" data-mediatype="movie"
-                        data-listsource="countrycodes.json">Region</a></li>
-                  <li><a class="dropdown-item" data-param="year" data-mediatype="movie" data-start="1900"
-                        data-end="2030">Release Year</a></li>
-                  <li><a class="dropdown-item" data-param="certification" data-mediatype="movie"
-                        data-listsource="movieratings.json">Rating (US Only)</a></li>
-                  <!-- TODO Figure out how to load this? Currently JSON is too large -->
-                  <!-- <li><a class="dropdown-item" data-paramvalue="person_id" data-mediatype="movie" data-listsource="personids.json">Actors</a></li> -->
-                  <!-- END Movie Specific -->
-                  <!-- TV Specific -->
-                  <li><a class="dropdown-item" data-param="with_genres" data-mediatype="tv"
-                        data-listsource="tvgenres.json" hidden="true">Genre</a></li>
-                  <li><a class="dropdown-item" data-param="with_type" data-mediatype="tv" data-listsource="tvtype.json"
-                        hidden="true">Type</a></li>
-                  <li><a class="dropdown-item" data-param="with_status" data-mediatype="tv"
-                        data-listsource="tvstatus.json" hidden="true">Status</a></li>
-                  <!-- END TV Specific -->
-                  <li><a class="dropdown-item" data-param="vote_average.gte" data-start="0" data-end="9">Minimum
-                        Vote
-                        Average</a></li>
-                  <li><a class="dropdown-item" data-param="vote_average.lte" data-start="0" data-end="9">Maximum
-                        Vote
-                        Average</a></li>
-                  <li><a class="dropdown-item" data-param="with_runtime.gte" data-multiplier="60" data-start="0"
-                        data-end="5">Minimum
-                        Runtime (hr)</a></li>
-                  <li><a class="dropdown-item" data-param="with_runtime.lte" data-multiplier="60" data-start="0"
-                        data-end="5">Maximum
-                        Runtime (hr)</a></li>
-               </ul>
+               <div>
+                  <button class="dropdown-toggle discover-search-selection" type="button"
+                     data-mdb-toggle="dropdown" data-dropdownindex="1" data-param=""
+                     aria-expanded="false">Select</button>
+                  <ul class="dropdown-menu" aria-labelledby="discover-search-selection" data-dropdownindex="1">
+                     <!-- Movie Specific -->
+                     <li><a class="dropdown-item" data-param="with_genres" data-mediatype="movie"
+                           data-listsource="moviegenres.json">Genre</a></li>
+                     <li><a class="dropdown-item" data-param="region" data-mediatype="movie"
+                           data-listsource="countrycodes.json">Region</a></li>
+                     <li><a class="dropdown-item" data-param="year" data-mediatype="movie" data-start="1900"
+                           data-end="2030">Release Year</a></li>
+                     <li><a class="dropdown-item" data-param="certification" data-mediatype="movie"
+                           data-listsource="movieratings.json">Rating (US Only)</a></li>
+                     <!-- TODO Figure out how to load this? Currently JSON is too large -->
+                     <!-- <li><a class="dropdown-item" data-paramvalue="person_id" data-mediatype="movie" data-listsource="personids.json">Actors</a></li> -->
+                     <!-- END Movie Specific -->
+                     <!-- TV Specific -->
+                     <li><a class="dropdown-item" data-param="with_genres" data-mediatype="tv"
+                           data-listsource="tvgenres.json" hidden="true">Genre</a></li>
+                     <li><a class="dropdown-item" data-param="with_type" data-mediatype="tv"
+                           data-listsource="tvtype.json" hidden="true">Type</a></li>
+                     <li><a class="dropdown-item" data-param="with_status" data-mediatype="tv"
+                           data-listsource="tvstatus.json" hidden="true">Status</a></li>
+                     <!-- END TV Specific -->
+                     <li><a class="dropdown-item" data-param="vote_average.gte" data-start="0" data-end="9">Minimum
+                           Vote
+                           Average</a></li>
+                     <li><a class="dropdown-item" data-param="vote_average.lte" data-start="0" data-end="9">Maximum
+                           Vote
+                           Average</a></li>
+                     <li><a class="dropdown-item" data-param="with_runtime.gte" data-multiplier="60" data-start="0"
+                           data-end="5">Minimum
+                           Runtime (hr)</a></li>
+                     <li><a class="dropdown-item" data-param="with_runtime.lte" data-multiplier="60" data-start="0"
+                           data-end="5">Maximum
+                           Runtime (hr)</a></li>
+                  </ul>
+               </div>
                <!-- END Discover Search Paramter -->
                <!-- Discover Search Value -->
-               <button class="dropdown-toggle discover-search-input" type="button" id="dropdownMenuButton"
-                  data-mdb-toggle="dropdown" data-dropdownindex="2" data-paramvalue="" aria-expanded="false"></button>
-               <ul class="dropdown-menu discover-search-input-options" data-dropdownindex="2"
-                  aria-labelledby="dropdownMenuButton">
-               </ul>
+               <div>
+                  <button class="dropdown-toggle discover-search-input" type="button"
+                     data-mdb-toggle="dropdown" data-dropdownindex="2" data-paramvalue=""
+                     aria-expanded="false"></button>
+                  <ul class="dropdown-menu discover-search-input-options" data-dropdownindex="2"
+                     aria-labelledby="discover-search-input">
+                  </ul>
+               </div>
                <!-- END Discover Search Value -->
 
                <div class="add-remove-buttons">
@@ -150,45 +155,43 @@
          </div>
 
          <!-- Sort Bar -->
-         <form id="sort-box" class="search-sort search-box" data-formtype="sort-search" hidden="true">
-            <label id="sort-label" class="input-group-textcustom-shadow" for="sort-box">Sort By</label>
+         <form id="sort-box" class="search-box custom-shadow" hidden="true">
+            <label id="sort-label" for="sort-box">Sort By</label>
 
             <!-- Sort Parameter -->
-            <button id="sort-by-selection" class="dropdown-toggle sort-selection" type="button"
-               data-mdb-toggle="dropdown" data-paramvalue="popularity" data-dropdownindex="1" aria-expanded="false">
-               Popularity
-            </button>
-            <ul id="sort-by-selection-input" class="dropdown-menu" aria-labelledby="sort-selection"
-               data-dropdownindex="1">
-               <li><a class="dropdown-item" type="button" data-paramvalue="popularity">Popularity</a></li>
-               <li><a class="dropdown-item" type="button" data-paramvalue="revenue">Revenue</a></li>
-               <li><a class="dropdown-item" type="button" data-paramvalue="release_date">Release Date</a></li>
-               <li><a class="dropdown-item" type="button" data-paramvalue="vote_average">Vote Average</a></li>
-            </ul>
+            <div>
+               <button id="sort-by-selection" class="dropdown-toggle" type="button" data-mdb-toggle="dropdown"
+                  data-paramvalue="popularity" data-dropdownindex="1" aria-expanded="false">
+                  Popularity
+               </button>
+               <ul id="sort-by-selection-input" class="dropdown-menu" aria-labelledby="sort-by-selection"
+                  data-dropdownindex="1">
+                  <li><a class="dropdown-item" type="button" data-paramvalue="popularity">Popularity</a></li>
+                  <li><a class="dropdown-item" type="button" data-paramvalue="revenue">Revenue</a></li>
+                  <li><a class="dropdown-item" type="button" data-paramvalue="release_date">Release Date</a></li>
+                  <li><a class="dropdown-item" type="button" data-paramvalue="vote_average">Vote Average</a></li>
+               </ul>
+            </div>
             <!-- END Sort Parameter -->
             <!-- Sort Direction -->
-            <button id="sort-arrow-button" type="button">
+            <button id="sort-arrow-button" type="button" class="btn">
                <img src="./assets/images/icons/icons8-up-arrow-30.png" alt="arrow indicating descending or ascending"
-                  class="arrow-down" data-paramvalue="desc" width="20px" height="20px" />
+                  class="arrow-down" data-paramvalue="desc" />
             </button>
             <!-- END Sort Direction -->
          </form>
-         <!-- Sort Bar -->
-
-
-         <button id="search-btn" type="button" class="custom-shadow">Search</button>
+         <!-- END Sort Bar -->
+         <!-- Search Button -->
+         <button id="search-btn" type="button" class="btn custom-shadow">Search</button>
+         <!-- END Search Button-->
       </section>
-      <!-- Search Bar -->
-
+      <!-- END Search Bar -->
 
       <div id="card-area">
-
-
          <!-- Card Container -->
          <section id="card-container">
          </section>
-         <!-- Card Container -->
-
+         <!-- END Card Container -->
       </div>
    </main>
 

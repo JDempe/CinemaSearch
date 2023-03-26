@@ -429,7 +429,11 @@ $(document).ready(function () {
 
     // for search
     if (searchType === "search") {
+      if(titleBox.val() === "") {
+        url=trendingSearch;
+      } else {
       url = `search/${mediaType}?query=${titleBox.val()}&`;
+     }
     } else {
       // go through the form and if it isn't hidden then add it to the search parameters
       var searchParameters = [];
@@ -450,7 +454,7 @@ $(document).ready(function () {
       });
 
       if (searchParameters.length === 0) {
-        url = "";
+        url = `discover/${mediaType}?sort_by=${sortType}.${sortDir}&`;
       } else {
         // if the certification is present, then add certification_country to US
         let certification = searchParameters.find(
