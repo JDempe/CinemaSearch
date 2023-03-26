@@ -91,15 +91,13 @@ $(document).ready(function () {
 
   // 'Sort By' Dropdown Event Listeners
   // The listener for changing the Sort By dropdown
+  // TODO How is this working?
   $("#sort-by-selection-input")
     .find(".dropdown-item")
     .on("click", function (e) {
       e.preventDefault();
-      let sortBy = $(this).text();
-      let isChanged = overwriteDropdownText($(this));
-      console.log("Sort By: " + sortBy);
+      overwriteDropdownText($(this));
     });
-
   // The listener for changing the Sort Order arrow
   sortArrow.on("click", sortingOrderSelection);
   // END Sort By Dropdown Event Listeners
@@ -216,25 +214,25 @@ $(document).ready(function () {
 
           switch (streamingKeys[i]) {
             case "peacock":
-              srcImage = "./assets/images/peacock.svg";
+              srcImage = "./assets/images/streaming-platform-icons/peacock.svg";
               break;
             case "netflix":
-              srcImage = "./assets/images/netflix.svg";
+              srcImage = "./assets/images/streaming-platform-icons/netflix.svg";
               break;
             case "paramount":
-              srcImage = "./assets/images/paramount.svg";
+              srcImage = "./assets/images/streaming-platform-icons/paramount.svg";
               break;
             case "prime":
-              srcImage = "./assets/images/prime.svg";
+              srcImage = "./assets/images/streaming-platform-icons/prime.svg";
               break;
             case "hbo":
-              srcImage = "./assets/images/hbo.svg";
+              srcImage = "./assets/images/streaming-platform-icons/hbo.svg";
               break;
             case "hulu":
-              srcImage = "./assets/images/hulu.svg";
+              srcImage = "./assets/images/streaming-platform-icons/hulu.svg";
               break;
             case "disney":
-              srcImage = "./assets/images/disney.svg";
+              srcImage = "./assets/images/streaming-platform-icons/disney.svg";
               break;
           }
 
@@ -341,14 +339,11 @@ $(document).ready(function () {
 
       // Add event listener to the movie card
       movieEl.addEventListener("click", function (e) {
-        console.log("clicked!");
-        console.log(e.target);
 
         if (e.target.classList.contains("favorite-checkbox")) {
           console.log("clicked favorite button");
           // TODO Add to favorites
         } else {
-          // THIS IS WHERE THE OPEN THE MODAL STUFF HAPPENS
           modal.show();
           // find the parent element with class "movie"
           const movie = e.target.closest(".movie");
@@ -433,7 +428,6 @@ $(document).ready(function () {
         let searchValue = $(this)
           .find(".discover-search-input")
           .data("paramvalue");
-        console.log("searchValue: " + searchValue);
 
         if (searchValue !== "" && searchParam !== "") {
           searchParameters.push({
@@ -446,7 +440,6 @@ $(document).ready(function () {
       if (searchParameters.length === 0) {
         url = "";
       } else {
-        // TODO Filter some stuff
         // if the certification is present, then add certification_country to US
         let certification = searchParameters.find(
           (o) => o.param === "certification"
@@ -579,9 +572,7 @@ $(document).ready(function () {
           let param = $(this).data("param");
           parent.data("param", param);
 
-          // TODO Make it clear the input if the dropdown if the dropdown is a value dropdown
           // find the closest input and reset text to blank
-
           $(this)
             .parents(".discover-search")
             .find(".discover-search-input")
@@ -603,7 +594,6 @@ $(document).ready(function () {
             } else {
               var multiplier = 1;
             }
-            console.log("Multiplier: " + multiplier);
 
             let start = $(this).data("start");
             let end = $(this).data("end");
