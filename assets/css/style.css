@@ -2,6 +2,14 @@
 :root {
   --background-color: rgb(60, 60, 60);
   --secondary-color: #030303;
+  --accent-color: #661417;
+  --accent-color-light: #a61d1d;
+  --accent-color-dark: #3d0c0c;
+  --search-bar-color: #cacaca;
+  --search-bar-color-light: #e6e6e6;
+  --search-bar-color-dark: #b3b3b3;
+  --search-bar-height: 45px;
+  --search-bar-top-bottom-margin: 15px;
 }
 
 * {
@@ -14,81 +22,131 @@ body {
   background-image: url("../images/pattern-randomized.png");
   /* background by SVGBackgrounds.com */
   /* TODO Get the SVG and extend it? */
-  background-size:contain;
+  background-size: contain;
   font-family: "Poppins", sans-serif;
   margin: 0;
   position: relative;
+  overflow-x: hidden;
+}
+
+.custom-shadow {
+  box-shadow: 0.2rem 0.4rem 0.5rem black;
 }
 
 header {
-  padding: 1px;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: center;
   background-color: transparent;
   position: relative;
-  overflow: visible;
+  height: 425px;
+  width: 100%;
+  text-align: center;
 }
 
 .main-curtain {
-  background-image: url("../images/backdrop-curtain-rev1.png");
+  background-image: url("../images/header-images/backdrop-curtain-rev1.png");
   background-repeat: repeat-x;
   background-position: center;
   background-size: 100% 100%;
   background-color: #0303037d;
   height: 425px;
-  width: auto;
+  width: 100%;
+  position: absolute;
+  top: 0;
 }
 
 .side-curtains {
   position: absolute;
   width: auto;
   height: 525px;
-  background-color: none;
   z-index: 1000;
   top: -40px;
-  transform: translate(-20px 0px);
-  transform: 0.3s ease-in-out;
-  overflow: hidden;
 }
 
 .left-curtain {
-  left: 0;
-  transition: left 0.6s ease-in-out;
+  left: -10px;
+  transition: 1.0s ease-in-out;
 }
 
 .right-curtain {
-  right: 0;
+  right: -10px;
   transform: scaleX(-1);
-  transition: right 0.6s ease-in-out;
+  transition: 1.0s ease-in-out;
 }
 
+/* https://stackoverflow.com/questions/4296012/hide-div-if-screen-is-smaller-than-a-certain-width */
+@media screen and (max-width: 725px) {
+  .left-curtain, .right-curtain {
+      display: none !important;
+  }
+}
+
+/* TODO Find a way to make this simultaneous */
 header:hover .left-curtain {
-  transform: translate(-20px, 0px);
-  left: -40px;
+
+  left: -80px;
 }
 
 header:hover .right-curtain {
-  right: -40px;
+  right: -80px;
+}
+
+#header-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  z-index: 10;
+}
+
+#cinemasearch-banner-div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  max-width: 80%;
+}
+
+#header-items img {
+  max-width: 400px;
+  height: 100%;
+  width: auto;
+  margin: 0 auto;
+  padding: 0;
 }
 
 #quote-div {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   width: fit-content;
-  max-width: 75%;
+  max-width: 60%;
   cursor: pointer;
   margin: auto;
+  scale: 1;
+  padding: 15px;
+  transition: 0.3s ease-in-out;
+}
+
+#quote-div:hover {
+  background-color: #0303037d;
+  border-radius: 10px;
+  scale: 1.05;
+  transition: 0.3s ease-in-out;
+}
+
+#quote-div p {
+  padding: 0px;
+  margin: 0px;
+  font-size: 1rem;
 }
 
 #quote-text {
-  font-family: "Poppins", sans-serif;
-  font-size: 20px;
-  font-weight: 500;
-  text-align: center;
-  margin: 0;
-  padding: 0;
+  font-size: 1.4rem !important;
   font-style: italic;
 }
 
@@ -97,34 +155,112 @@ main {
   flex-direction: column;
   justify-content: center;
   position: relative;
-  padding: 0px 5%;
   width: 100%;
-}
-
-#search-bar-area {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: transparent;
-  z-index: 100;
 }
 
 #search-bar {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  margin: 10px auto;
   justify-content: center;
-  padding: 20px;
   width: 80%;
   height: 100%;
-  background-color: #cacaca00;
+}
+
+/* Dropdown Overwrites */
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.dropdown-toggle::after {
+  transform: scale(1.5);
+  margin-left: auto;
+  margin-right: 0.5rem;
+}
+
+.dropdown-menu {
+  width: inherit;
+  z-index: 1000;
+}
+
+/* END Dropdown Overwrites */
+
+/* Search Type Bar */
+#search-type {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  width: fit-content;
+  height: 100%;
+  margin: var(--search-bar-top-bottom-margin) auto;
+}
+
+#search-type div {
+  height: var(--search-bar-height);
+}
+
+/* Add hover darkening */
+#media-selection,
+#search-by-selection {
+  color: black;
+  height: 100%;
+  width: 150px;
+  margin: auto;
+  padding: 5px 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#media-selection {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+#search-by-selection {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+/* END Search Type Bar */
+
+/* Title Search Bar */
+#title-search {
+  height: var(--search-bar-height);
+  width: 50%;
+  min-width: 300px;
+  border: 1px solid #bcbcbc;
+  border-radius: 5px;
+  font-size: 1.25rem;
+  letter-spacing: 1px;
+  margin: var(--search-bar-top-bottom-margin) auto;
+}
+
+#title-search-input {
+  width: 100%;
+  height: 100%;
+  padding: 0px 0.5rem;
+  text-align: center;
+  color: #030303;
+}
+/* END Title Search Bar */
+
+/* Discover Search Bar */
+#discover-search-area {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
   z-index: 100;
 }
 
-#search-bar .search-box {
+.discover-search {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -133,24 +269,35 @@ main {
   width: fit-content;
   height: 100%;
   position: relative;
-  margin: 10px 20px;
+  margin: var(--search-bar-top-bottom-margin) 20px;
+  color: #030303;
 }
 
-#search-bar .search-input {
-  border: 1px solid #bcbcbc;
-  border-radius: 5px;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  width: 300px;
-  height: 40px;
-  max-width: 100%;
-  padding: 5px 10px;
+.discover-search-selection {
+  width: 200px;
+  height: var(--search-bar-height);
+  color: rgb(0, 0, 0);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.discover-search-input {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: none;
+  min-width: 200px;
+  height: var(--search-bar-height);
   color: #030303;
   font-size: 1rem;
-  font-weight: 500;
   letter-spacing: 1px;
   transition: 0.3s ease-in-out;
   background-color: white;
+}
+
+.discover-search-input-options {
+  max-height: 300px;
+  height: fit-content;
+  overflow-y: scroll;
 }
 
 .add-remove-buttons {
@@ -159,11 +306,11 @@ main {
   justify-content: center;
   position: absolute;
   visibility: hidden;
-  top: 0;
+  top: -6px;
   right: -30px;
 }
 
-.search-box:hover .add-remove-buttons {
+.discover-search:hover .add-remove-buttons {
   visibility: visible;
 }
 
@@ -173,80 +320,67 @@ main {
   background-color: transparent;
   width: fit-content;
   height: auto;
+  transform: scale(1);
+  transition: 0.3s ease-in-out;
 }
-
-#search-btn {
-  margin: 0 auto;
-  background-color: #661417;
-  color: #cacaca;
-  width: 175px;
+.add-search-button:hover,
+.remove-search-button:hover {
+  transform: scale(1.2);
+  transition: 0.3s ease-in-out;
 }
+/* END Discover Search Bar */
 
-#card-area {
-  margin: auto;
-  width: fit-content;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
+/* Sort Bar */
 #sort-box {
-  border: 1px solid #661417;
-  border-radius: 5px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: fit-content;
-  /* position: absolute;
-  top: 0; */
+  height: var(--search-bar-height);
+  margin: var(--search-bar-top-bottom-margin) auto;
 }
 
 #sort-label {
-  border: none;
-  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
   width: fit-content;
-  height: 100%;
-  margin: auto;
+  height: var(--search-bar-height);
   padding: 5px 10px;
-  color: white;
+  color: black;
   font-size: 1rem;
-  font-weight: 500;
-  text-align: center;
-  /* text-transform: uppercase; */
-  background-color: #bcbcbc;
+  background-color: #f0f0f0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
-#sort-option .dropdown {
+#sort-by-selection {
+  background-color: white;
   height: 100%;
-}
-
-.custom-dropdown-menu {
-  height: 100%;
-  border: none;
-  border-radius: 0;
+  width: 150px;
   margin: auto;
   padding: 5px 10px;
-  color: rgb(0, 0, 0);
-
+  color: black;
   font-size: 1rem;
-  font-weight: 500;
-  text-align: center;
-  letter-spacing: 1px;
   cursor: pointer;
-  transition: 0.3s ease-in-out;
 }
 
 #sort-arrow-button {
   border: none;
-  background-color: #661417;
+  background-color: var(--accent-color);
   color: white;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
   width: fit-content;
+  padding: 5px 10px;
 }
 
 #sort-arrow-button:hover {
-  background-color: #350f10;
+  background-color: var(--accent-color-dark);
+}
+
+#sort-arrow-button img {
+  width: 20px;
+  height: 20px;
 }
 
 .arrow-up {
@@ -257,10 +391,32 @@ main {
   transform: rotate(180deg);
   transition: transform 0.3s ease-in-out;
 }
+/* END Sort Bar */
+
+/* Search Button */
+#search-btn {
+  margin: var(--search-bar-top-bottom-margin) auto;
+  background-color: var(--accent-color);
+  color: white;
+  width: 200px;
+  height: var(--search-bar-height);
+  border: none;
+  border-radius: 5px;
+  font-size: 1.15rem;
+}
+
+#search-btn:hover {
+  background-color: var(--accent-color-dark);
+}
+/* END Search Button */
 
 #card-area {
-  padding: fit-content;
+  margin: auto;
   width: fit-content;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: fit-content;
 }
 
 #card-container {
@@ -273,21 +429,17 @@ main {
 .movie {
   width: 300px;
   margin: 1rem;
-  background-color: #661417;
+  background-color: var(--accent-color);
   border-radius: 3px;
   box-shadow: 0.2rem 0.4rem 0.5rem black;
   position: relative;
   overflow: hidden;
 }
 
-.custom-shadow {
-  box-shadow: 0.2rem 0.4rem 0.5rem black;
-}
-
 .movie .favorite-button {
   position: absolute;
   top: 0;
-  right: 0;
+  right: -10px;
   padding: 0.5rem;
   background-color: transparent;
   border: none;
@@ -485,9 +637,7 @@ ul {
 }
 /* end of collapsable sidebar menu */
 
-.container {
-  margin-top: 5%;
-}
+/* TODO Find out if this is used */
 /* Style to create scroll bar in dropdown */
 .scrollable-dropdown {
   height: auto;

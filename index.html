@@ -17,42 +17,36 @@
    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
    <!-- MDB -->
    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
+   <!-- Autocomplete.js -->
+   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/css/autoComplete.min.css"> -->
    <!-- Custom CSS -->
    <link href="./assets/css/style.css" rel="stylesheet" />
 </head>
 
 <body>
-
-
-
    <header>
+      <!-- Background image -->
+      <div class="main-curtain bg-image"></div>
       <!-- https://www.pngegg.com/en/png-dhrgx -->
-      <img class="side-curtains left-curtain" src="./assets/images/single-curtain-rev1.png" alt="FilmFinder Logo"
-         class="img-fluid" />
+      <img class="side-curtains left-curtain img-fluid" src="./assets/images/header-images/single-curtain-shadow.png"
+         alt="left curtain" />
 
-      <img class="side-curtains right-curtain" src="./assets/images/single-curtain-rev1.png" alt="FilmFinder Logo"
-         class="img-fluid" />
+      <img class="side-curtains right-curtain img-fluid" src="./assets/images/header-images/single-curtain-shadow.png"
+         alt="right curtain" />
 
 
       <!-- Background image -->
-      <div class="p-5 text-center bg-image main-curtain">
-         <div>
-            <div class="d-flex justify-content-center align-items-center h-100">
-               <div class="text-white">
-                  <!-- <h1 class="mb-3">FilmFinder</h1> -->
-                  <div>
-                     <img src="./assets/images//cinemasearchbanner.png" alt="FilmFinder Logo" class="img-fluid"
-                        width="60%" height="auto" />
-                  </div>
-                  <!-- TODO Don't forget to change this -->
-                  <h4 class="mb-3">It's like Google but it only does movies and was made in 2 weeks.</h4>
-                  <div id="quote-div">
-                     <p id="quote-text"></p>
-                     <p id="quote-person"></p>
-                     <p><span id="quote-movie"></span><span id="quote-year"></span></p>
-                  </div>
-               </div>
-            </div>
+      <!-- TODO Move the CSS to style.css -->
+      <div id="header-items">
+         <h1 hidden>Cinema Search</h1>
+         <div id="cinemasearch-banner-div">
+            <img src="./assets/images/header-images/cinemabanner.png" alt="Cinema Logo" />
+            <img src="./assets/images/header-images/searchbanner.png" alt="Search Logo" />
+         </div>
+         <div id="quote-div">
+            <p id="quote-text"></p>
+            <p id="quote-person"></p>
+            <p><span id="quote-movie"></span><span id="quote-year"></span></p>
          </div>
       </div>
 
@@ -62,136 +56,142 @@
 
    <main>
       <!-- Search Bar Area -->
-      <div id="search-bar-area">
-         <section id="search-bar">
-
-            <!-- Dropdown -->
-
-            <div id="search-box-1" class="input-group search-box custom-shadow">
-               <button class="custom-dropdown-menu dropdown-toggle" type="button" data-mdb-toggle="dropdown"
-                  aria-expanded="false">
-                  Movies
-               </button>
-
-               <ul class="dropdown-menu">
-                  <li><a class="dropdown-item">Movies</a></li>
-                  <li><a class="dropdown-item">Series</a></li>
-                  <li><a class="dropdown-item">Actors</a></li>
-                  <li><a class="dropdown-item">Rating</a></li>
-                  <li>
-                     <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
+      <section id="search-bar">
+         <!-- Search Type Selection -->
+         <form id="search-type" class="custom-shadow" data-formtype="main-search">
+            <!-- Media Type -->
+            <div>
+               <button id="media-selection" class="dropdown-toggle" type="button" data-mdb-toggle="dropdown"
+                  data-dropdownindex="1" data-paramvalue="movie" aria-expanded="false">Movies</button>
+               <ul id="media-selection-input" class="dropdown-menu" data-dropdownindex="1">
+                  <li><a class="dropdown-item" data-paramvalue="movie">Movies</a></li>
+                  <li><a class="dropdown-item" data-paramvalue="tv">TV Series</a></li>
                </ul>
-               <div class="form-outline">
-                  <!-- TODO Return this to search-input-1 -->
-                  <input id="search-input" type="text" class="form-control search-input" maxlength="20" />
-                  <label class="form-label" for="search-input">Title</label>
-               </div>
-               <div class="add-remove-buttons">
-                  <button class="add-search-button" type="button"><img src="./assets/images/icons8-plus-30.png"
-                        alt="plus Button" width="20px" height="auto" /></button>
-                  <button class="remove-search-button" type="button"><img src="./assets/images/icons8-minus-30.png"
-                        alt="minus Button" width="20px" height="auto" /></button>
-               </div>
             </div>
-            <!-- Dropdown -->
-
-
-            <!-- Dropdown -->
-            <div id="search-box-2" class="input-group search-box custom-shadow">
-               <button class="custom-dropdown-menu dropdown-toggle" type="button" data-mdb-toggle="dropdown"
-                  aria-expanded="false">
-                  Rating
-               </button>
-
-               <ul class="dropdown-menu">
-                  <li><a class="dropdown-item">Movies</a></li>
-                  <li><a class="dropdown-item">Series</a></li>
-                  <li><a class="dropdown-item">Actors</a></li>
-                  <li><a class="dropdown-item">Rating</a></li>
-                  <li>
-                     <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
+            <!-- Search By -->
+            <div>
+               <button id="search-by-selection" class="dropdown-toggle" type="button" data-mdb-toggle="dropdown"
+                  data-dropdownindex="2" data-paramvalue="search" aria-expanded="false">By
+                  Title</button>
+               <ul id="search-by-selection-input" class="dropdown-menu" data-dropdownindex="2">
+                  <li><a class="dropdown-item" data-paramvalue="search">By Title</a></li>
+                  <li><a class="dropdown-item" data-paramvalue="discover">By Discover</a></li>
                </ul>
-               <div class="form-outline">
-                  <input id="search-input-2" type="text" class="form-control search-input" maxlength="20" />
-                  <label class="form-label" for="search-input-2">Rating</label>
-               </div>
-               <div class="add-remove-buttons">
-                  <button class="add-search-button" type="button"><img src="./assets/images/icons8-plus-30.png"
-                        alt="plus Button" width="20px" height="auto" /></button>
-                  <button class="remove-search-button" type="button"><img src="./assets/images/icons8-minus-30.png"
-                        alt="minus Button" width="20px" height="auto" /></button>
-               </div>
             </div>
-            <!-- Dropdown -->
+         </form>
+         <!-- END Search Type Selection -->
 
-            <!-- Dropdown -->
-            <div id="search-box-3" class="input-group search-box  custom-shadow">
-               <button class="custom-dropdown-menu dropdown-toggle" type="button" data-mdb-toggle="dropdown"
-                  aria-expanded="false">
-                  Actor
-               </button>
+         <!-- Title Search -->
+         <form id="title-search" class="custom-shadow">
+            <input id="title-search-input" type="text" placeholder="Title" maxlength="20" />
+         </form>
+         <!-- END Title Search -->
 
-               <ul class="dropdown-menu">
-                  <li><a class="dropdown-item">Movies</a></li>
-                  <li><a class="dropdown-item">Series</a></li>
-                  <li><a class="dropdown-item">Actors</a></li>
-                  <li><a class="dropdown-item">Rating</a></li>
-                  <li>
-                     <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
-               </ul>
-               <div class="form-outline">
-                  <input id="search-input-3" type="text" class="form-control search-input" maxlength="20" />
-                  <label class="form-label" for="search-input-3">Name</label>
+         <div id="discover-search-area">
+            <!-- Discover Search -->
+            <form id="discover-search" class="discover-search search-box custom-shadow" data-formtype="discover-search"
+               hidden="true">
+               <!-- Discover Search Parameter -->
+               <div>
+                  <button class="dropdown-toggle discover-search-selection" type="button"
+                     data-mdb-toggle="dropdown" data-dropdownindex="1" data-param=""
+                     aria-expanded="false">Select</button>
+                  <ul class="dropdown-menu" aria-labelledby="discover-search-selection" data-dropdownindex="1">
+                     <!-- Movie Specific -->
+                     <li><a class="dropdown-item" data-param="with_genres" data-mediatype="movie"
+                           data-listsource="moviegenres.json">Genre</a></li>
+                     <li><a class="dropdown-item" data-param="region" data-mediatype="movie"
+                           data-listsource="countrycodes.json">Region</a></li>
+                     <li><a class="dropdown-item" data-param="year" data-mediatype="movie" data-start="1900"
+                           data-end="2030">Release Year</a></li>
+                     <li><a class="dropdown-item" data-param="certification" data-mediatype="movie"
+                           data-listsource="movieratings.json">Rating (US Only)</a></li>
+                     <!-- TODO Figure out how to load this? Currently JSON is too large -->
+                     <!-- <li><a class="dropdown-item" data-paramvalue="person_id" data-mediatype="movie" data-listsource="personids.json">Actors</a></li> -->
+                     <!-- END Movie Specific -->
+                     <!-- TV Specific -->
+                     <li><a class="dropdown-item" data-param="with_genres" data-mediatype="tv"
+                           data-listsource="tvgenres.json" hidden="true">Genre</a></li>
+                     <li><a class="dropdown-item" data-param="with_type" data-mediatype="tv"
+                           data-listsource="tvtype.json" hidden="true">Type</a></li>
+                     <li><a class="dropdown-item" data-param="with_status" data-mediatype="tv"
+                           data-listsource="tvstatus.json" hidden="true">Status</a></li>
+                     <!-- END TV Specific -->
+                     <li><a class="dropdown-item" data-param="vote_average.gte" data-start="0" data-end="9">Minimum
+                           Vote
+                           Average</a></li>
+                     <li><a class="dropdown-item" data-param="vote_average.lte" data-start="0" data-end="9">Maximum
+                           Vote
+                           Average</a></li>
+                     <li><a class="dropdown-item" data-param="with_runtime.gte" data-multiplier="60" data-start="0"
+                           data-end="5">Minimum
+                           Runtime (hr)</a></li>
+                     <li><a class="dropdown-item" data-param="with_runtime.lte" data-multiplier="60" data-start="0"
+                           data-end="5">Maximum
+                           Runtime (hr)</a></li>
+                  </ul>
                </div>
+               <!-- END Discover Search Paramter -->
+               <!-- Discover Search Value -->
+               <div>
+                  <button class="dropdown-toggle discover-search-input" type="button"
+                     data-mdb-toggle="dropdown" data-dropdownindex="2" data-paramvalue=""
+                     aria-expanded="false"></button>
+                  <ul class="dropdown-menu discover-search-input-options" data-dropdownindex="2"
+                     aria-labelledby="discover-search-input">
+                  </ul>
+               </div>
+               <!-- END Discover Search Value -->
+
                <div class="add-remove-buttons">
-                  <button class="add-search-button" type="button"><img src="./assets/images/icons8-plus-30.png"
+                  <button class="add-search-button" type="button"><img src="./assets/images/icons/icons8-plus-30.png"
                         alt="plus Button" width="20px" height="auto" /></button>
-                  <button class="remove-search-button" type="button"><img src="./assets/images/icons8-minus-30.png"
-                        alt="minus Button" width="20px" height="auto" /></button>
+                  <button class="remove-search-button" type="button" hidden><img
+                        src="./assets/images/icons/icons8-minus-30.png" alt="minus Button" width="20px"
+                        height="auto" /></button>
                </div>
-            </div>
-            <!-- Dropdown -->
-         </section>
-         <button id="search-btn" type="button" class="btn  custom-shadow">Search</button>
-      </div>
-      <!-- Search Bar -->
+            </form>
+            <!-- END discover Search -->
+         </div>
 
-
-      <div id="card-area">
          <!-- Sort Bar -->
+         <form id="sort-box" class="search-box custom-shadow" hidden="true">
+            <label id="sort-label" for="sort-box">Sort By</label>
 
-         <section id="sort-box">
-            <label id="sort-label" class="input-group-text custom-shadow" for="search-box">Sort By</label>
-
-            <div class="dropdown">
-               <button id="dropdownMenu2" class=" custom-dropdown-menu dropdown-toggle" type="button"
-                  data-mdb-toggle="dropdown" aria-expanded="false">
+            <!-- Sort Parameter -->
+            <div>
+               <button id="sort-by-selection" class="dropdown-toggle" type="button" data-mdb-toggle="dropdown"
+                  data-paramvalue="popularity" data-dropdownindex="1" aria-expanded="false">
                   Popularity
                </button>
-               <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <li><button class="dropdown-item" type="button">Popularity</button></li>
-                  <li><button class="dropdown-item" type="button">Revenue</button></li>
-                  <li><button class="dropdown-item" type="button">Vote Average</button></li>
+               <ul id="sort-by-selection-input" class="dropdown-menu" aria-labelledby="sort-by-selection"
+                  data-dropdownindex="1">
+                  <li><a class="dropdown-item" type="button" data-paramvalue="popularity">Popularity</a></li>
+                  <li><a class="dropdown-item" type="button" data-paramvalue="revenue">Revenue</a></li>
+                  <li><a class="dropdown-item" type="button" data-paramvalue="release_date">Release Date</a></li>
+                  <li><a class="dropdown-item" type="button" data-paramvalue="vote_average">Vote Average</a></li>
                </ul>
             </div>
-            <button id="sort-arrow-button" type="button">
-               <img src="./assets/images/icons8-up-arrow-30.png" alt="plus" class="arrow-down"
-                  data-filterDirection="desc" width="20px" height="20px" />
+            <!-- END Sort Parameter -->
+            <!-- Sort Direction -->
+            <button id="sort-arrow-button" type="button" class="btn">
+               <img src="./assets/images/icons/icons8-up-arrow-30.png" alt="arrow indicating descending or ascending"
+                  class="arrow-down" data-paramvalue="desc" />
             </button>
-         </section>
-         <!-- Sort Bar -->
+            <!-- END Sort Direction -->
+         </form>
+         <!-- END Sort Bar -->
+         <!-- Search Button -->
+         <button id="search-btn" type="button" class="btn custom-shadow">Search</button>
+         <!-- END Search Button-->
+      </section>
+      <!-- END Search Bar -->
 
+      <div id="card-area">
          <!-- Card Container -->
          <section id="card-container">
          </section>
-         <!-- Card Container -->
-
+         <!-- END Card Container -->
       </div>
    </main>
 
@@ -223,7 +223,8 @@
                   <div class="row">
 
                      <div class="col-6 ratio ratio-16x9">
-                        <iframe id="modal-video" src="" title="YouTube video" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                        <iframe id="modal-video" src="" title="YouTube video" width="560" height="315" frameborder="0"
+                           allowfullscreen></iframe>
                      </div>
                      <div class="col-3" id="modal_title">Movie Title</div>
                      <div class="col-3" id="modal_runtime">Runtime</div>
@@ -233,7 +234,8 @@
                         <div class="accordion-item">
                            <h2 class="accordion-header" id="headingOne">
                               <button class="accordion-button" type="button" data-mdb-toggle="collapse"
-                                 data-mdb-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="accordion_1">
+                                 data-mdb-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                 id="accordion_1">
                                  Availability
                               </button>
                            </h2>
@@ -291,6 +293,9 @@
    <!-- Modal -->
 
 </body>
+<!-- Autocomplete.js -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
+<script>const autoCompleteJS = new autoComplete({ config });</script> -->
 <!-- MDB -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 <!-- jQuery -->
