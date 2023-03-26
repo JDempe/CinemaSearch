@@ -40,7 +40,6 @@ header {
   background-color: transparent;
   position: relative;
   height: 425px;
-  overflow-y: visible;
   width: 100%;
   text-align: center;
 }
@@ -63,30 +62,34 @@ header {
   height: 525px;
   z-index: 1000;
   top: -40px;
-  transform: translate(-20px 0px);
-  transform: 0.3s ease-in-out;
-  overflow: visible;
 }
 
 .left-curtain {
-  left: -50px;
-  transition: left 1s ease-in-out;
+  left: -10px;
+  transition: 1.0s ease-in-out;
 }
 
 .right-curtain {
-  right: -50px;
+  right: -10px;
   transform: scaleX(-1);
-  transition: right 1s ease-in-out;
+  transition: 1.0s ease-in-out;
+}
+
+/* https://stackoverflow.com/questions/4296012/hide-div-if-screen-is-smaller-than-a-certain-width */
+@media screen and (max-width: 725px) {
+  .left-curtain, .right-curtain {
+      display: none !important;
+  }
 }
 
 /* TODO Find a way to make this simultaneous */
 header:hover .left-curtain {
-  transform: translate(-20px, 0px);
-  left: -40px;
+
+  left: -80px;
 }
 
 header:hover .right-curtain {
-  right: -40px;
+  right: -80px;
 }
 
 #header-items {
@@ -125,7 +128,7 @@ header:hover .right-curtain {
   cursor: pointer;
   margin: auto;
   scale: 1;
-  padding: 10px;
+  padding: 15px;
   transition: 0.3s ease-in-out;
 }
 
@@ -139,10 +142,11 @@ header:hover .right-curtain {
 #quote-div p {
   padding: 0px;
   margin: 0px;
+  font-size: 1rem;
 }
 
 #quote-text {
-  font-size: 22px;
+  font-size: 1.4rem !important;
   font-style: italic;
 }
 
