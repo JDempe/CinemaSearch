@@ -1,120 +1,166 @@
 $(document).ready(function () {
-  const trendingSearch =
-    "https://api.themoviedb.org/3/trending/all/week?api_key=23f1819072bf0eab7a398d521d310078";
-  ("https://api.themoviedb.org/3/genre/tv/list?api_key=23f1819072bf0eab7a398d521d310078");
-
-  ("https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=23f1819072bf0eab7a398d521d310078");
-
   const API_KEY = "api_key=23f1819072bf0eab7a398d521d310078";
   const BASE_URL = "https://api.themoviedb.org/3/";
-  const API_URL =
-    BASE_URL +
-    "/discover/movie?sort_by=popularity.desc&include_video=true&" +
-    API_KEY;
   const IMG_URL = "https://image.tmdb.org/t/p/w500";
-  const main = document.getElementById("card-container");
-  const searchURL = BASE_URL + "/search/movie?" + API_KEY;
+  const trendingSearch = "trending/all/week?";
+
+  const main = $("#card-container");
 
   // Random Quote
-  const quoteDiv = document.getElementById("quote-div");
-  const quoteText = document.getElementById("quote-text");
-  const quotePerson = document.getElementById("quote-person");
-  const quoteMovie = document.getElementById("quote-movie");
-  const quoteYear = document.getElementById("quote-year");
+  const quoteDiv = $("#quote-div");
+  const quoteText = $("#quote-text");
+  const quotePerson = $("#quote-person");
+  const quoteMovie = $("#quote-movie");
+  const quoteYear = $("#quote-year");
 
-  // Search Form
-  const searchBoxes = $(".search-box");
-  const searchDropdownSelections = $(".search-selection");
-  const searchInputs = $(".search-input");
+  // Search Submit Button
   const searchBtn = $("#search-btn");
-  // END Search Form
 
   // Sort Form
-  const sortInput = $("#sort-selection");
   const sortArrow = $("#sort-arrow-button");
+
+  // MODAL
+  const myModalEl = $("#exampleModal");
+  const modal = new mdb.Modal(myModalEl);
+  const modalVideo = $("#modal-video");
+
+  // EVENT LISTENERS
+  // Event listener to search via clicking the submit button
+  searchBtn.on("click", function (e) {
+    e.preventDefault();
+    getMovies(true);
+  });
+
+  // Event listener to search via Submit (Enter)
+  $(document).on("submit", (e) => {
+    e.preventDefault();
+    getMovies(true);
+  });
+
+  // Add event listener to the quote area so when you click on it, it will take the movie title and do a search
+  // TODO If a RESET is added, then refactor this to clear the search and write the movie name into the saerch
+  quoteDiv.on("click", function (e) {
+    e.preventDefault();
+    let searchTerm = quoteMovie.text();
+    if (searchTerm) {
+      getMovies(false, "search/movie?query=" + searchTerm + "&");
+    }
+  });
+
+  // 'Media Type' Dropdown Event Listeners
+  // The listener for changing the Media Type dropdown
+  $("#media-selection-input")
+    .find(".dropdown-item")
+    .on("click", function (e) {
+      e.preventDefault();
+      let mediaType = $(this).text();
+      $(this).closest("button").text(mediaType);
+      let isChanged = overwriteDropdownText($(this));
+      if (isChanged) {
+        refreshDiscoverSearchBoxList(mediaType);
+      }
+    });
+  // END Media Type Dropdown Event Listeners
+
+  // 'Search By' Dropdown Event Listeners
+  // The listener for changing the Search By dropdown
+  $("#search-by-selection-input")
+    .find(".dropdown-item")
+    .on("click", function (e) {
+      e.preventDefault();
+      let searchBy = $(this).text();
+      let isChanged = overwriteDropdownText($(this));
+
+      if (isChanged) {
+        switch (searchBy) {
+          case "By Title":
+            // remove discover search bars
+            $(".discover-search").not("#discover-search").remove();
+            // show title search bar
+            $("#title-search-input").removeAttr("hidden");
+            break;
+          case "By Discover":
+            // remove title search bar and clear it
+            $("#title-search-input").attr("hidden", true);
+            $("#title-search-input").text("");
+            createDiscoverSearchElement();
+        }
+      }
+    });
+  // END Search By Dropdown Event Listener
+
+  // 'Sort By' Dropdown Event Listeners
+  // The listener for changing the Sort By dropdown
+  $("#sort-by-selection-input")
+    .find(".dropdown-item")
+    .on("click", function (e) {
+      e.preventDefault();
+      let sortBy = $(this).text();
+      let isChanged = overwriteDropdownText($(this));
+      console.log("Sort By: " + sortBy);
+    });
+
+  // The listener for changing the Sort Order arrow
   sortArrow.on("click", sortingOrderSelection);
+  // END Sort By Dropdown Event Listeners
 
-  // TODO Delete form once we have the search working
-  const form = document.getElementById("title-search-input");
+  // 'Discover Search' Event Listeners
+  // The listener to add Search Parameters in Discover Search
+  $(".add-search-button").on("click", function (e) {
+    e.preventDefault();
+    createDiscoverSearchElement();
+    $(".remove-search-button").removeAttr("hidden");
+    // if the list is 5 long, hide the + sign
+    if ($(".discover-search").not("#discover-search").length == 5) {
+      $(".add-search-button").attr("hidden", true);
+    }
+  });
 
+  // The listener to add Search Parameters in Discover Search
+  $(".remove-search-button").on("click", function (e) {
+    e.preventDefault();
+    $(this).closest(".discover-search").remove();
+    $(".add-search-button").removeAttr("hidden");
+    // if the list is 1 long, hide the - sign
+    if ($(".discover-search").not("#discover-search").length == 1) {
+      $(".remove-search-button").attr("hidden", true);
+    }
+  });
+  // END 'Discover Search' Event Listeners
+
+  // MODAL event listeners
+  // https://stackoverflow.com/questions/18622508/bootstrap-3-and-youtube-in-modal
+  // https://stackoverflow.com/questions/60284183/video-still-playing-when-bootstrap-modal-closes
+  $("#exampleModal").on("hide.bs.modal", function () {
+    modalVideo.src = ""; // reset video
+  });
+  // END EVENT LISTENERS
+
+  // PAGE LOAD
   // Run this function when the page loads
   displayRandomQuote();
+  getMovies(false, trendingSearch);
+  // END PAGE LOAD
 
-  getMovies(
-    "https://api.themoviedb.org/3//trending/all/week?api_key=23f1819072bf0eab7a398d521d310078"
-  );
+  // Make the API Call, true = use search, false = use what was passed in.  The passed in URL is everything between the base URL and the API key
+  function getMovies(isTrue, passedInURL) {
+    if (isTrue) {
+      let params = collectSearchParams();
+      finalURL = BASE_URL + params + "page=1&" + API_KEY;
+    } else {
+      passedInURL = passedInURL || trendingSearch;
+      finalURL = BASE_URL + passedInURL + "page=1&" + API_KEY;
+    }
 
-  function getMovies(url) {
-    fetch(url)
+    console.log("finalURL Check");
+    console.log(finalURL);
+
+    fetch(finalURL)
       .then((res) => res.json())
       .then((data) => {
         console.log(data.results);
         showSearchResults(data.results);
       });
-  }
-
-  function showSearchResults(data) {
-    main.innerHTML = "";
-
-    data.forEach((media) => {
-      // if the media is movie, then use title, poster_path, vote_average, overview, id
-      // if the media is tv, then use name, poster_path, vote_average, overview, id
-      let title;
-      if (
-        media.media_type == "tv" ||
-        $("#media-selection").data("paramvalue") == "tv"
-      ) {
-        title = media.name;
-      } else {
-        title = media.title;
-      }
-
-      const { poster_path, vote_average, overview, id } = media;
-
-      const movieEl = document.createElement("div");
-      movieEl.classList.add("movie");
-      movieEl.classList.add("hvr-grow");
-      movieEl.setAttribute("movie_id", id);
-      movieEl.innerHTML = `
-    <div class="form-check favorite-button">
-    <input class="form-check-input favorite-checkbox" type="checkbox" value="" id="flexCheckDefault" />
-    </div>
-    <img src="${IMG_URL + poster_path}" alt="${title}">
-    <div class="movie-info">
-    <h2>${title}</h2>
-    <span class="${getColor(vote_average)}">${noVote(vote_average)}</span>
-    </div>
-    <div class="overview">
-    <h3>Overview</h3>
-    <p>${overview}</p>
-    </div>
-    `;
-
-      // Add event listener to the movie card
-      movieEl.addEventListener("click", function (e) {
-        console.log("clicked!");
-        console.log(e.target);
-
-        if (e.target.classList.contains("favorite-checkbox")) {
-          console.log("clicked favorite button");
-          // TODO Add to favorites
-        } else {
-          // THIS IS WHERE THE OPEN THE MODAL STUFF HAPPENS
-          modal.show();
-          // find the parent element with class "movie"
-          const movie = e.target.closest(".movie");
-          let id = movie.getAttribute("movie_id");
-          // video = this.dataset.video;
-          fetch(BASE_URL + "/movie/" + id + "?" + API_KEY)
-            .then((res) => res.json())
-            .then((data) => {
-              console.log(data);
-              getStreaming(data);
-            });
-        }
-      });
-      main.appendChild(movieEl);
-    });
   }
 
   function getStreaming(data) {
@@ -253,6 +299,75 @@ $(document).ready(function () {
     return match && match[2].length === 11 ? match[2] : null;
   }
 
+  // Creating Cards
+
+  // create a card given the data from the TMDB API
+  function showSearchResults(data) {
+    main.text("");
+
+    data.forEach((media) => {
+      // if the media is movie, then use title, poster_path, vote_average, overview, id
+      // if the media is tv, then use name, poster_path, vote_average, overview, id
+      let title;
+      if (
+        media.media_type == "tv" ||
+        $("#media-selection").data("paramvalue") == "tv"
+      ) {
+        title = media.name;
+      } else {
+        title = media.title;
+      }
+
+      const { poster_path, vote_average, overview, id } = media;
+
+      const movieEl = document.createElement("div");
+      movieEl.classList.add("movie");
+      movieEl.classList.add("hvr-grow");
+      movieEl.setAttribute("movie_id", id);
+      movieEl.innerHTML = `
+    <div class="form-check favorite-button">
+    <input class="form-check-input favorite-checkbox" type="checkbox" value="" id="flexCheckDefault" />
+    </div>
+    <img src="${IMG_URL + poster_path}" alt="${title}">
+    <div class="movie-info">
+    <h2>${title}</h2>
+    <span class="${getColor(vote_average)}">${noVote(vote_average)}</span>
+    </div>
+    <div class="overview">
+    <h3>Overview</h3>
+    <p>${overview}</p>
+    </div>
+    `;
+
+      // Add event listener to the movie card
+      movieEl.addEventListener("click", function (e) {
+        console.log("clicked!");
+        console.log(e.target);
+
+        if (e.target.classList.contains("favorite-checkbox")) {
+          console.log("clicked favorite button");
+          // TODO Add to favorites
+        } else {
+          // THIS IS WHERE THE OPEN THE MODAL STUFF HAPPENS
+          modal.show();
+          // find the parent element with class "movie"
+          const movie = e.target.closest(".movie");
+          let id = movie.getAttribute("movie_id");
+          // video = this.dataset.video;
+          fetch(BASE_URL + "/movie/" + id + "?" + API_KEY)
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              getStreaming(data);
+            });
+        }
+      });
+
+      main.append(movieEl);
+    });
+  }
+
+  // If vote average is 0, return N/A
   function noVote(vote) {
     if (vote === 0) {
       return "N/A";
@@ -273,40 +388,29 @@ $(document).ready(function () {
       return "red";
     }
   }
+  // END Creating Cards
 
-  // Example of function to populate a dropdown with JSON data
-  // populateDropdownWithJSON("./assets/json/moviegenres.json", $("#testDropdown"));
+  // Display a random quote from the JSON file
+  function displayRandomQuote() {
+    // Fetch the JSON for Random Quotes
+    fetch("./assets/json/AFI-100-Years-100-Movie-Quotes.json")
+      .then((response) => response.json())
+      .then((json) => {
+        // Get a random quote from the JSON
+        randomQuote = json[Math.floor(Math.random() * json.length)];
 
-  // Populate a dropdown with JSON data
-  function populateDropdownWithJSON(url, dropdown) {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        // remove the dropdown's children
-        dropdown.empty();
-        data.forEach((entry) => {
-          dropdown.append(
-            `<li><a class=\"dropdown-item\" data-paramvalue=\"${entry.id}\">${entry.name}</a></li>`
-          );
-        });
-        addDropdownListeners();
+        // Display the quote
+        quoteText.text('"' + randomQuote.quote + '"');
+        quotePerson.text("-" + randomQuote.character);
+        quoteMovie.text(randomQuote.movie);
+        quoteYear.text(" (" + randomQuote.year + ")");
       });
   }
 
-  function populateDropdownWithNumbers(start, end, dropdown, multiplier) {
-    dropdown.empty();
-    for (let i = start; i <= end; i++) {
-      let m = i * multiplier;
-      dropdown.append(
-        `<li><a class=\"dropdown-item\" data-paramvalue=\"${m}\">${i}</a></li>`
-      );
-    }
-    addDropdownListeners();
-  }
+  // SEARCH FUNCTIONS
 
+  // Collect the search parameters from the search area and build the URL
   function collectSearchParams() {
-    console.log("collectSearchParams");
-
     var url;
 
     let searchType = $("#search-by-selection").data("paramvalue");
@@ -344,7 +448,9 @@ $(document).ready(function () {
       } else {
         // TODO Filter some stuff
         // if the certification is present, then add certification_country to US
-        let certification = searchParameters.find(o => o.param === 'certification')
+        let certification = searchParameters.find(
+          (o) => o.param === "certification"
+        );
         if (certification) {
           searchParameters.push({
             param: "certification_country",
@@ -354,11 +460,10 @@ $(document).ready(function () {
         // If there are duplicates, delete all but the last one
         searchParameters = searchParameters.reverse();
         // https://stackoverflow.com/questions/9229645/remove-duplicates-from-javascript-array
-        searchParameters = searchParameters.filter((thing, index, self) =>
-          index === self.findIndex((t) => (
-            t.param === thing.param
-          ))
-        )
+        searchParameters = searchParameters.filter(
+          (thing, index, self) =>
+            index === self.findIndex((t) => t.param === thing.param)
+        );
         searchParameters = searchParameters.reverse();
 
         var searchParamString = "";
@@ -368,110 +473,10 @@ $(document).ready(function () {
         url = `discover/${mediaType}?sort_by=${sortType}.${sortDir}${searchParamString}&`;
       }
     }
-    console.log("url:");
-    console.log(url);
     return url;
   }
 
-  // TODO COMBINE INTO ONE FUNCTION FOR SEARCHING, LINK TO BOTH EVENT
-
-  // Search via form Submit (Enter)
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const searchTerm = form.value;
-    if (searchTerm) {
-      getMovies(searchURL + "&query=" + searchTerm);
-    } else {
-      getMovies(API_URL);
-    }
-  });
-
-  // Search via clicking the submit button
-
-  searchBtn.on("click", function (e) {
-    e.preventDefault();
-
-    let params = collectSearchParams();
-    console.log("final check");
-    console.log(BASE_URL + params + "page=5&" + API_KEY);
-
-    getMovies(BASE_URL + params + "page=5&" + API_KEY);
-  });
-
-  // Brought in from JDempe's code, to allow search via Enter key
-  form.addEventListener("keyup", function (e) {
-    e.preventDefault();
-    if (e.key === "Enter") {
-      const searchTerm = form.value;
-      if (searchTerm) {
-        getMovies(searchURL + "&query=" + searchTerm);
-      } else {
-        getMovies(API_URL);
-      }
-    }
-  });
-
-  // for sidenavbar
-  /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
-  function openNav() {
-    document.getElementById("mySidebar").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-  }
-
-  /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
-  function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
-  }
-
-  // MODAL VISIBILITY
-  const myModalEl = document.getElementById("exampleModal");
-  const modal = new mdb.Modal(myModalEl);
-  const modalVideo = document.getElementById("modal-video");
-
-  // https://stackoverflow.com/questions/18622508/bootstrap-3-and-youtube-in-modal
-  // https://stackoverflow.com/questions/60284183/video-still-playing-when-bootstrap-modal-closes
-  $("#exampleModal").on("show.bs.modal", function () {
-    // modalVideo.src = video; // set video
-    console.log("show");
-  });
-
-  $("#exampleModal").on("hide.bs.modal", function () {
-    modalVideo.src = ""; // reset video
-    console.log("hide");
-  });
-
-  // Add event listener to the quote area so when you click on it, it will take the movie title and put it into the search bar
-  // TODO Refactor this to have better results?
-  quoteDiv.addEventListener("click", function (e) {
-    e.preventDefault();
-    let searchTerm = quoteMovie.innerHTML;
-    if (searchTerm) {
-      getMovies(searchURL + "&query=" + searchTerm);
-      // Put the text in the search bar
-      form.value = searchTerm;
-    }
-  });
-
-  // Random Quote
-  function displayRandomQuote() {
-    // Fetch the JSON for Random Quotes
-    fetch("./assets/json/AFI-100-Years-100-Movie-Quotes.json")
-      .then((response) => response.json())
-      .then((json) => {
-        // Get a random quote from the JSON
-        randomQuote = json[Math.floor(Math.random() * json.length)];
-
-        // Display the quote
-        quoteText.innerHTML = '"' + randomQuote.quote + '"';
-        quotePerson.innerHTML = "-" + randomQuote.character;
-        quoteMovie.innerHTML = randomQuote.movie;
-        quoteYear.innerHTML = " (" + randomQuote.year + ")";
-      });
-  }
-
-  // SORT BY ARROW FUNCTIONALITY
-  // Runs if the sort arrow is clicked
+  // Flip the arrow when it is clicked and change the data-paramvalue to asc or desc
   function sortingOrderSelection(e) {
     // Stop the event from bubbling up to the parent element
     e.preventDefault();
@@ -489,10 +494,11 @@ $(document).ready(function () {
       arrow.data("paramvalue", "desc");
     }
   }
-  // END SORT BY ARROW FUNCTIONALITY
+  // END sortingOrderSelection
 
-  // Change the text of the dropdown to the text of the clicked item
-  function overwriteDropdownText(clickedItem, text) {
+  // Change the text of the closest dropdown to the text of the clicked item
+  function overwriteDropdownText(clickedItem) {
+    let text = clickedItem.text();
     let dropdownIndex = clickedItem.parent().parent().data("dropdownindex");
     let parent = clickedItem
       .closest("form")
@@ -511,93 +517,37 @@ $(document).ready(function () {
     }
   }
 
-  // EVENT LISTENERS
-  // 'Media Type' Dropdown Event Listeners
-  $("#media-selection-input")
-    .find(".dropdown-item")
-    .on("click", function (e) {
-      e.preventDefault();
-      let mediaType = $(this).text();
-      $(this).closest("button").text(mediaType);
-      let isChanged = overwriteDropdownText($(this), mediaType);
-      if (isChanged) {
-        refreshDiscoverSearchBoxList(mediaType);
-      }
-    });
-
-  // END Media Type Dropdown Event Listeners
-
-  // 'Search By' Dropdown Event Listeners
-  $("#search-by-selection-input")
-    .find(".dropdown-item")
-    .on("click", function (e) {
-      e.preventDefault();
-      let searchBy = $(this).text();
-      let isChanged = overwriteDropdownText($(this), searchBy);
-
-      if (isChanged) {
-        switch (searchBy) {
-          case "By Title":
-            // remove discover search bars
-            $(".discover-search").not("#discover-search").remove();
-            // show title search bar
-            $("#title-search-input").removeAttr("hidden");
-            break;
-          case "By Discover":
-            // remove title search bar and clear it
-            $("#title-search-input").attr("hidden", true);
-            $("#title-search-input").text("");
-            createDiscoverSearchElement();
-        }
-      }
-    });
-  // END Search By Dropdown Event Listener
-
-  // 'Sort By' Dropdown Event Listeners
-  $("#sort-by-selection-input")
-    .find(".dropdown-item")
-    .on("click", function (e) {
-      e.preventDefault();
-      let sortBy = $(this).text();
-      let isChanged = overwriteDropdownText($(this), sortBy);
-      console.log("Sort By: " + sortBy);
-    });
-  // END Sort By Dropdown Event Listeners
-
-  function refreshDiscoverSearchBoxList(mediaType) {
-    // remove all discover search elements
-    $(".discover-search").not("#discover-search").remove();
-
-    // add discover search bars
-    let movieLi = $(".discover-search")
-      .closest("form")
-      .find("li")
-      .find(`[data-mediatype="movie"]`);
-    let tvLi = $(".discover-search")
-      .closest("form")
-      .find("li")
-      .find(`[data-mediatype="tv"]`);
-
-    if (mediaType == "Movies") {
-      // show the li's with movie, hide the li's with tv
-      movieLi.removeAttr("hidden");
-      tvLi.attr("hidden", true);
-    } else {
-      // show the li's with tv, hide the li's with movie
-      tvLi.removeAttr("hidden");
-      movieLi.attr("hidden", true);
-    }
-
-    let searchBy = $("#search-by-selection").text();
-    console.log("Search By: " + searchBy);
-    // if the search by is discover, add the discover search bars
-    if (searchBy == "By Discover") {
-      createDiscoverSearchElement();
-      console.log("Discover Search Working to create");
-    }
+  // Populate a dropdown with JSON data
+  function populateDropdownWithJSON(url, dropdown) {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        // remove the dropdown's children
+        dropdown.empty();
+        data.forEach((entry) => {
+          dropdown.append(
+            `<li><a class=\"dropdown-item\" data-paramvalue=\"${entry.id}\">${entry.name}</a></li>`
+          );
+        });
+        addDropdownListeners();
+      });
   }
+  // END populateDropdownWithJSON
 
-  // add event listener to anything with a dropdown-item class (use when creating new dropdowns)
+  // Populate a dropdown with numbers
+  function populateDropdownWithNumbers(start, end, dropdown, multiplier) {
+    dropdown.empty();
+    for (let i = start; i <= end; i++) {
+      let m = i * multiplier;
+      dropdown.append(
+        `<li><a class=\"dropdown-item\" data-paramvalue=\"${m}\">${i}</a></li>`
+      );
+    }
+    addDropdownListeners();
+  }
+  // END populateDropdownWithNumbers
+
+  // add event listener to anything with a dropdown-item class that is in discover search (use when populating the discover search dropdowns)
   function addDropdownListeners() {
     $(".discover-search")
       .not("#discover-search")
@@ -606,8 +556,7 @@ $(document).ready(function () {
         e.preventDefault();
 
         // Change the text of the dropdown
-        let text = $(this).text();
-        overwriteDropdownText($(this), text);
+        overwriteDropdownText($(this));
 
         // Find the data index of the dropdown menu
         let dropdownIndex = $(this).parent().parent().data("dropdownindex");
@@ -663,7 +612,7 @@ $(document).ready(function () {
         }
       });
   }
-  // END EVENT LISTENERS
+  // END addDropdownListeners
 
   function createDiscoverSearchElement() {
     // Clone the hidden discover search element
@@ -677,23 +626,47 @@ $(document).ready(function () {
     addDropdownListeners();
   }
 
-  $(".add-search-button").on("click", function (e) {
-    e.preventDefault();
-    createDiscoverSearchElement();
-    $(".remove-search-button").removeAttr("hidden");
-    // if the list is 5 long, hide the + sign
-    if ($(".discover-search").not("#discover-search").length == 5) {
-      $(".add-search-button").attr("hidden", true);
-    }
-  });
+  // Clear the discover search parameters, and refresh the available search parameters (for movie or for tv)
+  function refreshDiscoverSearchBoxList(mediaType) {
+    // remove all discover search elements
+    $(".discover-search").not("#discover-search").remove();
 
-  $(".remove-search-button").on("click", function (e) {
-    e.preventDefault();
-    $(this).closest(".discover-search").remove();
-    $(".add-search-button").removeAttr("hidden");
-    // if the list is 1 long, hide the - sign
-    if ($(".discover-search").not("#discover-search").length == 1) {
-      $(".remove-search-button").attr("hidden", true);
+    // Grab the li's for movie and tv from the hidden permanant discover search
+    let movieLi = $("#discover-search")
+      .find("li")
+      .find(`[data-mediatype="movie"]`);
+    let tvLi = $("#discover-search").find("li").find(`[data-mediatype="tv"]`);
+
+    // If the media type is movies, show the movie li's and hide the tv li's
+    if (mediaType == "Movies") {
+      movieLi.removeAttr("hidden");
+      tvLi.attr("hidden", true);
     }
-  });
+    // If the media type is tv, show the tv li's and hide the movie li's
+    else {
+      tvLi.removeAttr("hidden");
+      movieLi.attr("hidden", true);
+    }
+
+    // if the search by is discover, add the first discover search back
+    let searchBy = $("#search-by-selection").text();
+    if (searchBy == "By Discover") {
+      createDiscoverSearchElement();
+    }
+  }
+  // END refreshDiscoverSearchBoxList
+  // END SEARCH FUNCTIONS
+
+  // for sidenavbar
+  /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+  function openNav() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+  }
+
+  /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+  function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+  }
 });
