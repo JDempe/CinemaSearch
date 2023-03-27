@@ -17,6 +17,7 @@
   color: white;
 }
 
+/* https://stackoverflow.com/questions/24739126/scroll-to-a-specific-element-using-html */
 html {
   scroll-behavior: smooth;
 }
