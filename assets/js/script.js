@@ -32,6 +32,7 @@ $(document).ready(function () {
   searchBtn.on("click", function (e) {
     e.preventDefault();
     getMovies(true);
+    $("#card-container")[0].scrollIntoView();
   });
 
   // Event listener to search via Submit (Enter)
