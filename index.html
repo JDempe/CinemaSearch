@@ -131,7 +131,10 @@
                            data-listsource="tvtype.json" hidden="true">Type</a></li>
                      <li><a class="dropdown-item" data-param="with_status" data-mediatype="tv"
                            data-listsource="tvstatus.json" hidden="true">Status</a></li>
+                     <!-- <li><a class="dropdown-item" data-param="certification" data-mediatype="tv"
+                              data-listsource="tvratings.json">Cert (US Only)</a></li> -->
                      <!-- END TV Specific -->
+
                      <li><a class="dropdown-item" data-param="vote_average.gte" data-start="0" data-end="9">Minimum
                            Rating</a></li>
                      <li><a class="dropdown-item" data-param="vote_average.lte" data-start="0" data-end="9">Maximum
@@ -213,9 +216,6 @@
    <nav aria-label="page navigation">
       <ul class="pagination">
          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-         <li class="page-item"><a class="page-link" href="#">1</a></li>
-         <li class="page-item"><a class="page-link" href="#">2</a></li>
-         <li class="page-item"><a class="page-link" href="#">3</a></li>
          <li class="page-item"><a class="page-link" href="#">Next</a></li>
       </ul>
    </nav>
@@ -235,18 +235,17 @@
                <div class="container-fluid">
                   <div class="row">
                      <div class="col-12 ratio ratio-16x9">
-                        <iframe id="modalTrailer" src="" title="YouTube video" frameborder="0"
-                           allowfullscreen></iframe>
+                        <iframe id="modalTrailer" src="" title="YouTube video" frameborder="0" allowfullscreen></iframe>
                      </div>
                   </div>
                   <div class="row">
-                           <div class="col-12 text-center" id="modalTitle">Movie Title</div>            
+                     <div class="col-12 text-center" id="modalTitle">Movie Title</div>
                   </div>
                   <div class="row">
 
-                  <div class="col-4 text-center">Runtime: <span id="modalRuntime">--</span> min</div>
-                  <div class="col-4 text-center">Rating: <span id="modalRating">--</span>/10</div>
-                  <div class="col-4 text-center">Initial Release: <span id="modalReleaseDate">--</span></div>
+                     <div class="col-4 text-center">Runtime: <span id="modalRuntime">--</span> min</div>
+                     <div class="col-4 text-center">Rating: <span id="modalRating">--</span>/10</div>
+                     <div class="col-4 text-center">Initial Release: <span id="modalReleaseDate">--</span></div>
                   </div>
 
                   <div class="col-12" id="modalOverview">Overview</div>
@@ -284,7 +283,7 @@
                            </div>
                         </div>
                      </div>
-                  
+
                   </div>
                </div>
             </div>
