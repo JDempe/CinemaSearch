@@ -281,6 +281,13 @@ $(document).ready(function () {
             case "disney":
               srcImage = "./assets/images/streaming-platform-icons/disney.svg";
               break;
+            case "apple":
+              srcImage = "./assets/images/streaming-platform-icons/apple.svg";
+              break;
+            case "showtime":
+              srcImage =
+                "./assets/images/streaming-platform-icons/showtime.svg";
+              break;
           }
 
           newATag.setAttribute("href", newObj.link);
@@ -389,25 +396,7 @@ $(document).ready(function () {
         if (e.target.classList.contains("favorite-checkbox")) {
           console.log("clicked favorite button");
           // TODO Add to favorites
-          // pull the favorites list from local storage
-          let favorites = JSON.parse(localStorage.getItem("favorites"));
-          // if there are no favorites, create an empty array
-          if (!favorites) {
-            favorites = [];
-          }
-
-          // if the movie is not in the favorites list, add it
-          if (!favorites.includes(id)) {
-            favorites.push(id);
-          } else {
-            // if the movie is in the favorites list, remove it
-            favorites = favorites.filter((movieId) => movieId !== id);
-          }
-          // save the favorites list to local storage
-          localStorage.setItem("favorites", JSON.stringify(favorites));
-          console.log(favorites);
-
-
+          // addOrRemoveFavorite(id, mediaType)
         } else {
           modal.show();
           // find the parent element with class "movie"
@@ -424,6 +413,10 @@ $(document).ready(function () {
       });
 
       main.append(movieEl);
+      // check if the movie is in the favorites list and set the checkbox to checked
+      // if (favorites.includes(id)) {
+      //   movieEl.querySelector(".favorite-checkbox").checked = true;
+      // }
     });
   }
 
@@ -719,6 +712,29 @@ $(document).ready(function () {
   // END SEARCH FUNCTIONS
 
   // for sidenavbar
+  function addOrRemoveFavorite(id, mediaType) {
+    // if the id is in the favorites array, remove it
+    // pull the favorites list from local storage
+    let favorites = JSON.parse(localStorage.getItem("favorites"));
+    // if there are no favorites, create an empty array
+    if (!favorites) {
+      favorites = [];
+    }
+
+    // if the movie is not in the favorites list, add it
+    if (!favorites.includes(id)) {
+      favorites.push(id);
+      //  create a card for the movie and put into favorites
+    } else {
+      // if the movie is in the favorites list, remove it
+      favorites = favorites.filter((movieId) => movieId !== id);
+      //  remove the card from the favorites
+    }
+    // save the favorites list to local storage
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    console.log(favorites);
+  }
+
   /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
   function openNav() {
     // document.getElementById("mySidebar").style.width = "250px";
