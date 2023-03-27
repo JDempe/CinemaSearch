@@ -7,7 +7,6 @@ $(document).ready(function () {
   const BASE_URL = "https://api.themoviedb.org/3/";
   const trendingSearch = "trending/all/week?";
 
-
   const cardContainer = $("#card-container");
   const cardTemplate = $("#card-template");
   const favoritesContainer = $("#favorites-container");
@@ -39,7 +38,7 @@ $(document).ready(function () {
       ? []
       : JSON.parse(localStorage.getItem("favorites"));
 
-// Page Navigation
+  // Page Navigation
   var pageQuery = 1;
   const pageNumber = $("#page-number");
 
@@ -79,7 +78,6 @@ $(document).ready(function () {
     getMovies(true);
     $("#card-container")[0].scrollIntoView();
   });
-
 
   // Add event listener to the quote area so when you click on it, it will take the movie title and do a search
   // TODO If a RESET is added, then refactor this to clear the search and write the movie name into the saerch
@@ -243,15 +241,20 @@ $(document).ready(function () {
     } else {
       passedInURL = passedInURL || trendingSearch;
       finalURL =
-        BASE_URL + passedInURL + "page=" + pageQuery + "&" + API_KEY + "&language=en-US";
+        BASE_URL +
+        passedInURL +
+        "page=" +
+        pageQuery +
+        "&" +
+        API_KEY +
+        "&language=en-US";
     }
 
     fetch(finalURL)
       .then((res) => res.json())
       .then((data) => {
+        checkNavButtonVisibility(pageQuery, data.total_pages);
 
-checkNavButtonVisibility(pageQuery, data.total_pages)
-        
         let entries = [];
         // for each data, create an entry object
         data.results.forEach((media) => {
@@ -417,7 +420,10 @@ checkNavButtonVisibility(pageQuery, data.total_pages)
         //https://www.javascripttutorial.net/object/convert-an-object-to-an-array-in-javascript/
         const streamingKeys = Object.keys(usStreamingObj);
         console.log(streamingKeys);
-        if (streamingKeys.length === 0 || (streamingKeys.length === 1 && streamingKeys[0] === "0")) {
+        if (
+          streamingKeys.length === 0 ||
+          (streamingKeys.length === 1 && streamingKeys[0] === "0")
+        ) {
           $("#modalstreamingavailability").text("Information not available.");
         } else {
           //create a for loop to go through the keys
@@ -892,14 +898,14 @@ checkNavButtonVisibility(pageQuery, data.total_pages)
     if (currentPage == 1) {
       $("#previous-page-button").addClass("disabled");
     } else {
-      $("#previous-page-button").removeClass("disabled");;
+      $("#previous-page-button").removeClass("disabled");
     }
 
-    if (resultslength == 20) {
+    if (resultslength <= 20) {
       $("#next-page-button").addClass("disabled");
     } else {
-      $("#next-page-button").removeClass("disabled");;
+      $("#next-page-button").removeClass("disabled");
     }
   }
-  // Check the 
+  // Check the
 });

@@ -81,14 +81,13 @@ header {
 }
 
 /* https://stackoverflow.com/questions/4296012/hide-div-if-screen-is-smaller-than-a-certain-width */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   .left-curtain,
   .right-curtain {
     display: none !important;
   }
 }
 
-/* TODO Find a way to make this simultaneous */
 header:hover .left-curtain {
   left: -80px;
 }
@@ -127,9 +126,9 @@ header:hover .right-curtain {
   flex-direction: column;
   justify-content: center;
   width: fit-content;
-  max-width: 60%;
+  max-width: 75%;
   cursor: pointer;
-  margin: auto;
+  margin: 0 auto;
   scale: 1;
   padding: 15px;
   transition: 0.3s ease-in-out;
@@ -534,7 +533,7 @@ main {
   bottom: 0;
   background-color: white;
   padding: 1rem;
-  height: 60%; /* TODO Revert to max-height 100%? */
+  height: 60%;
   transform: translateY(101%);
   transition: transform 0.3s ease-in-out;
   color: black;
@@ -766,7 +765,7 @@ footer img {
 }
 
 #page-nav li .disabled {
-  color: rgb(53, 53, 53);
+  color: rgb(137, 126, 126);
 }
 
 #page-nav li a:visited {
