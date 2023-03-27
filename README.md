@@ -121,8 +121,6 @@ The below resources contributed to the project.
 - Manuel Nuño - [Alexnuno17](https://github.com/Alexnuno17)
 - Riley O'Neil - [rileydoneil](https://github.com/rileydoneil)
 
--
-
 ## License
 
 Refer to the LICENSE in the repository.
