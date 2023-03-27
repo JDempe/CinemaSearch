@@ -1,10 +1,15 @@
 $(document).ready(function () {
+  new SimpleBar($("#mySidebar")[0]);
+
+  // https://api.themoviedb.org/3/movie/603692?api_key=23f1819072bf0eab7a398d521d310078&append_to_response=videos
+
   const API_KEY = "api_key=23f1819072bf0eab7a398d521d310078";
   const BASE_URL = "https://api.themoviedb.org/3/";
-  const IMG_URL = "https://image.tmdb.org/t/p/w500";
   const trendingSearch = "trending/all/week?";
 
-  const main = $("#card-container");
+  const cardContainer = $("#card-container");
+  const cardTemplate = $("#card-template");
+  const favoritesContainer = $("#favorites-container");
 
   // Random Quote
   const quoteDiv = $("#quote-div");
@@ -22,16 +27,24 @@ $(document).ready(function () {
   // Sort Form
   const sortArrow = $("#sort-arrow-button");
 
-  // MODAL
-  const myModalEl = $("#exampleModal");
+  // Modal
+  const myModalEl = $("#mediaModal");
   const modal = new mdb.Modal(myModalEl);
-  const modalVideo = $("#modal-video");
+  var modalInfo = {};
+  var streamingInfo = {};
+
+  // Sidebar
+  var favorites =
+    JSON.parse(localStorage.getItem("favorites")) === null
+      ? []
+      : JSON.parse(localStorage.getItem("favorites"));
 
   // EVENT LISTENERS
   // Event listener to search via clicking the submit button
   searchBtn.on("click", function (e) {
     e.preventDefault();
     getMovies(true);
+    $("#card-container")[0].scrollIntoView();
   });
 
   // Event listener to search via Submit (Enter)
@@ -99,7 +112,6 @@ $(document).ready(function () {
 
   // 'Sort By' Dropdown Event Listeners
   // The listener for changing the Sort By dropdown
-  // TODO How is this working?
   $("#sort-by-selection-input")
     .find(".dropdown-item")
     .on("click", function (e) {
@@ -141,15 +153,58 @@ $(document).ready(function () {
   // MODAL event listeners
   // https://stackoverflow.com/questions/18622508/bootstrap-3-and-youtube-in-modal
   // https://stackoverflow.com/questions/60284183/video-still-playing-when-bootstrap-modal-closes
-  $("#exampleModal").on("hide.bs.modal", function () {
-    modalVideo.src = ""; // reset video
+  myModalEl.on("hide.bs.modal", function () {
+    // Clear out the modal
+    $("#modalTitle").text("");
+    // $("#modalPoster").attr("src", "");
+    $("#modalOverview").text("No overview available.");
+    $("#modalReleaseDate").text("--");
+    $("#modalRuntime").text("--");
+    $("#modalRating").text("--");
+    $("#modalCast").text("");
+    $("#modalDirectors").text("");
+    $("#modalGenres").text("");
+    $("#modalstreamingavailability").text("");
+    $("#modalTrailer").attr("src", "");
+    // $("#modalProductionCompanies").text("");
+  });
+
+  // Sidebar Event listeners
+  $("#sidebarOpenBtn").on("click", function () {
+    // If the sidebar is closed, open it
+    // $("#sidebarOpenBtn").attr("hidden", true)
+    $("#sidebarOpenBtn")
+      .addClass("sidebarOpenBtnHidden")
+      .removeClass("sidebarOpenBtnVisible");
+
+    $("#mySidebar").addClass("sidebarOpened").removeClass("sidebarClosed");
+  });
+
+  $("#sidebarCloseBtn").on("click", function () {
+    $("#mySidebar").addClass("sidebarClosed").removeClass("sidebarOpened");
+    $("#sidebarOpenBtn")
+      .removeClass("sidebarOpenBtnHidden")
+      .addClass("sidebarOpenBtnVisible");
+  });
+
+  $(document).on("click", function (e) {
+    // If the sidebar is open and the click is not on the sidebar, close it
+    if (
+      !$("#mySidebar").hasClass("sidebarClosed") &&
+      !$(e.target).closest("#mySidebar").length
+    ) {
+      $("#mySidebar").addClass("sidebarClosed").removeClass("sidebarOpened");
+      $("#sidebarOpenBtn")
+        .removeClass("sidebarOpenBtnHidden")
+        .addClass("sidebarOpenBtnVisible");
+    }
   });
   // END EVENT LISTENERS
 
   // PAGE LOAD
-  // Run this function when the page loads
   displayRandomQuote();
   getMovies(false, trendingSearch);
+  createCards(favoritesContainer, favorites);
   // END PAGE LOAD
 
   // Make the API Call, true = use search, false = use what was passed in.  The passed in URL is everything between the base URL and the API key
@@ -159,55 +214,168 @@ $(document).ready(function () {
       finalURL = BASE_URL + params + "page=1&" + API_KEY;
     } else {
       passedInURL = passedInURL || trendingSearch;
-      finalURL = BASE_URL + passedInURL + "page=1&" + API_KEY;
+      finalURL =
+        BASE_URL + passedInURL + "page=1&" + API_KEY + "&language=en-US";
     }
-
-    console.log("finalURL Check");
-    console.log(finalURL);
 
     fetch(finalURL)
       .then((res) => res.json())
       .then((data) => {
+        let entries = [];
+        // for each data, create an entry object
+        data.results.forEach((media) => {
+          let title = media.title || media.name;
+          if (media.title) {
+            mediaType = "movie";
+          } else {
+            mediaType = "tv";
+          }
+          // if the poster path is null, set it to the no poster image
+          if (media.poster_path == null) {
+            media.poster_path = "../assets/images/placeHolderImage.png";
+          } else {
+            media.poster_path =
+              "https://image.tmdb.org/t/p/w500" + media.poster_path;
+          }
+
+          entry = {
+            title: title,
+            media_type: mediaType,
+            id: media.id,
+            poster_path: media.poster_path,
+            vote_average: media.vote_average,
+            overview: media.overview,
+          };
+          if (entry.title != undefined && entry.overview != "") {
+            entries.push(entry);
+          }
+        });
         console.log(data.results);
-        showSearchResults(data.results);
+        console.log(entries);
+        createCards(cardContainer, entries);
       });
   }
 
-  function getStreaming(data) {
-    const colors = ["green", "red", "orange"];
-    document.querySelector("#modal_rating").classList.remove(colors);
+  // MODAL FUNCTIONS
+  // Get modal info from TMDB as much as possible and sift through it, return whats needed
+  function setModalInfo(id, media_type) {
+    let URLforTMDBInfo = `https://api.themoviedb.org/3/${media_type}/${id}?${API_KEY}&language=en-US&append_to_response=videos,credits,images`;
 
-    let imdb_ID = data.imdb_id;
-    document.querySelector("#modal_title").innerHTML = data.original_title;
-    document.querySelector("#modal_runtime").innerHTML =
-      data.runtime + " Minutes";
-    document.querySelector("#modal_rating").innerHTML = data.vote_average;
-    document
-      .querySelector("#modal_rating")
-      .classList.add(getColor(data.vote_average));
-    document.querySelector(".accordion_body_1").innerHTML = "";
+    fetch(URLforTMDBInfo)
+      .then((res) => res.json())
+      .then((data) => {
+        if (media_type === "movie") {
+          modalInfo = {
+            title: data.title,
+            budget: data.budget,
+            poster: data.poster_path,
+            overview: data.overview,
+            release_date: data.release_date,
+            runtime: data.runtime,
+            rating: data.vote_average,
+            cast: data.credits.cast,
+            directors: data.credits.crew.filter(
+              (crew) => crew.job === "Director"
+            ),
+            genres: data.genres,
+            // Get the first video that is from youtube AND a trailer only
+            trailer: data.videos.results.filter(
+              (video) => video.site === "YouTube" && video.type === "Trailer"
+            )[0],
+            production_companies: data.production_companies,
+            genres: data.genres,
+          };
+        } else {
+          modalInfo = {
+            title: data.name,
+            poster: data.poster_path,
+            overview: data.overview,
+            release_date: data.first_air_date,
+            rating: data.vote_average,
+            cast: data.credits.cast,
+            directors: data.credits.crew.filter(
+              (crew) => crew.job === "Director"
+            ),
+            genres: data.genres,
+            // Get the first video that is youtube and a trailer only
+            trailer: data.videos.results.filter(
+              (video) => video.site === "YouTube" && video.type === "Trailer"
+            )[0],
+            production_companies: data.production_companies,
+            genres: data.genres,
+          };
+        }
+        console.log("modalInfo");
+        console.log(modalInfo);
+        let youtubeURL;
+        if (modalInfo.trailer) {
+          youtubeURL = getId(`youtube.com/watch?v=${modalInfo.trailer.key}`);
+        } else {
+          youtubeURL = "";
+        }
+        let cast = modalInfo.cast.map((cast) => cast.name).join(", ");
+        let directors = modalInfo.directors
+          .map((director) => director.name)
+          .join(", ");
+        let genres = modalInfo.genres.map((genre) => genre.name).join(", ");
+        // let poster = IMG_URL + modalInfo.poster;
+        // let production_companies = modalInfo.production_companies.map((company) => company.name).join(", ");
+
+        // Set the modal
+        $("#modalTitle").text(modalInfo.title);
+        $("#modalOverview").text(modalInfo.overview);
+        $("#modalReleaseDate").text(modalInfo.release_date);
+        $("#modalRuntime").text(modalInfo.runtime);
+        $("#modalRating").text(modalInfo.rating);
+        // $("#modalCast").text(cast);
+        // $("#modalDirectors").text(directors);
+        // $("#modalGenres").text(genres);
+        $("#modalTrailer").attr(
+          "src",
+          `https://www.youtube.com/embed/${youtubeURL}`
+        );
+        // $("#modalPoster").attr("src", poster);
+        // $("#modalProductionCompanies").text(modalInfo.production_companies);
+      });
+  }
+
+  // Get streaming info from TMDB (dont use this, need 2 API's)
+  function getTMDBStreamingInfo(id, media_type) {
+    let URLforStreamingInfo = `https://api.themoviedb.org/3/${media_type}/${id}/watch/providers?${API_KEY}`;
+    fetch(URLforStreamingInfo)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        let streamingInfo = data.results.US;
+        console.log(streamingInfo);
+        populateStreamingInfo(streamingInfo);
+      });
+  }
+
+  // Get streaming info from RapidAPI
+  function getStreamingInfo(id, media_type) {
+    const colors = ["green", "red", "orange"];
 
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "90bf4e7b22msh25f3182fa016740p1129d4jsn534257354705",
+        "X-RapidAPI-Key": "eae2301573msh4e983ad143d4b89p1fb9c2jsna9a7c063931a",
         "X-RapidAPI-Host": "streaming-availability.p.rapidapi.com",
       },
     };
 
     fetch(
-      "https://streaming-availability.p.rapidapi.com/v2/get/basic?country=us&imdb_id=" +
-        imdb_ID,
+      "https://streaming-availability.p.rapidapi.com/v2/get/basic?country=us&tmdb_id=" +
+        media_type +
+        "/" +
+        id,
       options
     )
       .then((response) => response.json())
       .then((response) => {
         var result = response.result;
-        var youtubeLink =
-          "//www.youtube.com/embed/" + getId(result.youtubeTrailerVideoLink);
-        document.querySelector("#modal-video").setAttribute("src", youtubeLink);
+
         //accordian 1 - Availability
-        console.log(result);
         let streamingObj = result.streamingInfo;
         //allowing it to be empty first
         let usStreamingObj = ["information not available"];
@@ -218,44 +386,58 @@ $(document).ready(function () {
         //https://www.javascripttutorial.net/object/convert-an-object-to-an-array-in-javascript/
         const streamingKeys = Object.keys(usStreamingObj);
         console.log(streamingKeys);
-        for (let i = 0; i < streamingKeys.length; i++) {
-          let srcImage;
-          let newObj = usStreamingObj[streamingKeys[i]][0];
-          let newATag = document.createElement("a");
-          let newImg = document.createElement("img");
+        if (streamingKeys.length === 0 || (streamingKeys.length === 1 && streamingKeys[0] === "0")) {
+          $("#modalstreamingavailability").text("Information not available.");
+        } else {
+          //create a for loop to go through the keys
+          for (let i = 0; i < streamingKeys.length; i++) {
+            let srcImage;
+            let newObj = usStreamingObj[streamingKeys[i]][0];
+            let newATag = document.createElement("a");
+            let newImg = document.createElement("img");
 
-          switch (streamingKeys[i]) {
-            case "peacock":
-              srcImage = "./assets/images/streaming-platform-icons/peacock.svg";
-              break;
-            case "netflix":
-              srcImage = "./assets/images/streaming-platform-icons/netflix.svg";
-              break;
-            case "paramount":
-              srcImage =
-                "./assets/images/streaming-platform-icons/paramount.svg";
-              break;
-            case "prime":
-              srcImage = "./assets/images/streaming-platform-icons/prime.svg";
-              break;
-            case "hbo":
-              srcImage = "./assets/images/streaming-platform-icons/hbo.svg";
-              break;
-            case "hulu":
-              srcImage = "./assets/images/streaming-platform-icons/hulu.svg";
-              break;
-            case "disney":
-              srcImage = "./assets/images/streaming-platform-icons/disney.svg";
-              break;
+            switch (streamingKeys[i]) {
+              case "peacock":
+                srcImage =
+                  "./assets/images/streaming-platform-icons/peacock.svg";
+                break;
+              case "netflix":
+                srcImage =
+                  "./assets/images/streaming-platform-icons/netflix.svg";
+                break;
+              case "paramount":
+                srcImage =
+                  "./assets/images/streaming-platform-icons/paramount.svg";
+                break;
+              case "prime":
+                srcImage = "./assets/images/streaming-platform-icons/prime.svg";
+                break;
+              case "hbo":
+                srcImage = "./assets/images/streaming-platform-icons/hbo.svg";
+                break;
+              case "hulu":
+                srcImage = "./assets/images/streaming-platform-icons/hulu.svg";
+                break;
+              case "disney":
+                srcImage =
+                  "./assets/images/streaming-platform-icons/disney.svg";
+                break;
+              case "apple":
+                srcImage = "./assets/images/streaming-platform-icons/apple.svg";
+                break;
+              case "showtime":
+                srcImage =
+                  "./assets/images/streaming-platform-icons/showtime.png";
+                break;
+            }
+
+            newATag.setAttribute("href", newObj.link);
+            newATag.setAttribute("target", "_blank");
+            newImg.setAttribute("src", srcImage);
+            newATag.appendChild(newImg);
+            document.querySelector(".accordion_body_1").appendChild(newATag);
           }
-
-          newATag.setAttribute("href", newObj.link);
-          newImg.setAttribute("src", srcImage);
-          newImg.setAttribute("style", "height: 1.5em");
-          newATag.appendChild(newImg);
-          document.querySelector(".accordion_body_1").appendChild(newATag);
         }
-
         //accordian 2 - Other Information
         //checks if info is missing first
         const accCast = document.querySelector(".cast");
@@ -267,11 +449,10 @@ $(document).ready(function () {
             accCast.appendChild(liEl);
           }
         } else {
-          accCast.innerHTML = `<li>Cast information not available</li>`;
+          accCast.innerHTML = `Cast information not available.`;
         }
-
+        const accDir = document.querySelector(".directors");
         if (result.directors) {
-          const accDir = document.querySelector(".directors");
           var directors = result.directors;
           for (let i = 0; i < directors.length; i++) {
             let liEl = document.createElement("li");
@@ -279,7 +460,7 @@ $(document).ready(function () {
             accDir.appendChild(liEl);
           }
         } else {
-          accDir.innerHTML = `<li>Director information not available</li>`;
+          accDir.innerHTML = `Director information not available.`;
         }
 
         //accordian 3 - Genres?
@@ -297,10 +478,9 @@ $(document).ready(function () {
         }
       })
       .catch((err) => console.error(err));
-
-    console.log(imdb_ID);
   }
 
+  // Get Youtube embed ID from URL
   //https://stackoverflow.com/questions/21607808/convert-a-youtube-video-url-to-embed-code
   function getId(url) {
     const regExp =
@@ -309,68 +489,52 @@ $(document).ready(function () {
 
     return match && match[2].length === 11 ? match[2] : null;
   }
+  // END MODAL FUNCTIONS
 
-  // Creating Cards
-
-  // create a card given the data from the TMDB API
-  function showSearchResults(data) {
-    main.text("");
+  // CREATING CARDS FUNCTIONS
+  // create cards for media
+  function createCards(container, data) {
+    container.children().remove();
 
     data.forEach((media) => {
-      // if the media is movie, then use title, poster_path, vote_average, overview, id
-      // if the media is tv, then use name, poster_path, vote_average, overview, id
-      let title;
-      if (
-        media.media_type == "tv" ||
-        $("#media-selection").data("paramvalue") == "tv"
-      ) {
-        title = media.name;
-      } else {
-        title = media.title;
-      }
+      // Clone the card template
+      const cardEl = cardTemplate
+        .clone(true, true)
+        .removeAttr("id")
+        .removeAttr("hidden")
+        .attr("media_id", media.id)
+        .attr("media_type", media.media_type)
+        .appendTo($(container).last())
+        .fadeIn();
+      cardEl
+        .find("img")
+        .attr("src", media.poster_path)
+        .attr("alt", media.title);
+      cardEl.find(".media-title").text(media.title);
+      cardEl.find(".media-rating").text(noVote(media.vote_average));
+      cardEl.find(".media-rating").addClass(getColor(media.vote_average));
+      cardEl.find(".media-overview").text(media.overview);
 
-      const { poster_path, vote_average, overview, id } = media;
+      // Add event listener to the media card
+      cardEl.on("click", function (e) {
+        e.stopPropagation();
 
-      const movieEl = document.createElement("div");
-      movieEl.classList.add("movie");
-      movieEl.classList.add("hvr-grow");
-      movieEl.setAttribute("movie_id", id);
-      movieEl.innerHTML = `
-    <div class="form-check favorite-button">
-    <input class="form-check-input favorite-checkbox" type="checkbox" value="" id="flexCheckDefault" />
-    </div>
-    <img src="${IMG_URL + poster_path}" alt="${title}">
-    <div class="movie-info">
-    <h2>${title}</h2>
-    <span class="${getColor(vote_average)}">${noVote(vote_average)}</span>
-    </div>
-    <div class="overview">
-    <h3>Overview</h3>
-    <p>${overview}</p>
-    </div>
-    `;
-
-      // Add event listener to the movie card
-      movieEl.addEventListener("click", function (e) {
         if (e.target.classList.contains("favorite-checkbox")) {
-          console.log("clicked favorite button");
-          // TODO Add to favorites
+          // find out if its checked or not, send that to the addOrRemoveFavorite function
+          let isTrue = e.target.checked;
+          addOrRemoveFavorite(isTrue, media);
         } else {
+          setModalInfo(media.id, media.media_type);
+          // getTMDBStreamingInfo(id, media_type);
+          getStreamingInfo(media.id, media.media_type);
+
           modal.show();
-          // find the parent element with class "movie"
-          const movie = e.target.closest(".movie");
-          let id = movie.getAttribute("movie_id");
-          // video = this.dataset.video;
-          fetch(BASE_URL + "/movie/" + id + "?" + API_KEY)
-            .then((res) => res.json())
-            .then((data) => {
-              console.log(data);
-              getStreaming(data);
-            });
         }
       });
-
-      main.append(movieEl);
+      // check if the media is in the array of objects that is called favorites, if it is, check the checkbox
+      if (favorites.some((fav) => fav.id === media.id)) {
+        cardEl.find(".favorite-checkbox").prop("checked", true);
+      }
     });
   }
 
@@ -395,7 +559,7 @@ $(document).ready(function () {
       return "red";
     }
   }
-  // END Creating Cards
+  // END CREATING CARDS FUNCTIONS
 
   // Display a random quote from the JSON file
   function displayRandomQuote() {
@@ -415,7 +579,6 @@ $(document).ready(function () {
   }
 
   // SEARCH FUNCTIONS
-
   // Collect the search parameters from the search area and build the URL
   function collectSearchParams() {
     var url;
@@ -429,11 +592,11 @@ $(document).ready(function () {
 
     // for search
     if (searchType === "search") {
-      if(titleBox.val() === "") {
-        url=trendingSearch;
+      if (titleBox.val() === "") {
+        url = trendingSearch;
       } else {
-      url = `search/${mediaType}?query=${titleBox.val()}&`;
-     }
+        url = `search/${mediaType}?query=${titleBox.val()}&`;
+      }
     } else {
       // go through the form and if it isn't hidden then add it to the search parameters
       var searchParameters = [];
@@ -503,7 +666,6 @@ $(document).ready(function () {
       arrow.data("paramvalue", "desc");
     }
   }
-  // END sortingOrderSelection
 
   // Change the text of the closest dropdown to the text of the clicked item
   function overwriteDropdownText(clickedItem) {
@@ -541,7 +703,6 @@ $(document).ready(function () {
         addDropdownListeners();
       });
   }
-  // END populateDropdownWithJSON
 
   // Populate a dropdown with numbers
   function populateDropdownWithNumbers(start, end, dropdown, multiplier) {
@@ -554,7 +715,6 @@ $(document).ready(function () {
     }
     addDropdownListeners();
   }
-  // END populateDropdownWithNumbers
 
   // add event listener to anything with a dropdown-item class that is in discover search (use when populating the discover search dropdowns)
   function addDropdownListeners() {
@@ -618,8 +778,8 @@ $(document).ready(function () {
         }
       });
   }
-  // END addDropdownListeners
 
+  // Add a new discover search element to the page
   function createDiscoverSearchElement() {
     // Clone the hidden discover search element
     $("#discover-search")
@@ -662,19 +822,35 @@ $(document).ready(function () {
       createDiscoverSearchElement();
     }
   }
-  // END refreshDiscoverSearchBoxList
   // END SEARCH FUNCTIONS
 
-  // for sidenavbar
-  /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
-  function openNav() {
-    document.getElementById("mySidebar").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-  }
+  // SIDEBAR FUNCTIONS
+  // Add or remove a favorite from the favorites list
+  function addOrRemoveFavorite(isTrue, media) {
+    // Should be impossible to have checkmark true but its already in the favorites list, but just in case we check for it
 
-  /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
-  function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
+    // look through all cards and set the checkmark to isTrue if the media_id matches the media.id
+    $(".media-card").each(function () {
+      if ($(this).attr("media_id") == media.id) {
+        $(this).find(".favorite-checkbox").prop("checked", isTrue);
+      }
+    });
+
+    if (isTrue) {
+      // check the array of objects for an object with the same id as the entry, if it doesnt exist, add it
+      if (!favorites.some((fav) => fav.id === media.id)) {
+        favorites.push(media);
+      }
+    } else {
+      // check the array of objects for an object with the same id as the entry, if it exists, remove it
+      if (favorites.some((fav) => fav.id === media.id)) {
+        favorites = favorites.filter((fav) => fav.id !== media.id);
+      }
+    }
+
+    createCards(favoritesContainer, favorites);
+
+    localStorage.setItem("favorites", JSON.stringify(favorites));
   }
+  // END SIDEBAR FUNCTIONS
 });

@@ -67,6 +67,8 @@ The below resources contributed to the project.
 - [Wikipedia Entry on AFI's 100 Years, 100 Movie Quotes](https://en.wikipedia.org/wiki/AFI%27s_100_Years...100_Movie_Quotes)
   - [Grant G's Github repository formatting the AFI list into JSON](https://gist.github.com/grant0417/59022d88dfeb5aadf9f6dc2f974f9c79)
 
+- [ChatGPT](https://chat.openai.com/) is a chatbot that uses GPT-3 to generate responses.  The chatbot was used to come up with the site name.
+
 #### Educational
 
 - [StackOverflow](https://stackoverflow.com/) provided many guides and tutorials for the project.  Below are the links used:
@@ -75,6 +77,7 @@ The below resources contributed to the project.
   - https://stackoverflow.com/questions/18622508/bootstrap-3-and-youtube-in-modal
   - https://stackoverflow.com/questions/60284183/video-still-playing-when-bootstrap-modal-closes
   - https://stackoverflow.com/questions/21607808/convert-a-youtube-video-url-to-embed-code
+  - https://stackoverflow.com/questions/24739126/scroll-to-a-specific-element-using-html
 - [JavaScriptTutorial] https://www.javascripttutorial.net/object/convert-an-object-to-an-array-in-javascript/
   
 - [Asish George Tech/Channel](https://youtu.be/zrv_SAnnmtk/) Critical information and guidance on the project's development.
@@ -90,6 +93,8 @@ https://www.geeksforgeeks.org/how-to-declare-the-optional-function-parameters-in
 - Justin Jasso - [JTJasso](https://github.com/JTJasso)
 - Manuel Nuño - [Alexnuno17](https://github.com/Alexnuno17)
 - Riley O'Neil - [rileydoneil](https://github.com/rileydoneil)
+
+-
 
 ## License
 

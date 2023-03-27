@@ -10,13 +10,18 @@
    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
-   <link rel="manifest" href="./assets/favicon/site.webmanifest">
+   <!-- <link rel="android-chrome" type="image/png" sizes="192x192" href="./assets/favicon/android-chrome-192x192.png">    -->
+   <!-- <link rel="android-chrome" type="image/png" sizes="512x512" href="./assets/favicon/android-chrome-512x512.png">    -->
+   <!-- <link rel="manifest" href="./assets/favicon/site.webmanifest"> -->
+
    <!-- Font Awesome -->
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
    <!-- Google Fonts -->
    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
    <!-- MDB -->
    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
+   <!-- SimpleBar -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css" />
    <!-- Autocomplete.js -->
    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/css/autoComplete.min.css"> -->
    <!-- Custom CSS -->
@@ -24,8 +29,22 @@
 </head>
 
 <body>
+
+   <!-- Sidebar -->
+   <div id="sidebarContainer" class="container-fluid align-content-center">
+      <!--collapsable side bar for favorites (maybe more??)-->
+      <div id="mySidebar" class="sidebar sidebarClosed">
+         <a id="sidebarCloseBtn" class="closebtn">&times;</a>
+         <h2 class="sidebar-header">Favorites</h2>
+         <section id="favorites-container">
+            <!-- Favorites will be added here -->
+         </section>
+         <button id="sidebarOpenBtn" class="sidebarOpenBtnVisible">&#9776; Favorites</button>
+      </div>
+   </div>
+
    <header>
-      <!-- Background image -->
+      <!-- Background Image -->
       <div class="main-curtain bg-image"></div>
       <!-- https://www.pngegg.com/en/png-dhrgx -->
       <img class="side-curtains left-curtain img-fluid" src="./assets/images/header-images/single-curtain-shadow.png"
@@ -33,15 +52,14 @@
 
       <img class="side-curtains right-curtain img-fluid" src="./assets/images/header-images/single-curtain-shadow.png"
          alt="right curtain" />
+      <!-- END Background Image -->
 
-
-      <!-- Background image -->
-      <!-- TODO Move the CSS to style.css -->
+      <!-- Header Contents -->
       <div id="header-items">
          <h1 hidden>Cinema Search</h1>
          <div id="cinemasearch-banner-div">
-            <img src="./assets/images/header-images/cinemabanner.png" alt="Cinema Logo" />
-            <img src="./assets/images/header-images/searchbanner.png" alt="Search Logo" />
+            <img src="./assets/images/header-images/cinemasearchbanner.png" alt="Cinema Logo" />
+            <!-- <img src="./assets/images/header-images/searchbanner.png" alt="Search Logo" /> -->
          </div>
          <div id="quote-div">
             <p id="quote-text"></p>
@@ -49,10 +67,8 @@
             <p><span id="quote-movie"></span><span id="quote-year"></span></p>
          </div>
       </div>
-
-      <!-- Background image -->
+      <!-- END Header Contents -->
    </header>
-
 
    <main>
       <!-- Search Bar Area -->
@@ -93,9 +109,8 @@
                hidden="true">
                <!-- Discover Search Parameter -->
                <div>
-                  <button class="dropdown-toggle discover-search-selection" type="button"
-                     data-mdb-toggle="dropdown" data-dropdownindex="1" data-param=""
-                     aria-expanded="false">Select</button>
+                  <button class="dropdown-toggle discover-search-selection" type="button" data-mdb-toggle="dropdown"
+                     data-dropdownindex="1" data-param="" aria-expanded="false">Select</button>
                   <ul class="dropdown-menu" aria-labelledby="discover-search-selection" data-dropdownindex="1">
                      <!-- Movie Specific -->
                      <li><a class="dropdown-item" data-param="with_genres" data-mediatype="movie"
@@ -105,7 +120,7 @@
                      <li><a class="dropdown-item" data-param="year" data-mediatype="movie" data-start="1900"
                            data-end="2030">Release Year</a></li>
                      <li><a class="dropdown-item" data-param="certification" data-mediatype="movie"
-                           data-listsource="movieratings.json">Rating (US Only)</a></li>
+                           data-listsource="movieratings.json">Cert (US Only)</a></li>
                      <!-- TODO Figure out how to load this? Currently JSON is too large -->
                      <!-- <li><a class="dropdown-item" data-paramvalue="person_id" data-mediatype="movie" data-listsource="personids.json">Actors</a></li> -->
                      <!-- END Movie Specific -->
@@ -118,11 +133,9 @@
                            data-listsource="tvstatus.json" hidden="true">Status</a></li>
                      <!-- END TV Specific -->
                      <li><a class="dropdown-item" data-param="vote_average.gte" data-start="0" data-end="9">Minimum
-                           Vote
-                           Average</a></li>
+                           Rating</a></li>
                      <li><a class="dropdown-item" data-param="vote_average.lte" data-start="0" data-end="9">Maximum
-                           Vote
-                           Average</a></li>
+                           Rating</a></li>
                      <li><a class="dropdown-item" data-param="with_runtime.gte" data-multiplier="60" data-start="0"
                            data-end="5">Minimum
                            Runtime (hr)</a></li>
@@ -134,9 +147,8 @@
                <!-- END Discover Search Paramter -->
                <!-- Discover Search Value -->
                <div>
-                  <button class="dropdown-toggle discover-search-input" type="button"
-                     data-mdb-toggle="dropdown" data-dropdownindex="2" data-paramvalue=""
-                     aria-expanded="false"></button>
+                  <button class="dropdown-toggle discover-search-input" type="button" data-mdb-toggle="dropdown"
+                     data-dropdownindex="2" data-paramvalue="" aria-expanded="false"></button>
                   <ul class="dropdown-menu discover-search-input-options" data-dropdownindex="2"
                      aria-labelledby="discover-search-input">
                   </ul>
@@ -169,7 +181,7 @@
                   <li><a class="dropdown-item" type="button" data-paramvalue="popularity">Popularity</a></li>
                   <li><a class="dropdown-item" type="button" data-paramvalue="revenue">Revenue</a></li>
                   <li><a class="dropdown-item" type="button" data-paramvalue="release_date">Release Date</a></li>
-                  <li><a class="dropdown-item" type="button" data-paramvalue="vote_average">Vote Average</a></li>
+                  <li><a class="dropdown-item" type="button" data-paramvalue="vote_average">Rating</a></li>
                </ul>
             </div>
             <!-- END Sort Parameter -->
@@ -190,6 +202,7 @@
       <div id="card-area">
          <!-- Card Container -->
          <section id="card-container">
+
          </section>
          <!-- END Card Container -->
       </div>
@@ -212,7 +225,7 @@
    </footer>
 
    <!-- Modal -->
-   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
          <div class="modal-content">
             <div class="modal-header">
@@ -221,76 +234,82 @@
             <div class="modal-body">
                <div class="container-fluid">
                   <div class="row">
-
-                     <div class="col-6 ratio ratio-16x9">
-                        <iframe id="modal-video" src="" title="YouTube video" width="560" height="315" frameborder="0"
+                     <div class="col-12 ratio ratio-16x9">
+                        <iframe id="modalTrailer" src="" title="YouTube video" frameborder="0"
                            allowfullscreen></iframe>
                      </div>
-                     <div class="col-3" id="modal_title">Movie Title</div>
-                     <div class="col-3" id="modal_runtime">Runtime</div>
-                     <div class="col-3" id="modal_rating">Rating</div>
-                     <div class="col-3" id="modal_genre">Release Date</div>
-                     <div class="accordion" id="accordionExample">
-                        <div class="accordion-item">
-                           <h2 class="accordion-header" id="headingOne">
-                              <button class="accordion-button" type="button" data-mdb-toggle="collapse"
-                                 data-mdb-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                                 id="accordion_1">
-                                 Availability
-                              </button>
-                           </h2>
-                           <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                              data-mdb-parent="#accordionExample">
-                              <div class="accordion_body accordion_body_1">
-                                 <strong>This is the first item's accordion body.</strong> It is hidden by default,
-                                 until the collapse plugin adds the appropriate classes that we use to style each
-                                 element. These classes control the overall appearance, as well as the showing and
-                                 hiding via CSS transitions. You can modify any of this with custom CSS or
-                                 overriding our default variables. It's also worth noting that just about any HTML
-                                 can go within the <strong>.accordion-body</strong>, though the transition does
-                                 limit overflow.
-                              </div>
-                           </div>
-                        </div>
-                        <div class="accordion-item">
-                           <h2 class="accordion-header" id="headingTwo">
-                              <button class="accordion-button collapsed" type="button" data-mdb-toggle="collapse"
-                                 data-mdb-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                 Other Information
-                              </button>
-                           </h2>
-                           <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                              data-mdb-parent="#accordionExample">
-                              <div class="accordion-body accordion_body_2">
-                                 <h3>Cast:</h3>
-                                 <ul class="cast"></ul>
-                                 <h3>Director(s):</h3>
-                                 <ul class="directors"></ul>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="accordion-item">
-                           <h2 class="accordion-header" id="headingThree">
-                              <button class="accordion-button collapsed" type="button" data-mdb-toggle="collapse"
-                                 data-mdb-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                 Genre?
-                              </button>
-                           </h2>
-                           <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                              data-mdb-parent="#accordionExample">
-                              <div class="accordion-body accordion_body_3">
-                                 <ul class="genre"></ul>
-                              </div>
+                  </div>
+                  <div class="row">
+                           <div class="col-12 text-center" id="modalTitle">Movie Title</div>            
+                  </div>
+                  <div class="row">
+
+                  <div class="col-4 text-center">Runtime: <span id="modalRuntime">--</span> min</div>
+                  <div class="col-4 text-center">Rating: <span id="modalRating">--</span>/10</div>
+                  <div class="col-4 text-center">Initial Release: <span id="modalReleaseDate">--</span></div>
+                  </div>
+
+                  <div class="col-12" id="modalOverview">Overview</div>
+                  <div class="accordion" id="accordionExample">
+                     <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                           <button class="accordion-button" type="button" data-mdb-toggle="collapse"
+                              data-mdb-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                              id="accordion_1">
+                              Availability
+                           </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                           data-mdb-parent="#accordionExample">
+                           <div id="modalstreamingavailability" class="accordion_body accordion_body_1">
                            </div>
                         </div>
                      </div>
+                     <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                           <button class="accordion-button collapsed" type="button" data-mdb-toggle="collapse"
+                              data-mdb-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                              Other Information
+                           </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                           data-mdb-parent="#accordionExample">
+                           <div class="accordion-body accordion_body_2">
+                              <h3>Cast:</h3>
+                              <ul id="modalCast" class="cast"></ul>
+                              <h3>Director(s):</h3>
+                              <ul id="modalDirectors" class="directors"></ul>
+                              <h3>Genre(s):</h3>
+                              <ul id="modalGenres" class="genre"></ul>
+                           </div>
+                        </div>
+                     </div>
+                  
                   </div>
                </div>
             </div>
          </div>
       </div>
    </div>
-   <!-- Modal -->
+   </div>
+   <!-- END Modal -->
+
+   <!-- Card Template -->
+   <div id="card-template" class="media-card hvr-grow" media_id="" media_type="" hidden>
+      <div class="form-check favorite-button">
+         <input class="form-check-input favorite-checkbox" type="checkbox" value="" id="flexCheckDefault" />
+      </div>
+      <img src="" alt="">
+      <div class="media-info">
+         <h2 class='media-title'></h2>
+         <span class="media-rating"></span>
+      </div>
+      <div class="overview">
+         <h3>Overview</h3>
+         <p class="media-overview"></p>
+      </div>
+   </div>
+   <!-- END Card Template -->
 
 </body>
 <!-- Autocomplete.js -->
@@ -300,6 +319,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- SimpleBar -->
+<script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
 <!-- Custom scripts -->
 <script type="text/javascript" src="./assets/js/script.js"></script>
 
