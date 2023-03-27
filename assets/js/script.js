@@ -359,7 +359,7 @@ $(document).ready(function () {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "90bf4e7b22msh25f3182fa016740p1129d4jsn534257354705",
+        "X-RapidAPI-Key": "eae2301573msh4e983ad143d4b89p1fb9c2jsna9a7c063931a",
         "X-RapidAPI-Host": "streaming-availability.p.rapidapi.com",
       },
     };
@@ -386,51 +386,58 @@ $(document).ready(function () {
         //https://www.javascripttutorial.net/object/convert-an-object-to-an-array-in-javascript/
         const streamingKeys = Object.keys(usStreamingObj);
         console.log(streamingKeys);
-        for (let i = 0; i < streamingKeys.length; i++) {
-          let srcImage;
-          let newObj = usStreamingObj[streamingKeys[i]][0];
-          let newATag = document.createElement("a");
-          let newImg = document.createElement("img");
+        if (streamingKeys.length === 0 || (streamingKeys.length === 1 && streamingKeys[0] === "0")) {
+          $("#modalstreamingavailability").text("Information not available.");
+        } else {
+          //create a for loop to go through the keys
+          for (let i = 0; i < streamingKeys.length; i++) {
+            let srcImage;
+            let newObj = usStreamingObj[streamingKeys[i]][0];
+            let newATag = document.createElement("a");
+            let newImg = document.createElement("img");
 
-          switch (streamingKeys[i]) {
-            case "peacock":
-              srcImage = "./assets/images/streaming-platform-icons/peacock.svg";
-              break;
-            case "netflix":
-              srcImage = "./assets/images/streaming-platform-icons/netflix.svg";
-              break;
-            case "paramount":
-              srcImage =
-                "./assets/images/streaming-platform-icons/paramount.svg";
-              break;
-            case "prime":
-              srcImage = "./assets/images/streaming-platform-icons/prime.svg";
-              break;
-            case "hbo":
-              srcImage = "./assets/images/streaming-platform-icons/hbo.svg";
-              break;
-            case "hulu":
-              srcImage = "./assets/images/streaming-platform-icons/hulu.svg";
-              break;
-            case "disney":
-              srcImage = "./assets/images/streaming-platform-icons/disney.svg";
-              break;
-            case "apple":
-              srcImage = "./assets/images/streaming-platform-icons/apple.svg";
-              break;
-            case "showtime":
-              srcImage =
-                "./assets/images/streaming-platform-icons/showtime.png";
-              break;
+            switch (streamingKeys[i]) {
+              case "peacock":
+                srcImage =
+                  "./assets/images/streaming-platform-icons/peacock.svg";
+                break;
+              case "netflix":
+                srcImage =
+                  "./assets/images/streaming-platform-icons/netflix.svg";
+                break;
+              case "paramount":
+                srcImage =
+                  "./assets/images/streaming-platform-icons/paramount.svg";
+                break;
+              case "prime":
+                srcImage = "./assets/images/streaming-platform-icons/prime.svg";
+                break;
+              case "hbo":
+                srcImage = "./assets/images/streaming-platform-icons/hbo.svg";
+                break;
+              case "hulu":
+                srcImage = "./assets/images/streaming-platform-icons/hulu.svg";
+                break;
+              case "disney":
+                srcImage =
+                  "./assets/images/streaming-platform-icons/disney.svg";
+                break;
+              case "apple":
+                srcImage = "./assets/images/streaming-platform-icons/apple.svg";
+                break;
+              case "showtime":
+                srcImage =
+                  "./assets/images/streaming-platform-icons/showtime.png";
+                break;
+            }
+
+            newATag.setAttribute("href", newObj.link);
+            newATag.setAttribute("target", "_blank");
+            newImg.setAttribute("src", srcImage);
+            newATag.appendChild(newImg);
+            document.querySelector(".accordion_body_1").appendChild(newATag);
           }
-
-          newATag.setAttribute("href", newObj.link);
-          newATag.setAttribute("target", "_blank");
-          newImg.setAttribute("src", srcImage);
-          newATag.appendChild(newImg);
-          document.querySelector(".accordion_body_1").appendChild(newATag);
         }
-
         //accordian 2 - Other Information
         //checks if info is missing first
         const accCast = document.querySelector(".cast");
@@ -442,7 +449,7 @@ $(document).ready(function () {
             accCast.appendChild(liEl);
           }
         } else {
-          accCast.innerHTML = `Cast information not available`;
+          accCast.innerHTML = `Cast information not available.`;
         }
         const accDir = document.querySelector(".directors");
         if (result.directors) {
@@ -453,7 +460,7 @@ $(document).ready(function () {
             accDir.appendChild(liEl);
           }
         } else {
-          accDir.innerHTML = `Director information not available`;
+          accDir.innerHTML = `Director information not available.`;
         }
 
         //accordian 3 - Genres?
