@@ -213,15 +213,19 @@
 
    <!-- Page Navigation -->
    <!-- TODO Add JS to populate the page numbers -->
-   <nav aria-label="page navigation">
-      <ul class="pagination">
-         <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-         <li class="page-item"><a class="page-link" href="#">Next</a></li>
+   <nav id="page-nav" aria-label="page navigation">
+      <ul class="pagination custom-shadow">
+         <li class="page-item"><a id="previous-page-button" class="btn" role="button" data-mdb-toggle="button" href="#card-container">Previous</a></li>
+         <li><p>Page: <span id="page-number">1</span></p></li>
+         <li class="page-item"><a id="next-page-button" class="btn" role="button" data-mdb-toggle="button" href="#card-container">Next</a></li>
       </ul>
    </nav>
 
    <footer>
-      <p>This product uses the TMDB API but is not endorsed or certified by TMDB. !Add icon, add formatting!</p>
+      <p class="text-center">Created by the "We Showed Up" team!</p>
+         <p class="text-center">This product uses the TMDB API [<span><a href="https://www.themoviedb.org/documentation/api" target="_blank"><img src="./assets/images/tmdb_logo.svg"
+                  alt="TMDB Logo"/></a> </span>] but is not endorsed or certified by
+            TMDB.</p>
    </footer>
 
    <!-- Modal -->
