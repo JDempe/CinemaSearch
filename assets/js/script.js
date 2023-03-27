@@ -246,7 +246,9 @@ $(document).ready(function () {
             vote_average: media.vote_average,
             overview: media.overview,
           };
-          entries.push(entry);
+          if (entry.title != undefined && entry.overview != "") {
+            entries.push(entry);
+          }
         });
         console.log(data.results);
         console.log(entries);
