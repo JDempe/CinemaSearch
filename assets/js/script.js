@@ -7,6 +7,7 @@ $(document).ready(function () {
   const BASE_URL = "https://api.themoviedb.org/3/";
   const trendingSearch = "trending/all/week?";
 
+
   const cardContainer = $("#card-container");
   const cardTemplate = $("#card-template");
   const favoritesContainer = $("#favorites-container");
@@ -19,7 +20,7 @@ $(document).ready(function () {
   const quoteYear = $("#quote-year");
 
   // Discover Search Parameters Limit
-  const numParamsAllowed = 6;
+  const numParamsAllowed = 4;
 
   // Search Submit Button
   const searchBtn = $("#search-btn");
@@ -31,7 +32,6 @@ $(document).ready(function () {
   const myModalEl = $("#mediaModal");
   const modal = new mdb.Modal(myModalEl);
   var modalInfo = {};
-  var streamingInfo = {};
 
   // Sidebar
   var favorites =
@@ -39,10 +39,16 @@ $(document).ready(function () {
       ? []
       : JSON.parse(localStorage.getItem("favorites"));
 
+// Page Navigation
+  var pageQuery = 1;
+  const pageNumber = $("#page-number");
+
   // EVENT LISTENERS
   // Event listener to search via clicking the submit button
   searchBtn.on("click", function (e) {
     e.preventDefault();
+    pageQuery = 1;
+    pageNumber.text(pageQuery);
     getMovies(true);
     $("#card-container")[0].scrollIntoView();
   });
@@ -50,8 +56,30 @@ $(document).ready(function () {
   // Event listener to search via Submit (Enter)
   $(document).on("submit", (e) => {
     e.preventDefault();
+    pageQuery = 1;
+    pageNumber.text(pageQuery);
     getMovies(true);
+    $("#card-container")[0].scrollIntoView();
   });
+
+  $("#previous-page-button").on("click", function (e) {
+    e.preventDefault();
+    if (pageQuery > 1) {
+      pageQuery--;
+      pageNumber.text(pageQuery);
+      getMovies(true);
+      $("#card-container")[0].scrollIntoView();
+    }
+  });
+
+  $("#next-page-button").on("click", function (e) {
+    e.preventDefault();
+    pageQuery++;
+    pageNumber.text(pageQuery);
+    getMovies(true);
+    $("#card-container")[0].scrollIntoView();
+  });
+
 
   // Add event listener to the quote area so when you click on it, it will take the movie title and do a search
   // TODO If a RESET is added, then refactor this to clear the search and write the movie name into the saerch
@@ -211,16 +239,19 @@ $(document).ready(function () {
   function getMovies(isTrue, passedInURL) {
     if (isTrue) {
       let params = collectSearchParams();
-      finalURL = BASE_URL + params + "page=1&" + API_KEY;
+      finalURL = BASE_URL + params + "page=" + pageQuery + "&" + API_KEY;
     } else {
       passedInURL = passedInURL || trendingSearch;
       finalURL =
-        BASE_URL + passedInURL + "page=1&" + API_KEY + "&language=en-US";
+        BASE_URL + passedInURL + "page=" + pageQuery + "&" + API_KEY + "&language=en-US";
     }
 
     fetch(finalURL)
       .then((res) => res.json())
       .then((data) => {
+
+checkNavButtonVisibility(pageQuery, data.total_pages)
+        
         let entries = [];
         // for each data, create an entry object
         data.results.forEach((media) => {
@@ -853,4 +884,22 @@ $(document).ready(function () {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }
   // END SIDEBAR FUNCTIONS
+
+  // PAGE NAV FUNCTIONS
+  // Check the number of results for the current query and if its less than 20, disable the next page button
+  function checkNavButtonVisibility(currentPage, resultslength) {
+    // check if its page 1, if so, disable the previous page button
+    if (currentPage == 1) {
+      $("#previous-page-button").addClass("disabled");
+    } else {
+      $("#previous-page-button").removeClass("disabled");;
+    }
+
+    if (resultslength == 20) {
+      $("#next-page-button").addClass("disabled");
+    } else {
+      $("#next-page-button").removeClass("disabled");;
+    }
+  }
+  // Check the 
 });

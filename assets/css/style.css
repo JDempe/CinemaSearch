@@ -81,7 +81,7 @@ header {
 }
 
 /* https://stackoverflow.com/questions/4296012/hide-div-if-screen-is-smaller-than-a-certain-width */
-@media screen and (max-width:800px) {
+@media screen and (max-width: 800px) {
   .left-curtain,
   .right-curtain {
     display: none !important;
@@ -149,7 +149,7 @@ header:hover .right-curtain {
   color: white;
 }
 
-#quote-div span{
+#quote-div span {
   color: white;
 }
 
@@ -487,7 +487,6 @@ main {
   letter-spacing: 0.5px;
 }
 
-
 .media-info {
   color: white;
   display: flex;
@@ -712,15 +711,88 @@ h3 {
 }
 
 #modalstreamingavailability {
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-justify-content: space-evenly;
-
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 #modalstreamingavailability a img {
   width: auto;
   height: 3rem;
   margin: 0.5rem;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin: 20px;
+  margin-top: 40px;
+}
+
+footer p {
+  font-size: 0.8rem;
+  color: white;
+  margin: 0px;
+}
+
+footer img {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.5rem 0rem;
+}
+
+#page-nav {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#page-nav ul {
+  background-color: var(--accent-color);
+  border-radius: 5px;
+  width: fit-content;
+  height: var(--search-bar-height);
+}
+
+#page-nav li {
+  height: 100%;
+}
+
+#page-nav li .disabled {
+  color: rgb(53, 53, 53);
+}
+
+#page-nav li a:visited {
+  color: white;
+}
+
+#page-nav p {
+  color: rgb(0, 0, 0);
+  background-color: white;
+  min-width: 100px;
+  width: 100%;
+  height: 100%;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#page-nav a {
+  color: white;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%
+}
+
+#page-nav a:hover {
+background-color: var(--accent-color-dark);
 }
