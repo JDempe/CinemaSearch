@@ -88,7 +88,6 @@ header {
   }
 }
 
-/* TODO Find a way to make this simultaneous */
 header:hover .left-curtain {
   left: -80px;
 }
@@ -534,7 +533,7 @@ main {
   bottom: 0;
   background-color: white;
   padding: 1rem;
-  height: 60%; /* TODO Revert to max-height 100%? */
+  height: 60%;
   transform: translateY(101%);
   transition: transform 0.3s ease-in-out;
   color: black;
