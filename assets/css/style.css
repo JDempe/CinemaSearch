@@ -14,7 +14,7 @@
 
 * {
   box-sizing: border-box;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 /* https://stackoverflow.com/questions/24739126/scroll-to-a-specific-element-using-html */
@@ -148,11 +148,17 @@ header:hover .right-curtain {
   padding: 0px;
   margin: 0px;
   font-size: 1rem;
+  color: white;
+}
+
+#quote-div span{
+  color: white;
 }
 
 #quote-text {
   font-size: 1.4rem !important;
   font-style: italic;
+  color: white;
 }
 
 main {
@@ -414,33 +420,48 @@ main {
 }
 /* END Search Button */
 
-#card-area {
-  margin: auto;
-  width: fit-content;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: fit-content;
-}
-
-#card-container {
+#card-container,
+#favorites-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: fit-content;
+  width: 100%;
 }
 
-.movie {
+#favorites-container .media-card {
+  width: 200px;
+  height: 375px;
+}
+
+#card-container .media-card {
   width: 300px;
+  height: 525px;
+}
+
+/* Prevent image distortion */
+#favorites-container .media-card img {
+  width: 200px;
+  height: 300px;
+}
+
+#card-container .media-card img {
+  width: 300px;
+  height: 450px;
+}
+
+.media-card {
   margin: 1rem;
   background-color: var(--accent-color);
   border-radius: 3px;
   box-shadow: 0.2rem 0.4rem 0.5rem black;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   overflow: hidden;
 }
 
-.movie .favorite-button {
+.media-card .favorite-button {
   position: absolute;
   top: 0;
   right: -10px;
@@ -455,51 +476,54 @@ main {
 }
 
 /* Make it show up on hover*/
-.movie:hover .favorite-button {
+.media-card:hover .favorite-button {
   visibility: visible;
 }
 
-/* Prevent image distortion */
-.movie img {
-  width: 300px;
-  height: 450px;
+.media-title {
+  color: white;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  letter-spacing: 0.5px;
 }
 
-.movie-info {
+
+.media-info {
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1rem 0.75rem 1rem;
   letter-spacing: 0.5px;
+  margin: auto 0px;
 }
 
 /* Should be h2 to match HTML */
-.movie-info h2 {
-  font-size: 15px;
-  margin: 0px;
+.media-info h2 {
+  font-size: 1rem;
+  margin: 0rem;
 }
 
-.movie-info span {
+.media-info span {
   background-color: rgb(24, 24, 24);
   padding: 0.25rem 0.5rem;
   border-radius: 3px;
   font-weight: bold;
 }
 
-.movie-info span.green {
+.media-info span.green {
   color: green;
 }
 
-.movie-info span.orange {
+.media-info span.orange {
   color: rgb(236, 106, 0);
 }
 
-.movie-info span.red {
+.media-info span.red {
   color: rgb(128, 0, 0);
 }
 
-.movie-info span.white {
+.media-info span.white {
   color: rgb(255, 255, 255);
 }
 
@@ -517,13 +541,8 @@ main {
   overflow-y: scroll;
 }
 
-/* .overview p {
-  height: 100%;
-  overflow-y: scroll;
-} */
-
-/* https://stackoverflow.com/questions/22808040/fading-out-text-on-overflow-with-css-if-the-text-is-bigger-than-allowed
-.overview:before {
+/* https://stackoverflow.com/questions/22808040/fading-out-text-on-overflow-with-css-if-the-text-is-bigger-than-allowed */
+/* .overview:before {
   content: "";
   width: 100%;
   height: 100%;
@@ -534,7 +553,7 @@ main {
   color: black;
 } */
 
-.movie:hover .overview {
+.media-card:hover .overview {
   transform: translateY(0);
   transition: transform 0.3s ease-in-out;
   color: black;
@@ -543,12 +562,6 @@ main {
 .overview p,
 h3 {
   color: black;
-}
-
-/* TODO Do this better! Just targetting the two current ul's*/
-ul {
-  margin: 10px auto;
-  justify-content: center !important;
 }
 
 /* Hover.css */
@@ -585,13 +598,16 @@ ul {
 
 /* The collapsable sidebar menu */
 .sidebar {
-  height: 100%; /* 100% Full-height */
+  height: 100vh; /* 100% Full-height */
   position: fixed; /* Stay in place */
   z-index: 1000; /* Stay on top */
-  width: 250px;
+  width: 300px;
   background-color: #111; /* Black*/
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px; /* Place content 60px from the top */
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
 }
 
 .sidebarOpened {
@@ -677,4 +693,9 @@ ul {
   height: auto;
   max-height: 320px; /* Increase / Decrease value as per your need */
   overflow-x: hidden;
+}
+
+#mediaModal {
+  z-index: 10000;
+  color: #030303;
 }
