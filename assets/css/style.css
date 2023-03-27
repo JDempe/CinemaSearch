@@ -81,7 +81,7 @@ header {
 }
 
 /* https://stackoverflow.com/questions/4296012/hide-div-if-screen-is-smaller-than-a-certain-width */
-@media screen and (max-width: 725px) {
+@media screen and (max-width:800px) {
   .left-curtain,
   .right-curtain {
     display: none !important;
@@ -112,15 +112,13 @@ header:hover .right-curtain {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: 200px;
-  max-width: 80%;
+  max-width: 75%;
 }
 
 #header-items img {
-  max-width: 400px;
-  height: 100%;
-  width: auto;
-  margin: 0 auto;
+  max-height: 100%;
+  max-width: 100%;
+  margin: 20px auto;
   padding: 0;
 }
 
@@ -504,6 +502,7 @@ main {
 .media-info h2 {
   font-size: 1rem;
   margin: 0rem;
+  padding: 0rem;
 }
 
 .media-info span {
@@ -715,11 +714,13 @@ h3 {
 #modalstreamingavailability {
 display: flex;
 flex-direction: row;
-justify-content: space-between;
+flex-wrap: wrap;
+justify-content: space-evenly;
 
 }
 
-#modalstreamingavailability img {
-  width: 100%;
-  height: 100%;
+#modalstreamingavailability a img {
+  width: auto;
+  height: 3rem;
+  margin: 0.5rem;
 }

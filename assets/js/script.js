@@ -157,10 +157,10 @@ $(document).ready(function () {
     // Clear out the modal
     $("#modalTitle").text("");
     // $("#modalPoster").attr("src", "");
-    $("#modalOverview").text("");
-    $("#modalReleaseDate").text("");
-    $("#modalRuntime").text("");
-    $("#modalRating").text("");
+    $("#modalOverview").text("No overview available.");
+    $("#modalReleaseDate").text("--");
+    $("#modalRuntime").text("--");
+    $("#modalRating").text("--");
     $("#modalCast").text("");
     $("#modalDirectors").text("");
     $("#modalGenres").text("");
@@ -305,8 +305,12 @@ $(document).ready(function () {
         }
         console.log("modalInfo");
         console.log(modalInfo);
-
-        let youtubeURL = getId(`youtube.com/watch?v=${modalInfo.trailer.key}`);
+        let youtubeURL;
+        if (modalInfo.trailer) {
+          youtubeURL = getId(`youtube.com/watch?v=${modalInfo.trailer.key}`);
+        } else {
+          youtubeURL = "";
+        }
         let cast = modalInfo.cast.map((cast) => cast.name).join(", ");
         let directors = modalInfo.directors
           .map((director) => director.name)
@@ -360,13 +364,14 @@ $(document).ready(function () {
 
     fetch(
       "https://streaming-availability.p.rapidapi.com/v2/get/basic?country=us&tmdb_id=" +
-        media_type + "/" + id,
+        media_type +
+        "/" +
+        id,
       options
     )
       .then((response) => response.json())
       .then((response) => {
         var result = response.result;
-        
 
         //accordian 1 - Availability
         let streamingObj = result.streamingInfo;
@@ -413,13 +418,13 @@ $(document).ready(function () {
               break;
             case "showtime":
               srcImage =
-                "./assets/images/streaming-platform-icons/showtime.svg";
+                "./assets/images/streaming-platform-icons/showtime.png";
               break;
           }
 
           newATag.setAttribute("href", newObj.link);
+          newATag.setAttribute("target", "_blank");
           newImg.setAttribute("src", srcImage);
-          newImg.setAttribute("style", "height: 1.5em");
           newATag.appendChild(newImg);
           document.querySelector(".accordion_body_1").appendChild(newATag);
         }
@@ -464,7 +469,6 @@ $(document).ready(function () {
         }
       })
       .catch((err) => console.error(err));
-
   }
 
   // Get Youtube embed ID from URL
