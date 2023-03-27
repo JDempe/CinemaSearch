@@ -24,15 +24,29 @@
 </head>
 
 <body>
+
+   <!-- Sidebar -->
+
+   <div id="sidebarContainer" class="container-fluid align-content-center">
+      <!--collapsable side bar for favorites (maybe more??)-->
+      <div id="mySidebar" class="sidebar sidebarClosed">
+         <a id="sidebarCloseBtn" class="closebtn">&times;</a>
+         <a href="#">Favorites</a>
+         <button id="sidebarOpenBtn" class="sidebarOpenBtnVisible">&#9776; Favorites</button>
+      </div>
+   </div>
+
+
+
    <header>
       <!-- Background image -->
       <div class="main-curtain bg-image"></div>
       <!-- https://www.pngegg.com/en/png-dhrgx -->
-      <img class="side-curtains left-curtain img-fluid" src="./assets/images/header-images/single-curtain-shadow.png"
+      <!-- <img class="side-curtains left-curtain img-fluid" src="./assets/images/header-images/single-curtain-shadow.png"
          alt="left curtain" />
 
       <img class="side-curtains right-curtain img-fluid" src="./assets/images/header-images/single-curtain-shadow.png"
-         alt="right curtain" />
+         alt="right curtain" /> -->
 
 
       <!-- Background image -->
@@ -49,10 +63,8 @@
             <p><span id="quote-movie"></span><span id="quote-year"></span></p>
          </div>
       </div>
-
       <!-- Background image -->
    </header>
-
 
    <main>
       <!-- Search Bar Area -->
@@ -93,9 +105,8 @@
                hidden="true">
                <!-- Discover Search Parameter -->
                <div>
-                  <button class="dropdown-toggle discover-search-selection" type="button"
-                     data-mdb-toggle="dropdown" data-dropdownindex="1" data-param=""
-                     aria-expanded="false">Select</button>
+                  <button class="dropdown-toggle discover-search-selection" type="button" data-mdb-toggle="dropdown"
+                     data-dropdownindex="1" data-param="" aria-expanded="false">Select</button>
                   <ul class="dropdown-menu" aria-labelledby="discover-search-selection" data-dropdownindex="1">
                      <!-- Movie Specific -->
                      <li><a class="dropdown-item" data-param="with_genres" data-mediatype="movie"
@@ -134,9 +145,8 @@
                <!-- END Discover Search Paramter -->
                <!-- Discover Search Value -->
                <div>
-                  <button class="dropdown-toggle discover-search-input" type="button"
-                     data-mdb-toggle="dropdown" data-dropdownindex="2" data-paramvalue=""
-                     aria-expanded="false"></button>
+                  <button class="dropdown-toggle discover-search-input" type="button" data-mdb-toggle="dropdown"
+                     data-dropdownindex="2" data-paramvalue="" aria-expanded="false"></button>
                   <ul class="dropdown-menu discover-search-input-options" data-dropdownindex="2"
                      aria-labelledby="discover-search-input">
                   </ul>

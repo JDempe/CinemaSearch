@@ -142,8 +142,34 @@ $(document).ready(function () {
   // https://stackoverflow.com/questions/18622508/bootstrap-3-and-youtube-in-modal
   // https://stackoverflow.com/questions/60284183/video-still-playing-when-bootstrap-modal-closes
   $("#exampleModal").on("hide.bs.modal", function () {
-    modalVideo.src = ""; // reset video
+    modalVideo.attr("src", ""); // reset video
   });
+
+  // Sidebar Event listeners
+$("#sidebarOpenBtn").on("click", function () {
+  // If the sidebar is closed, open it
+  // $("#sidebarOpenBtn").attr("hidden", true)
+  $("#sidebarOpenBtn").addClass('sidebarOpenBtnHidden').removeClass('sidebarOpenBtnVisible');
+        openNav();
+
+});
+
+$("#sidebarCloseBtn").on("click", function () {
+  closeNav();
+  $("#sidebarOpenBtn").removeClass('sidebarOpenBtnHidden').addClass('sidebarOpenBtnVisible');
+
+  // $("#sidebarOpenBtn").attr("hidden", false)
+});
+
+$(document).on("click", function (e) {
+  // If the sidebar is open and the click is not on the sidebar, close it
+  if (!$("#mySidebar").hasClass("sidebarClosed") && !$(e.target).closest("#mySidebar").length) {
+    closeNav();
+    $("#sidebarOpenBtn").removeClass('sidebarOpenBtnHidden').addClass('sidebarOpenBtnVisible');
+    // $("#sidebarOpenBtn").attr("hidden", false)
+  }
+});
+
   // END EVENT LISTENERS
 
   // PAGE LOAD
@@ -668,13 +694,16 @@ $(document).ready(function () {
   // for sidenavbar
   /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
   function openNav() {
-    document.getElementById("mySidebar").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
+    // document.getElementById("mySidebar").style.width = "250px";
+    $("#mySidebar").addClass("sidebarOpened").removeClass("sidebarClosed");
+
+    // document.getElementById("sidebar").style.marginLeft = "250px";
   }
 
   /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
   function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
+    // document.getElementById("mySidebar").style.width = "0";
+    $("#mySidebar").addClass("sidebarClosed").removeClass("sidebarOpened");
+    // document.getElementById("main").style.marginLeft = "0";
   }
 });
