@@ -100,7 +100,6 @@ $(document).ready(function () {
 
   // 'Sort By' Dropdown Event Listeners
   // The listener for changing the Sort By dropdown
-  // TODO How is this working?
   $("#sort-by-selection-input")
     .find(".dropdown-item")
     .on("click", function (e) {
@@ -147,29 +146,37 @@ $(document).ready(function () {
   });
 
   // Sidebar Event listeners
-$("#sidebarOpenBtn").on("click", function () {
-  // If the sidebar is closed, open it
-  // $("#sidebarOpenBtn").attr("hidden", true)
-  $("#sidebarOpenBtn").addClass('sidebarOpenBtnHidden').removeClass('sidebarOpenBtnVisible');
-        openNav();
+  $("#sidebarOpenBtn").on("click", function () {
+    // If the sidebar is closed, open it
+    // $("#sidebarOpenBtn").attr("hidden", true)
+    $("#sidebarOpenBtn")
+      .addClass("sidebarOpenBtnHidden")
+      .removeClass("sidebarOpenBtnVisible");
+    openNav();
+  });
 
-});
-
-$("#sidebarCloseBtn").on("click", function () {
-  closeNav();
-  $("#sidebarOpenBtn").removeClass('sidebarOpenBtnHidden').addClass('sidebarOpenBtnVisible');
-
-  // $("#sidebarOpenBtn").attr("hidden", false)
-});
-
-$(document).on("click", function (e) {
-  // If the sidebar is open and the click is not on the sidebar, close it
-  if (!$("#mySidebar").hasClass("sidebarClosed") && !$(e.target).closest("#mySidebar").length) {
+  $("#sidebarCloseBtn").on("click", function () {
     closeNav();
-    $("#sidebarOpenBtn").removeClass('sidebarOpenBtnHidden').addClass('sidebarOpenBtnVisible');
+    $("#sidebarOpenBtn")
+      .removeClass("sidebarOpenBtnHidden")
+      .addClass("sidebarOpenBtnVisible");
+
     // $("#sidebarOpenBtn").attr("hidden", false)
-  }
-});
+  });
+
+  $(document).on("click", function (e) {
+    // If the sidebar is open and the click is not on the sidebar, close it
+    if (
+      !$("#mySidebar").hasClass("sidebarClosed") &&
+      !$(e.target).closest("#mySidebar").length
+    ) {
+      closeNav();
+      $("#sidebarOpenBtn")
+        .removeClass("sidebarOpenBtnHidden")
+        .addClass("sidebarOpenBtnVisible");
+      // $("#sidebarOpenBtn").attr("hidden", false)
+    }
+  });
 
   // END EVENT LISTENERS
 
@@ -382,6 +389,25 @@ $(document).on("click", function (e) {
         if (e.target.classList.contains("favorite-checkbox")) {
           console.log("clicked favorite button");
           // TODO Add to favorites
+          // pull the favorites list from local storage
+          let favorites = JSON.parse(localStorage.getItem("favorites"));
+          // if there are no favorites, create an empty array
+          if (!favorites) {
+            favorites = [];
+          }
+
+          // if the movie is not in the favorites list, add it
+          if (!favorites.includes(id)) {
+            favorites.push(id);
+          } else {
+            // if the movie is in the favorites list, remove it
+            favorites = favorites.filter((movieId) => movieId !== id);
+          }
+          // save the favorites list to local storage
+          localStorage.setItem("favorites", JSON.stringify(favorites));
+          console.log(favorites);
+
+
         } else {
           modal.show();
           // find the parent element with class "movie"
@@ -456,11 +482,11 @@ $(document).on("click", function (e) {
 
     // for search
     if (searchType === "search") {
-      if(titleBox.val() === "") {
-        url=trendingSearch;
+      if (titleBox.val() === "") {
+        url = trendingSearch;
       } else {
-      url = `search/${mediaType}?query=${titleBox.val()}&`;
-     }
+        url = `search/${mediaType}?query=${titleBox.val()}&`;
+      }
     } else {
       // go through the form and if it isn't hidden then add it to the search parameters
       var searchParameters = [];
