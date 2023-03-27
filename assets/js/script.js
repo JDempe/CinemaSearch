@@ -1,12 +1,10 @@
 $(document).ready(function () {
   new SimpleBar($("#mySidebar")[0]);
-  new SimpleBar($("#mySidebar")[0]);
 
   // https://api.themoviedb.org/3/movie/603692?api_key=23f1819072bf0eab7a398d521d310078&append_to_response=videos
 
   const API_KEY = "api_key=23f1819072bf0eab7a398d521d310078";
   const BASE_URL = "https://api.themoviedb.org/3/";
-  const IMG_URL = "https://image.tmdb.org/t/p/w500";
   const trendingSearch = "trending/all/week?";
 
   const cardContainer = $("#card-container");
@@ -166,6 +164,7 @@ $(document).ready(function () {
     $("#modalCast").text("");
     $("#modalDirectors").text("");
     $("#modalGenres").text("");
+    $("#modalstreamingavailability").text("");
     $("#modalTrailer").attr("src", "");
     // $("#modalProductionCompanies").text("");
   });
@@ -231,14 +230,13 @@ $(document).ready(function () {
           } else {
             mediaType = "tv";
           }
-// if the poster path is null, set it to the no poster image
+          // if the poster path is null, set it to the no poster image
           if (media.poster_path == null) {
             media.poster_path = "../assets/images/placeHolderImage.png";
           } else {
             media.poster_path =
               "https://image.tmdb.org/t/p/w500" + media.poster_path;
           }
-        
 
           entry = {
             title: title,
@@ -261,7 +259,6 @@ $(document).ready(function () {
   function setModalInfo(id, media_type) {
     let URLforTMDBInfo = `https://api.themoviedb.org/3/${media_type}/${id}?${API_KEY}&language=en-US&append_to_response=videos,credits,images`;
 
-    // TODO Change for tv vs movie
     fetch(URLforTMDBInfo)
       .then((res) => res.json())
       .then((data) => {
@@ -324,9 +321,9 @@ $(document).ready(function () {
         $("#modalReleaseDate").text(modalInfo.release_date);
         $("#modalRuntime").text(modalInfo.runtime);
         $("#modalRating").text(modalInfo.rating);
-        $("#modalCast").text(cast);
-        $("#modalDirectors").text(directors);
-        $("#modalGenres").text(genres);
+        // $("#modalCast").text(cast);
+        // $("#modalDirectors").text(directors);
+        // $("#modalGenres").text(genres);
         $("#modalTrailer").attr(
           "src",
           `https://www.youtube.com/embed/${youtubeURL}`
@@ -337,7 +334,7 @@ $(document).ready(function () {
   }
 
   // Get streaming info from TMDB (dont use this, need 2 API's)
-  function getStreamingInfo(id, media_type) {
+  function getTMDBStreamingInfo(id, media_type) {
     let URLforStreamingInfo = `https://api.themoviedb.org/3/${media_type}/${id}/watch/providers?${API_KEY}`;
     fetch(URLforStreamingInfo)
       .then((res) => res.json())
@@ -350,19 +347,8 @@ $(document).ready(function () {
   }
 
   // Get streaming info from RapidAPI
-  function getStreamingInfo(data) {
+  function getStreamingInfo(id, media_type) {
     const colors = ["green", "red", "orange"];
-    document.querySelector("#modal_rating").classList.remove(colors);
-
-    let imdb_ID = data.imdb_id;
-    document.querySelector("#modal_title").innerHTML = data.original_title;
-    document.querySelector("#modal_runtime").innerHTML =
-      data.runtime + " Minutes";
-    document.querySelector("#modal_rating").innerHTML = data.vote_average;
-    document
-      .querySelector("#modal_rating")
-      .classList.add(getColor(data.vote_average));
-    document.querySelector(".accordion_body_1").innerHTML = "";
 
     const options = {
       method: "GET",
@@ -373,18 +359,16 @@ $(document).ready(function () {
     };
 
     fetch(
-      "https://streaming-availability.p.rapidapi.com/v2/get/basic?country=us&imdb_id=" +
-        imdb_ID,
+      "https://streaming-availability.p.rapidapi.com/v2/get/basic?country=us&tmdb_id=" +
+        media_type + "/" + id,
       options
     )
       .then((response) => response.json())
       .then((response) => {
         var result = response.result;
-        var youtubeLink =
-          "//www.youtube.com/embed/" + getId(result.youtubeTrailerVideoLink);
-        document.querySelector("#modal-video").setAttribute("src", youtubeLink);
+        
+
         //accordian 1 - Availability
-        console.log(result);
         let streamingObj = result.streamingInfo;
         //allowing it to be empty first
         let usStreamingObj = ["information not available"];
@@ -451,11 +435,10 @@ $(document).ready(function () {
             accCast.appendChild(liEl);
           }
         } else {
-          accCast.innerHTML = `<li>Cast information not available</li>`;
+          accCast.innerHTML = `Cast information not available`;
         }
-
+        const accDir = document.querySelector(".directors");
         if (result.directors) {
-          const accDir = document.querySelector(".directors");
           var directors = result.directors;
           for (let i = 0; i < directors.length; i++) {
             let liEl = document.createElement("li");
@@ -463,7 +446,7 @@ $(document).ready(function () {
             accDir.appendChild(liEl);
           }
         } else {
-          accDir.innerHTML = `<li>Director information not available</li>`;
+          accDir.innerHTML = `Director information not available`;
         }
 
         //accordian 3 - Genres?
@@ -482,7 +465,6 @@ $(document).ready(function () {
       })
       .catch((err) => console.error(err));
 
-    console.log(imdb_ID);
   }
 
   // Get Youtube embed ID from URL
@@ -530,9 +512,8 @@ $(document).ready(function () {
           addOrRemoveFavorite(isTrue, media);
         } else {
           setModalInfo(media.id, media.media_type);
-          // TODO: get streaming info
-          // getStreamingInfo(id, media_type);
-          // getStreaming(data);
+          // getTMDBStreamingInfo(id, media_type);
+          getStreamingInfo(media.id, media.media_type);
 
           modal.show();
         }
