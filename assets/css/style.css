@@ -20,6 +20,13 @@
 /* https://stackoverflow.com/questions/24739126/scroll-to-a-specific-element-using-html */
 html {
   scroll-behavior: smooth;
+  overflow-y: scroll !important;  
+}
+
+.modal-open {
+
+  padding-right: 0 !important;
+
 }
 
 body {
@@ -537,7 +544,6 @@ main {
   transform: translateY(101%);
   transition: transform 0.3s ease-in-out;
   color: black;
-  overflow-y: scroll;
 }
 
 /* https://stackoverflow.com/questions/22808040/fading-out-text-on-overflow-with-css-if-the-text-is-bigger-than-allowed */
@@ -562,6 +568,11 @@ main {
 h3 {
   color: black;
 }
+
+.overview h3 {
+text-align: center;
+}
+
 
 /* Hover.css */
 /* * Hover.css Copyright Ian Lunn 2017. Generated with Sass.
@@ -710,11 +721,22 @@ h3 {
   color: #030303;
 }
 
+/* #modalTrailer {
+
+} */
+
+#modalTitle {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0px;
+}
+
 #modalstreamingavailability {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  padding: 10px;
 }
 
 #modalstreamingavailability a img {
@@ -738,13 +760,19 @@ footer {
 footer p {
   font-size: 0.8rem;
   color: white;
-  margin: 0px;
+  margin: auto 0px;
+}
+
+footer .ourInfo {
+  font-size: 1rem;
+  color: white;
+  margin: 0.8rem 0px;
 }
 
 footer img {
-  width: 1.5rem;
-  height: 1.5rem;
-  margin: 0.5rem 0rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin: 0.3rem;
 }
 
 #page-nav {

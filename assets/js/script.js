@@ -168,9 +168,7 @@ $(document).ready(function () {
     $(this).closest(".discover-search").remove();
     $(".add-search-button").removeAttr("hidden");
     // if the list is 1 long, hide the - sign
-    if (
-      $(".discover-search").not("#discover-search").length == 1
-    ) {
+    if ($(".discover-search").not("#discover-search").length == 1) {
       $(".remove-search-button").attr("hidden", true);
     }
   });
@@ -179,6 +177,11 @@ $(document).ready(function () {
   // MODAL event listeners
   // https://stackoverflow.com/questions/18622508/bootstrap-3-and-youtube-in-modal
   // https://stackoverflow.com/questions/60284183/video-still-playing-when-bootstrap-modal-closes
+  myModalEl.on("shown.bs.modal", function () {
+    // Collapse all the accordians
+    $("#collapseOne").collapse("show");
+  });
+
   myModalEl.on("hide.bs.modal", function () {
     // Clear out the modal
     $("#modalTitle").text("");
@@ -193,6 +196,9 @@ $(document).ready(function () {
     $("#modalstreamingavailability").text("");
     $("#modalTrailer").attr("src", "");
     // $("#modalProductionCompanies").text("");
+
+    // Collapse all the accordians
+    $(".collapse").collapse("hide");
   });
 
   // Sidebar Event listeners
@@ -266,7 +272,7 @@ $(document).ready(function () {
           }
           // if the poster path is null, set it to the no poster image
           if (media.poster_path == null) {
-            media.poster_path = "../assets/images/placeHolderImage.png";
+            media.poster_path = "./assets/images/placeholder-image.png";
           } else {
             media.poster_path =
               "https://image.tmdb.org/t/p/w500" + media.poster_path;
@@ -354,20 +360,22 @@ $(document).ready(function () {
         // let production_companies = modalInfo.production_companies.map((company) => company.name).join(", ");
 
         // Set the modal
+        $("#modalTrailer").attr(
+          "src",
+          `https://www.youtube.com/embed/${youtubeURL}`
+        );
         $("#modalTitle").text(modalInfo.title);
         $("#modalOverview").text(modalInfo.overview);
         $("#modalReleaseDate").text(modalInfo.release_date);
         $("#modalRuntime").text(modalInfo.runtime);
         $("#modalRating").text(modalInfo.rating);
-        // $("#modalCast").text(cast);
-        // $("#modalDirectors").text(directors);
-        // $("#modalGenres").text(genres);
-        $("#modalTrailer").attr(
-          "src",
-          `https://www.youtube.com/embed/${youtubeURL}`
-        );
+        // Accordian 2
+        $("#modalCast").text(cast);
+        $("#modalDirectors").text(directors);
+        // Accordian 3
+        $("#modalGenres").text(genres);
         // $("#modalPoster").attr("src", poster);
-        // $("#modalProductionCompanies").text(modalInfo.production_companies);
+        $("#modalProductionCompanies").text(modalInfo.production_companies);
       });
   }
 
@@ -382,7 +390,7 @@ $(document).ready(function () {
       });
   }
 
-  // Get streaming info from RapidAPI
+  // Get streaming info from StreamingAvailability - RapidAPI
   function getStreamingInfo(id, media_type) {
     const colors = ["green", "red", "orange"];
 
@@ -404,9 +412,15 @@ $(document).ready(function () {
       .then((response) => response.json())
       .then((response) => {
         var result = response.result;
+        var streamingObj;
+        //Accordian 1 - Availability
 
-        //accordian 1 - Availability
-        let streamingObj = result.streamingInfo;
+        if (result.streamingInfo.us != undefined) {
+          streamingObj = result.streamingInfo;
+        } else {
+          streamingObj = [];
+        }
+
         //allowing it to be empty first
         let usStreamingObj = ["information not available"];
         if (streamingObj.us) {
@@ -431,31 +445,31 @@ $(document).ready(function () {
             switch (streamingKeys[i]) {
               case "peacock":
                 srcImage =
-                  "./assets/images/streaming-platform-icons/peacock.svg";
+                  "./assets/images/streaming-platform-icons/peacock.png";
                 break;
               case "netflix":
                 srcImage =
-                  "./assets/images/streaming-platform-icons/netflix.svg";
+                  "./assets/images/streaming-platform-icons/netflix.png";
                 break;
               case "paramount":
                 srcImage =
-                  "./assets/images/streaming-platform-icons/paramount.svg";
+                  "./assets/images/streaming-platform-icons/paramount.png";
                 break;
               case "prime":
-                srcImage = "./assets/images/streaming-platform-icons/prime.svg";
+                srcImage = "./assets/images/streaming-platform-icons/prime.png";
                 break;
               case "hbo":
-                srcImage = "./assets/images/streaming-platform-icons/hbo.svg";
+                srcImage = "./assets/images/streaming-platform-icons/hbo.png";
                 break;
               case "hulu":
-                srcImage = "./assets/images/streaming-platform-icons/hulu.svg";
+                srcImage = "./assets/images/streaming-platform-icons/hulu.png";
                 break;
               case "disney":
                 srcImage =
-                  "./assets/images/streaming-platform-icons/disney.svg";
+                  "./assets/images/streaming-platform-icons/disney.png";
                 break;
               case "apple":
-                srcImage = "./assets/images/streaming-platform-icons/apple.svg";
+                srcImage = "./assets/images/streaming-platform-icons/apple.png";
                 break;
               case "showtime":
                 srcImage =
@@ -470,45 +484,12 @@ $(document).ready(function () {
             document.querySelector(".accordion_body_1").appendChild(newATag);
           }
         }
-        //accordian 2 - Other Information
-        //checks if info is missing first
-        const accCast = document.querySelector(".cast");
-        if (result.cast) {
-          var cast = result.cast;
-          for (let i = 0; i < cast.length; i++) {
-            let liEl = document.createElement("li");
-            liEl.innerHTML = cast[i];
-            accCast.appendChild(liEl);
-          }
-        } else {
-          accCast.innerHTML = `Cast information not available.`;
-        }
-        const accDir = document.querySelector(".directors");
-        if (result.directors) {
-          var directors = result.directors;
-          for (let i = 0; i < directors.length; i++) {
-            let liEl = document.createElement("li");
-            liEl.innerHTML = directors[i];
-            accDir.appendChild(liEl);
-          }
-        } else {
-          accDir.innerHTML = `Director information not available.`;
-        }
-
-        //accordian 3 - Genres?
-        let accGenre = document.querySelector(".genre");
-        let arrGenre = ["information not available"];
-        if (result.genres) {
-          arrGenre = result.genres;
-        }
-        for (let i = 0; i < arrGenre.length; i++) {
-          let genreObj = arrGenre[i];
-          const newLi = document.createElement("li");
-          newLi.innerHTML = genreObj.name;
-          accGenre.appendChild(newLi);
-        }
       })
-      .catch((err) => console.error(err));
+      .catch((error) => {
+        console.error("Error:", error);
+        document.querySelector(".accordion_body_1").innerHTML =
+          "Information not available.";
+      });
   }
 
   // Get Youtube embed ID from URL
@@ -545,6 +526,9 @@ $(document).ready(function () {
       cardEl.find(".media-rating").text(noVote(media.vote_average));
       cardEl.find(".media-rating").addClass(getColor(media.vote_average));
       cardEl.find(".media-overview").text(media.overview);
+
+      // Add scrollbar to the overview
+      new SimpleBar(cardEl.find(".overview")[0]);
 
       // Add event listener to the media card
       cardEl.on("click", function (e) {
@@ -726,11 +710,13 @@ $(document).ready(function () {
       .then((data) => {
         // remove the dropdown's children
         dropdown.empty();
+        // Add scrollbar to the overview
         data.forEach((entry) => {
           dropdown.append(
             `<li><a class=\"dropdown-item\" data-paramvalue=\"${entry.id}\">${entry.name}</a></li>`
           );
         });
+
         addDropdownListeners();
       });
   }
