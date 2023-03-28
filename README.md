@@ -102,6 +102,7 @@ The below resources contributed to the project.
   - https://stackoverflow.com/questions/60284183/video-still-playing-when-bootstrap-modal-closes
   - https://stackoverflow.com/questions/21607808/convert-a-youtube-video-url-to-embed-code
   - https://stackoverflow.com/questions/24739126/scroll-to-a-specific-element-using-html
+  - https://stackoverflow.com/questions/41642263/how-to-close-all-collapsible-divs-accordions-when-the-modal-is-dismissed-or-cl
 
 #### Tutorials
 
