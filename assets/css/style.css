@@ -20,13 +20,11 @@
 /* https://stackoverflow.com/questions/24739126/scroll-to-a-specific-element-using-html */
 html {
   scroll-behavior: smooth;
-  overflow-y: scroll !important;  
+  overflow-y: scroll !important;
 }
 
 .modal-open {
-
   padding-right: 0 !important;
-
 }
 
 body {
@@ -200,7 +198,6 @@ main {
   width: inherit;
   z-index: 200;
 }
-
 /* END Dropdown Overwrites */
 
 /* Search Type Bar */
@@ -380,6 +377,7 @@ main {
   cursor: pointer;
 }
 
+/* Sort Arrow */
 #sort-arrow-button {
   border: none;
   background-color: var(--accent-color);
@@ -407,6 +405,7 @@ main {
   transform: rotate(180deg);
   transition: transform 0.3s ease-in-out;
 }
+/* END Sort Arrow */
 /* END Sort Bar */
 
 /* Search Button */
@@ -426,6 +425,7 @@ main {
 }
 /* END Search Button */
 
+/* Card Containers */
 #card-container,
 #favorites-container {
   display: flex;
@@ -434,6 +434,7 @@ main {
   width: 100%;
 }
 
+/* Container Specific Card Styles */
 #favorites-container .media-card {
   width: 200px;
   height: 375px;
@@ -444,7 +445,6 @@ main {
   height: 525px;
 }
 
-/* Prevent image distortion */
 #favorites-container .media-card img {
   width: 200px;
   height: 300px;
@@ -454,7 +454,9 @@ main {
   width: 300px;
   height: 450px;
 }
+/* END Container Specific Card Styles */
 
+/* All Media Card Styles */
 .media-card {
   margin: 1rem;
   background-color: var(--accent-color);
@@ -503,7 +505,6 @@ main {
   margin: auto 0px;
 }
 
-/* Should be h2 to match HTML */
 .media-info h2 {
   font-size: 1rem;
   margin: 0rem;
@@ -533,6 +534,7 @@ main {
   color: rgb(255, 255, 255);
 }
 
+/* Overview */
 .overview {
   position: absolute;
   left: 0;
@@ -546,18 +548,6 @@ main {
   color: black;
 }
 
-/* https://stackoverflow.com/questions/22808040/fading-out-text-on-overflow-with-css-if-the-text-is-bigger-than-allowed */
-/* .overview:before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: linear-gradient(transparent 80%, white);
-  color: black;
-} */
-
 .media-card:hover .overview {
   transform: translateY(0);
   transition: transform 0.3s ease-in-out;
@@ -570,9 +560,10 @@ h3 {
 }
 
 .overview h3 {
-text-align: center;
+  text-align: center;
 }
-
+/* END Overview */
+/* END All Media Card Styles */
 
 /* Hover.css */
 /* * Hover.css Copyright Ian Lunn 2017. Generated with Sass.
@@ -598,6 +589,7 @@ text-align: center;
   }
 }
 
+/* Sidebar */
 #sidebarContainer {
   display: flex;
   flex-direction: row;
@@ -679,7 +671,6 @@ text-align: center;
 
 .sidebarOpenBtnHidden {
   opacity: 0;
-  transition: 0.3s ease-in-out;
 }
 
 .sidebarOpenBtnVisible {
@@ -695,6 +686,13 @@ text-align: center;
   right: 12px;
   font-size: 36px;
   height: min-content;
+  opacity: 0;
+  transition: 0.3 ease-in-out;
+}
+
+.sidebar:hover .closebtn {
+  opacity: 1;
+  transition: 0.3 ease-in-out;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
@@ -706,7 +704,7 @@ text-align: center;
     font-size: 18px;
   }
 }
-/* end of collapsable sidebar menu */
+/* END Sidebar */
 
 /* TODO Find out if this is used */
 /* Style to create scroll bar in dropdown */
@@ -716,6 +714,7 @@ text-align: center;
   overflow-x: hidden;
 }
 
+/* Media Modal */
 #mediaModal {
   z-index: 10000;
   color: #030303;
@@ -741,10 +740,12 @@ text-align: center;
 
 #modalstreamingavailability a img {
   width: auto;
-  height: 3rem;
+  height: 6rem;
   margin: 0.5rem;
 }
+/* END Media Modal */
 
+/* Footer */
 footer {
   display: flex;
   flex-direction: column;
@@ -774,7 +775,9 @@ footer img {
   height: 1.2rem;
   margin: 0.3rem;
 }
+/* END Footer */
 
+/* Page Nav */
 #page-nav {
   margin: auto;
   display: flex;
@@ -807,7 +810,7 @@ footer img {
   min-width: 100px;
   width: 100%;
   height: 100%;
-    display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -818,9 +821,10 @@ footer img {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%
+  width: 100%;
 }
 
 #page-nav a:hover {
-background-color: var(--accent-color-dark);
+  background-color: var(--accent-color-dark);
 }
+/* END Page Nav */
