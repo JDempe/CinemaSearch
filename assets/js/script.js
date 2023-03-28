@@ -169,7 +169,7 @@ $(document).ready(function () {
     $(".add-search-button").removeAttr("hidden");
     // if the list is 1 long, hide the - sign
     if (
-      $(".discover-search").not("#discover-search").length == numParamsAllowed
+      $(".discover-search").not("#discover-search").length == 1
     ) {
       $(".remove-search-button").attr("hidden", true);
     }
