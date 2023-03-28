@@ -20,6 +20,13 @@
 /* https://stackoverflow.com/questions/24739126/scroll-to-a-specific-element-using-html */
 html {
   scroll-behavior: smooth;
+  overflow-y: scroll !important;  
+}
+
+.modal-open {
+
+  padding-right: 0 !important;
+
 }
 
 body {
@@ -710,11 +717,22 @@ h3 {
   color: #030303;
 }
 
+/* #modalTrailer {
+
+} */
+
+#modalTitle {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0px;
+}
+
 #modalstreamingavailability {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  padding: 10px;
 }
 
 #modalstreamingavailability a img {
