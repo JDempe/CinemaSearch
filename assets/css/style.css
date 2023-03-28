@@ -741,6 +741,12 @@ footer p {
   margin: auto 0px;
 }
 
+footer .ourInfo {
+  font-size: 1rem;
+  color: white;
+  margin: 0.8rem 0px;
+}
+
 footer img {
   width: 1.2rem;
   height: 1.2rem;
