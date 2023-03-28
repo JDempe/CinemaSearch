@@ -19,7 +19,7 @@ The primary usage of the website occurs at the top search bar, where the user ca
   - Rating
   - Release Date
   - Streaming availability
-    - clicking on the images takes you to the streaming service!
+    - Clicking on the images takes you to the streaming service!
   - Cast and Crew
   - Genres
 
