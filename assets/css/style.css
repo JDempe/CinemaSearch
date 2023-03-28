@@ -569,6 +569,11 @@ h3 {
   color: black;
 }
 
+.overview h3 {
+text-align: center;
+}
+
+
 /* Hover.css */
 /* * Hover.css Copyright Ian Lunn 2017. Generated with Sass.
  * Version: 2.3.2
