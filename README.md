@@ -83,7 +83,7 @@ The below resources contributed to the project.
 
 - [The Movie Database API](https://developers.themoviedb.org/3/getting-started/introduction) was used to retrieve the movie and tv data.  The API was used to retrieve most of the data for the media.
 
-- [StreamingAvailability](https://developers.themoviedb.org/3/getting-started/introduction) was used to retrieve the movie and tv data.  The API was used to retrieve the following data:
+- [StreamingAvailability](https://www.movieofthenight.com/about/api) was used to retrieve the movie and tv data.  The API was used to retrieve the following data:
 
 #### Data
 
