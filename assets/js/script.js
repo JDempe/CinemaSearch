@@ -266,7 +266,7 @@ $(document).ready(function () {
           }
           // if the poster path is null, set it to the no poster image
           if (media.poster_path == null) {
-            media.poster_path = "../assets/images/placeHolderImage.png";
+            media.poster_path = "./assets/images/placeholder-image.png";
           } else {
             media.poster_path =
               "https://image.tmdb.org/t/p/w500" + media.poster_path;
