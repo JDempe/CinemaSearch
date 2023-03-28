@@ -284,8 +284,8 @@ $(document).ready(function () {
             entries.push(entry);
           }
         });
-        console.log(data.results);
-        console.log(entries);
+        // console.log(data.results);
+        // console.log(entries);
         createCards(cardContainer, entries);
       });
   }
@@ -339,8 +339,6 @@ $(document).ready(function () {
             genres: data.genres,
           };
         }
-        console.log("modalInfo");
-        console.log(modalInfo);
         let youtubeURL;
         if (modalInfo.trailer) {
           youtubeURL = getId(`youtube.com/watch?v=${modalInfo.trailer.key}`);
@@ -379,9 +377,7 @@ $(document).ready(function () {
     fetch(URLforStreamingInfo)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         let streamingInfo = data.results.US;
-        console.log(streamingInfo);
         populateStreamingInfo(streamingInfo);
       });
   }
@@ -419,7 +415,6 @@ $(document).ready(function () {
         //turn to array to get keys
         //https://www.javascripttutorial.net/object/convert-an-object-to-an-array-in-javascript/
         const streamingKeys = Object.keys(usStreamingObj);
-        console.log(streamingKeys);
         if (
           streamingKeys.length === 0 ||
           (streamingKeys.length === 1 && streamingKeys[0] === "0")
@@ -511,7 +506,6 @@ $(document).ready(function () {
           const newLi = document.createElement("li");
           newLi.innerHTML = genreObj.name;
           accGenre.appendChild(newLi);
-          console.log(genreObj.name);
         }
       })
       .catch((err) => console.error(err));
