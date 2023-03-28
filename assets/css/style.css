@@ -544,7 +544,6 @@ main {
   transform: translateY(101%);
   transition: transform 0.3s ease-in-out;
   color: black;
-  overflow-y: scroll;
 }
 
 /* https://stackoverflow.com/questions/22808040/fading-out-text-on-overflow-with-css-if-the-text-is-bigger-than-allowed */

@@ -179,10 +179,9 @@ $(document).ready(function () {
   // https://stackoverflow.com/questions/60284183/video-still-playing-when-bootstrap-modal-closes
   myModalEl.on("shown.bs.modal", function () {
     // Collapse all the accordians
-    $('#collapseOne').collapse('show');
-
+    $("#collapseOne").collapse("show");
   });
-  
+
   myModalEl.on("hide.bs.modal", function () {
     // Clear out the modal
     $("#modalTitle").text("");
@@ -199,7 +198,7 @@ $(document).ready(function () {
     // $("#modalProductionCompanies").text("");
 
     // Collapse all the accordians
-    $('.collapse').collapse('hide');
+    $(".collapse").collapse("hide");
   });
 
   // Sidebar Event listeners
@@ -528,6 +527,9 @@ $(document).ready(function () {
       cardEl.find(".media-rating").addClass(getColor(media.vote_average));
       cardEl.find(".media-overview").text(media.overview);
 
+      // Add scrollbar to the overview
+      new SimpleBar(cardEl.find(".overview")[0]);
+
       // Add event listener to the media card
       cardEl.on("click", function (e) {
         e.stopPropagation();
@@ -708,11 +710,13 @@ $(document).ready(function () {
       .then((data) => {
         // remove the dropdown's children
         dropdown.empty();
+        // Add scrollbar to the overview
         data.forEach((entry) => {
           dropdown.append(
             `<li><a class=\"dropdown-item\" data-paramvalue=\"${entry.id}\">${entry.name}</a></li>`
           );
         });
+
         addDropdownListeners();
       });
   }
