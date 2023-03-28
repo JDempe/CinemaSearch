@@ -431,28 +431,28 @@ $(document).ready(function () {
             switch (streamingKeys[i]) {
               case "peacock":
                 srcImage =
-                  "./assets/images/streaming-platform-icons/peacock.svg";
+                  "./assets/images/streaming-platform-icons/peacock.png";
                 break;
               case "netflix":
                 srcImage =
-                  "./assets/images/streaming-platform-icons/netflix.svg";
+                  "./assets/images/streaming-platform-icons/netflix.png";
                 break;
               case "paramount":
                 srcImage =
-                  "./assets/images/streaming-platform-icons/paramount.svg";
+                  "./assets/images/streaming-platform-icons/paramount.png";
                 break;
               case "prime":
-                srcImage = "./assets/images/streaming-platform-icons/prime.svg";
+                srcImage = "./assets/images/streaming-platform-icons/prime.png";
                 break;
               case "hbo":
-                srcImage = "./assets/images/streaming-platform-icons/hbo.svg";
+                srcImage = "./assets/images/streaming-platform-icons/hbo.png";
                 break;
               case "hulu":
-                srcImage = "./assets/images/streaming-platform-icons/hulu.svg";
+                srcImage = "./assets/images/streaming-platform-icons/hulu.png";
                 break;
               case "disney":
                 srcImage =
-                  "./assets/images/streaming-platform-icons/disney.svg";
+                  "./assets/images/streaming-platform-icons/disney.png";
                 break;
               case "apple":
                 srcImage = "./assets/images/streaming-platform-icons/apple.png";
