@@ -168,9 +168,7 @@ $(document).ready(function () {
     $(this).closest(".discover-search").remove();
     $(".add-search-button").removeAttr("hidden");
     // if the list is 1 long, hide the - sign
-    if (
-      $(".discover-search").not("#discover-search").length == 1
-    ) {
+    if ($(".discover-search").not("#discover-search").length == 1) {
       $(".remove-search-button").attr("hidden", true);
     }
   });
@@ -404,9 +402,15 @@ $(document).ready(function () {
       .then((response) => response.json())
       .then((response) => {
         var result = response.result;
-
+        var streamingObj;
         //accordian 1 - Availability
-        let streamingObj = result.streamingInfo;
+
+        if (result.streamingInfo.us != undefined) {
+          streamingObj = result.streamingInfo;
+        } else {
+          streamingObj = [];
+        }
+
         //allowing it to be empty first
         let usStreamingObj = ["information not available"];
         if (streamingObj.us) {
