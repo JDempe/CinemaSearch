@@ -455,7 +455,7 @@ $(document).ready(function () {
                   "./assets/images/streaming-platform-icons/disney.svg";
                 break;
               case "apple":
-                srcImage = "./assets/images/streaming-platform-icons/apple.svg";
+                srcImage = "./assets/images/streaming-platform-icons/apple.png";
                 break;
               case "showtime":
                 srcImage =
