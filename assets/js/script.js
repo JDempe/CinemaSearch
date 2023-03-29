@@ -243,7 +243,13 @@ $(document).ready(function () {
   function getMovies(isTrue, passedInURL) {
     if (isTrue) {
       let params = collectSearchParams();
-      finalURL = BASE_URL + params + "page=" + pageQuery + "&include_adult=false&" + API_KEY;
+      finalURL =
+        BASE_URL +
+        params +
+        "page=" +
+        pageQuery +
+        "&vote_count.gte=5&" +
+        API_KEY;
     } else {
       passedInURL = passedInURL || trendingSearch;
       finalURL =
@@ -251,11 +257,11 @@ $(document).ready(function () {
         passedInURL +
         "page=" +
         pageQuery +
-        "&region=US&include_adult=false&certification.lte=R&" +
+        "&vote_count.gte=5&" +
         API_KEY +
         "&language=en-US";
     }
-console.log(finalURL)
+    console.log(finalURL);
     fetch(finalURL)
       .then((res) => res.json())
       .then((data) => {
@@ -284,16 +290,20 @@ console.log(finalURL)
             id: media.id,
             poster_path: media.poster_path,
             vote_average: media.vote_average,
+            vote_count: media.vote_count,
             overview: media.overview,
           };
           if (entry.title != undefined && entry.overview != "") {
             // if the title includes certain words defined in a list, don't add it to the list
-            lowerCaseTitle = entry.title.toLowerCase();
-            lowerCaseOverview = entry.overview.toLowerCase();
-            if (!lowerCaseTitle.includes("porn") && !lowerCaseTitle.includes("hooker") && !lowerCaseOverview.includes("porn") && !lowerCaseOverview.includes("hooker"))  {
-            entries.push(entry);
+            if (
+              !entry.title.toLowerCase().includes("porn") &&
+              !entry.overview.toLowerCase().includes("porn") 
+
+            ) {
+              entries.push(entry);
+            }
           }
-      }});
+        });
         console.log(data.results);
         console.log(entries);
         createCards(cardContainer, entries);
