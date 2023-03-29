@@ -261,7 +261,6 @@ $(document).ready(function () {
         API_KEY +
         "&language=en-US";
     }
-    console.log(finalURL);
     fetch(finalURL)
       .then((res) => res.json())
       .then((data) => {
@@ -304,8 +303,8 @@ $(document).ready(function () {
             }
           }
         });
-        console.log(data.results);
-        console.log(entries);
+        // console.log(data.results);
+        // console.log(entries);
         createCards(cardContainer, entries);
       });
   }
