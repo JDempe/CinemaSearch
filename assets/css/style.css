@@ -285,7 +285,7 @@ main {
 }
 
 .discover-search-selection {
-  width: 200px;
+  width: 160px;
   height: var(--search-bar-height);
   color: rgb(0, 0, 0);
   border-top-left-radius: 5px;
@@ -749,13 +749,14 @@ h3 {
 footer {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  flex-wrap: wrap;
+  width: fit-content;
   height: fit-content;
+  max-width: 80%;
   color: white;
   text-align: center;
   padding: 10px;
-  margin: 20px;
-  margin-top: 40px;
+  margin: 40px auto 20px auto;
 }
 
 footer p {
