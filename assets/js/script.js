@@ -243,7 +243,7 @@ $(document).ready(function () {
   function getMovies(isTrue, passedInURL) {
     if (isTrue) {
       let params = collectSearchParams();
-      finalURL = BASE_URL + params + "page=" + pageQuery + "&" + API_KEY;
+      finalURL = BASE_URL + params + "page=" + pageQuery + "&include_adult=false&" + API_KEY;
     } else {
       passedInURL = passedInURL || trendingSearch;
       finalURL =
@@ -251,11 +251,11 @@ $(document).ready(function () {
         passedInURL +
         "page=" +
         pageQuery +
-        "&" +
+        "&region=US&include_adult=false&certification.lte=R&" +
         API_KEY +
         "&language=en-US";
     }
-
+console.log(finalURL)
     fetch(finalURL)
       .then((res) => res.json())
       .then((data) => {
@@ -287,11 +287,15 @@ $(document).ready(function () {
             overview: media.overview,
           };
           if (entry.title != undefined && entry.overview != "") {
+            // if the title includes certain words defined in a list, don't add it to the list
+            lowerCaseTitle = entry.title.toLowerCase();
+            lowerCaseOverview = entry.overview.toLowerCase();
+            if (!lowerCaseTitle.includes("porn") && !lowerCaseTitle.includes("hooker") && !lowerCaseOverview.includes("porn") && !lowerCaseOverview.includes("hooker"))  {
             entries.push(entry);
           }
-        });
-        // console.log(data.results);
-        // console.log(entries);
+      }});
+        console.log(data.results);
+        console.log(entries);
         createCards(cardContainer, entries);
       });
   }
